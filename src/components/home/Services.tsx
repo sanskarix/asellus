@@ -48,14 +48,14 @@ export function Services() {
           </div>
           <Link
             to="/services"
-            className="inline-flex items-center gap-2 text-sm font-medium link-underline"
+            className="inline-flex items-center gap-2 text-sm font-medium link-underline text-muted-foreground hover:text-foreground transition-colors"
           >
             See all services
             <ArrowUpRight size={16} />
           </Link>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
@@ -63,9 +63,9 @@ export function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.08, duration: 0.5 }}
-              className="group p-8 bg-card border border-border hover:border-foreground/30 transition-colors"
+              className="glass-card-hover p-8"
             >
-              <h3 className="text-xl font-serif mb-4 group-hover:text-olive transition-colors">
+              <h3 className="text-xl font-serif mb-4 group-hover:text-primary transition-colors">
                 {service.title}
               </h3>
               <p className="text-muted-foreground text-sm leading-relaxed">

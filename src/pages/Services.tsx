@@ -55,7 +55,7 @@ const ServicesPage = () => {
             </p>
           </motion.div>
 
-          <div className="space-y-0">
+          <div className="space-y-4">
             {services.map((service, index) => (
               <motion.article
                 key={service.title}
@@ -63,11 +63,11 @@ const ServicesPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
-                className="py-12 border-t border-border group"
+                className="glass-card-hover p-8"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                   <div className="lg:col-span-4">
-                    <h2 className="text-2xl md:text-3xl font-serif group-hover:text-olive transition-colors">
+                    <h2 className="text-2xl md:text-3xl font-serif">
                       {service.title}
                     </h2>
                   </div>
@@ -79,7 +79,8 @@ const ServicesPage = () => {
                   <div className="lg:col-span-3">
                     <ul className="space-y-2">
                       {service.capabilities.map((cap) => (
-                        <li key={cap} className="text-sm text-muted-foreground">
+                        <li key={cap} className="text-sm text-muted-foreground flex items-center gap-2">
+                          <span className="w-1 h-1 rounded-full bg-primary"></span>
                           {cap}
                         </li>
                       ))}
@@ -95,15 +96,17 @@ const ServicesPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mt-20 pt-12 border-t border-border text-center"
+            className="mt-20"
           >
-            <p className="text-body-large text-muted-foreground mb-6">
-              Not sure what you need? Let's figure it out together.
-            </p>
-            <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
-              Start a conversation
-              <ArrowRight size={16} />
-            </Link>
+            <div className="glass-panel p-12 text-center">
+              <p className="text-body-large text-muted-foreground mb-6">
+                Not sure what you need? Let's figure it out together.
+              </p>
+              <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
+                Start a conversation
+                <ArrowRight size={16} />
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>

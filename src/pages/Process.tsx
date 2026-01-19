@@ -60,7 +60,7 @@ const ProcessPage = () => {
             </p>
           </motion.div>
 
-          <div className="space-y-0">
+          <div className="space-y-4">
             {steps.map((step, index) => (
               <motion.div
                 key={step.number}
@@ -68,15 +68,15 @@ const ProcessPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
-                className="py-12 border-t border-border"
+                className="glass-card-hover p-8"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                   <div className="lg:col-span-1">
-                    <span className="text-subheadline text-olive">{step.number}</span>
+                    <span className="text-subheadline text-primary">{step.number}</span>
                   </div>
                   <div className="lg:col-span-3">
                     <h2 className="text-2xl md:text-3xl font-serif mb-2">{step.title}</h2>
-                    <span className="text-sm text-muted-foreground">{step.duration}</span>
+                    <span className="text-sm text-primary/80">{step.duration}</span>
                   </div>
                   <div className="lg:col-span-4">
                     <p className="text-muted-foreground leading-relaxed">
@@ -98,19 +98,21 @@ const ProcessPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mt-20 pt-12 border-t border-border"
+            className="mt-20"
           >
-            <div className="max-w-2xl">
-              <h3 className="text-2xl font-serif mb-4">No long-term contracts</h3>
-              <p className="text-muted-foreground mb-6">
-                We believe results should speak louder than contracts. We work on monthly 
-                retainers with a 30-day notice period. You stay because we deliver, not 
-                because you're locked in.
-              </p>
-              <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
-                Let's talk about your project
-                <ArrowRight size={16} />
-              </Link>
+            <div className="glass-panel p-12">
+              <div className="max-w-2xl">
+                <h3 className="text-2xl font-serif mb-4">No long-term contracts</h3>
+                <p className="text-muted-foreground mb-6">
+                  We believe results should speak louder than contracts. We work on monthly 
+                  retainers with a 30-day notice period. You stay because we deliver, not 
+                  because you're locked in.
+                </p>
+                <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
+                  Let's talk about your project
+                  <ArrowRight size={16} />
+                </Link>
+              </div>
             </div>
           </motion.div>
         </div>

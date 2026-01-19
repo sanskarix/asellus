@@ -25,7 +25,7 @@ const works = [
 
 export function SelectedWork() {
   return (
-    <section className="editorial-section bg-cream">
+    <section className="editorial-section relative">
       <div className="editorial-container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -42,14 +42,14 @@ export function SelectedWork() {
           </div>
           <Link
             to="/work"
-            className="inline-flex items-center gap-2 text-sm font-medium link-underline"
+            className="inline-flex items-center gap-2 text-sm font-medium link-underline text-muted-foreground hover:text-foreground transition-colors"
           >
             View all projects
             <ArrowUpRight size={16} />
           </Link>
         </motion.div>
 
-        <div className="space-y-16">
+        <div className="space-y-8">
           {works.map((work, index) => (
             <motion.article
               key={work.client}
@@ -57,27 +57,29 @@ export function SelectedWork() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
-              className="group grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center"
+              className="glass-card-hover p-6 md:p-8"
             >
-              <div className={`aspect-[4/3] bg-muted overflow-hidden ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
-                <div className="w-full h-full bg-gradient-to-br from-muted to-muted-foreground/20 flex items-center justify-center">
-                  <span className="text-4xl font-serif text-muted-foreground/40">{work.client}</span>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                <div className={`aspect-[4/3] rounded-xl overflow-hidden ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
+                  <div className="w-full h-full bg-gradient-to-br from-muted/50 to-primary/10 flex items-center justify-center backdrop-blur-sm">
+                    <span className="text-4xl font-serif text-muted-foreground/40">{work.client}</span>
+                  </div>
                 </div>
-              </div>
-              
-              <div className={index % 2 === 1 ? 'lg:order-1' : ''}>
-                <p className="text-subheadline mb-2">{work.category}</p>
-                <h3 className="text-3xl md:text-4xl font-serif mb-4">{work.client}</h3>
-                <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-                  {work.description}
-                </p>
-                <Link
-                  to="/work"
-                  className="inline-flex items-center gap-2 text-sm font-medium link-underline"
-                >
-                  View case study
-                  <ArrowUpRight size={16} />
-                </Link>
+                
+                <div className={index % 2 === 1 ? 'lg:order-1' : ''}>
+                  <p className="text-subheadline mb-2">{work.category}</p>
+                  <h3 className="text-3xl md:text-4xl font-serif mb-4">{work.client}</h3>
+                  <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+                    {work.description}
+                  </p>
+                  <Link
+                    to="/work"
+                    className="inline-flex items-center gap-2 text-sm font-medium link-underline text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    View case study
+                    <ArrowUpRight size={16} />
+                  </Link>
+                </div>
               </div>
             </motion.article>
           ))}

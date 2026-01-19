@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 export function Hero() {
   return (
-    <section className="editorial-section min-h-[90vh] flex items-center">
+    <section className="editorial-section min-h-[90vh] flex items-center relative">
       <div className="editorial-container">
         <div className="max-w-5xl">
           <motion.p
@@ -52,6 +52,11 @@ export function Hero() {
             </Link>
           </motion.div>
         </div>
+      </div>
+      
+      {/* Subtle gradient glow behind hero */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] -z-10 pointer-events-none">
+        <div className="absolute inset-0 rounded-full bg-primary/5 blur-3xl"></div>
       </div>
     </section>
   );

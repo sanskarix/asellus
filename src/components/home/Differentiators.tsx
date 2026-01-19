@@ -25,7 +25,7 @@ const differentiators = [
 
 export function Differentiators() {
   return (
-    <section className="editorial-section bg-cream">
+    <section className="editorial-section relative">
       <div className="editorial-container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -40,7 +40,7 @@ export function Differentiators() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {differentiators.map((item, index) => (
             <motion.div
               key={item.number}
@@ -48,9 +48,9 @@ export function Differentiators() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
-              className="border-t border-border pt-8"
+              className="glass-card-hover p-8"
             >
-              <span className="text-subheadline text-olive">{item.number}</span>
+              <span className="text-subheadline text-primary">{item.number}</span>
               <h3 className="text-2xl md:text-3xl font-serif mt-4 mb-4">{item.title}</h3>
               <p className="text-muted-foreground leading-relaxed">{item.description}</p>
             </motion.div>

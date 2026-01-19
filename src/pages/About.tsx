@@ -52,9 +52,9 @@ const AboutPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-24"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-24"
           >
-            <div>
+            <div className="glass-card p-8 md:p-10">
               <h2 className="text-headline mb-6">The short version</h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
                 Asellus is a new-age marketing agency for brands that care about real growth. 
@@ -67,11 +67,13 @@ const AboutPage = () => {
                 growth leaders, creative directors who've built brands you know.
               </p>
             </div>
-            <div className="bg-cream p-12 flex items-center justify-center">
-              <blockquote className="text-2xl font-serif text-center leading-relaxed">
+            <div className="glass-panel p-10 md:p-12 flex items-center justify-center relative overflow-hidden">
+              <blockquote className="text-2xl font-serif text-center leading-relaxed relative z-10">
                 "Great marketing doesn't feel like marketing. It feels like the brand finally 
                 speaking its truth."
               </blockquote>
+              {/* Subtle glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 pointer-events-none"></div>
             </div>
           </motion.div>
 
@@ -83,7 +85,7 @@ const AboutPage = () => {
             className="mb-24"
           >
             <h2 className="text-headline mb-12">What we believe</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {values.map((value, index) => (
                 <motion.div
                   key={value.title}
@@ -91,7 +93,7 @@ const AboutPage = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1, duration: 0.5 }}
-                  className="border-t border-border pt-6"
+                  className="glass-card-hover p-8"
                 >
                   <h3 className="text-xl font-serif mb-3">{value.title}</h3>
                   <p className="text-muted-foreground">{value.description}</p>
@@ -108,7 +110,7 @@ const AboutPage = () => {
             className="mb-24"
           >
             <h2 className="text-headline mb-12">The team</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {team.map((group, index) => (
                 <motion.div
                   key={group.name}
@@ -116,7 +118,7 @@ const AboutPage = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1, duration: 0.5 }}
-                  className="bg-card border border-border p-8"
+                  className="glass-card-hover p-8"
                 >
                   <h3 className="text-xl font-serif mb-3">{group.name}</h3>
                   <p className="text-muted-foreground text-sm">{group.description}</p>
@@ -130,15 +132,16 @@ const AboutPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="pt-12 border-t border-border text-center"
           >
-            <p className="text-body-large text-muted-foreground mb-6">
-              Want to know more? Let's have a real conversation.
-            </p>
-            <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
-              Get in touch
-              <ArrowRight size={16} />
-            </Link>
+            <div className="glass-panel p-12 text-center">
+              <p className="text-body-large text-muted-foreground mb-6">
+                Want to know more? Let's have a real conversation.
+              </p>
+              <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
+                Get in touch
+                <ArrowRight size={16} />
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>
