@@ -1,0 +1,151 @@
+import { motion } from "framer-motion";
+import { Layout } from "@/components/layout/Layout";
+import { Mail, MapPin, ArrowUpRight } from "lucide-react";
+
+const ContactPage = () => {
+  return (
+    <Layout>
+      <section className="editorial-section">
+        <div className="editorial-container">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="text-subheadline mb-4">Let's talk</p>
+              <h1 className="text-display mb-6">Start a conversation.</h1>
+              <p className="text-body-large text-muted-foreground mb-12">
+                No pitch decks. No lengthy proposals. Just a conversation about what 
+                you're building and whether we're the right fit to help you grow.
+              </p>
+
+              <div className="space-y-8">
+                <div>
+                  <h3 className="text-subheadline mb-2">Email</h3>
+                  <a 
+                    href="mailto:hello@asellus.agency" 
+                    className="text-xl font-serif hover:text-olive transition-colors inline-flex items-center gap-2"
+                  >
+                    hello@asellus.agency
+                    <Mail size={18} />
+                  </a>
+                </div>
+
+                <div>
+                  <h3 className="text-subheadline mb-2">Location</h3>
+                  <p className="text-xl font-serif flex items-center gap-2">
+                    Remote-first, globally distributed
+                    <MapPin size={18} className="text-muted-foreground" />
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-subheadline mb-2">Social</h3>
+                  <div className="flex gap-6">
+                    <a href="#" className="text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1">
+                      LinkedIn <ArrowUpRight size={14} />
+                    </a>
+                    <a href="#" className="text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1">
+                      Instagram <ArrowUpRight size={14} />
+                    </a>
+                    <a href="#" className="text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1">
+                      Twitter <ArrowUpRight size={14} />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <form className="space-y-6">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium mb-2">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground outline-none transition-colors"
+                    placeholder="Your name"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium mb-2">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground outline-none transition-colors"
+                    placeholder="you@company.com"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="company" className="block text-sm font-medium mb-2">
+                    Company
+                  </label>
+                  <input
+                    type="text"
+                    id="company"
+                    name="company"
+                    className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground outline-none transition-colors"
+                    placeholder="Your company"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="budget" className="block text-sm font-medium mb-2">
+                    Monthly Budget Range
+                  </label>
+                  <select
+                    id="budget"
+                    name="budget"
+                    className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground outline-none transition-colors"
+                  >
+                    <option value="">Select a range</option>
+                    <option value="<5L">Less than ₹5L/month</option>
+                    <option value="5-15L">₹5L - ₹15L/month</option>
+                    <option value="15-50L">₹15L - ₹50L/month</option>
+                    <option value=">50L">More than ₹50L/month</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium mb-2">
+                    Tell us about your project
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={5}
+                    className="w-full px-4 py-3 bg-transparent border border-border focus:border-foreground outline-none transition-colors resize-none"
+                    placeholder="What are you trying to achieve? What's your timeline?"
+                  />
+                </div>
+
+                <button type="submit" className="btn-primary w-full justify-center">
+                  Send message
+                </button>
+
+                <p className="text-sm text-muted-foreground text-center">
+                  We typically respond within 24 hours.
+                </p>
+              </form>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+    </Layout>
+  );
+};
+
+export default ContactPage;
