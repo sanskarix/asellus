@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
-import { ArrowUpRight } from "lucide-react";
 
 const projects = [
   {
@@ -52,7 +51,7 @@ const WorkPage = () => {
             </p>
           </motion.div>
 
-          <div className="space-y-24">
+          <div className="space-y-8">
             {projects.map((project, index) => (
               <motion.article
                 key={project.client}
@@ -60,16 +59,18 @@ const WorkPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.6 }}
-                className="group"
+                className="glass-card-hover overflow-hidden"
               >
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-                  <div className="aspect-[4/3] bg-cream flex items-center justify-center">
-                    <span className="text-5xl md:text-6xl font-serif text-muted-foreground/30">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
+                  <div className="aspect-[4/3] lg:aspect-auto bg-gradient-to-br from-muted/30 to-primary/10 flex items-center justify-center relative overflow-hidden">
+                    <span className="text-5xl md:text-6xl font-serif text-foreground/20">
                       {project.client}
                     </span>
+                    {/* Shimmer effect */}
+                    <div className="absolute inset-0 shimmer opacity-30"></div>
                   </div>
                   
-                  <div className="lg:pt-8">
+                  <div className="p-8 lg:p-12">
                     <div className="flex items-center gap-4 mb-4">
                       <span className="text-subheadline">{project.category}</span>
                       <span className="text-muted-foreground text-sm">/ {project.year}</span>
@@ -81,12 +82,12 @@ const WorkPage = () => {
                       {project.description}
                     </p>
                     
-                    <div className="border-t border-border pt-6">
+                    <div className="pt-6 border-t border-border/30">
                       <p className="text-subheadline mb-4">Key results</p>
                       <ul className="space-y-2">
                         {project.results.map((result) => (
                           <li key={result} className="flex items-center gap-3">
-                            <span className="w-1.5 h-1.5 bg-olive rounded-full"></span>
+                            <span className="w-1.5 h-1.5 bg-primary rounded-full"></span>
                             <span className="text-foreground">{result}</span>
                           </li>
                         ))}
