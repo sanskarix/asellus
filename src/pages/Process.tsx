@@ -61,62 +61,68 @@ const ProcessPage = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="max-w-3xl mb-20"
+            className="max-w-3xl mb-24"
           >
             <p className="text-subheadline mb-4">How we work</p>
             <h1 className="text-display mb-6">Clear process. Fast execution.</h1>
-            <p className="text-body-large text-muted-foreground">
-              We've refined our process over years of working with growth-stage brands. 
-              It's designed to move fast without cutting corners.
+            <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
+              We've refined our process over years of working with growth-stage brands. It's designed to move fast without cutting corners. Clear, methodical, results-driven.
             </p>
           </motion.div>
 
-          <div className="space-y-4">
-            {steps.map((step, index) => (
-              <motion.div
-                key={step.number}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.08, duration: 0.6 }}
-                className="glass-card-hover p-8 lg:p-10 group relative overflow-hidden"
-              >
-                {/* Subtle accent line */}
-                <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-primary/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          {/* Illustrative process visualization */}
+          <div className="space-y-8 mb-32">
+            {steps.map((step, index) => {
+              const Icon = step.icon;
+              return (
+                <motion.div
+                  key={step.number}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1, duration: 0.7 }}
+                  className="group relative"
+                >
+                  {/* Connection line to next step */}
+                  {index < steps.length - 1 && (
+                    <div className="absolute left-12 top-24 w-0.5 h-32 bg-gradient-to-b from-primary/40 via-primary/20 to-transparent md:opacity-100 opacity-0"></div>
+                  )}
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                  <motion.div
-                    className="lg:col-span-1"
-                    whileHover={{ scale: 1.1, x: 4 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <span className="text-subheadline text-primary font-bold">{step.number}</span>
-                  </motion.div>
-                  <div className="lg:col-span-3">
-                    <h2 className="text-2xl md:text-3xl font-serif mb-2 group-hover:text-primary transition-colors duration-300">
-                      {step.title}
-                    </h2>
-                    <motion.span
-                      className="text-sm text-primary/70 font-medium block"
-                      whileHover={{ x: 4 }}
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                    {/* Visual - Icon in gradient circle */}
+                    <motion.div
+                      className={`md:col-span-2 relative h-24 rounded-2xl flex items-center justify-center bg-gradient-to-br ${step.color} border border-primary/20 group-hover:border-primary/40 transition-all duration-500`}
+                      whileHover={{ scale: 1.05, y: -4 }}
                       transition={{ duration: 0.3 }}
                     >
-                      {step.duration}
-                    </motion.span>
+                      <Icon className={`w-10 h-10 ${step.iconColor}`} />
+                    </motion.div>
+
+                    {/* Content */}
+                    <div className="md:col-span-10">
+                      <div className="flex items-baseline gap-4 mb-3">
+                        <motion.span
+                          className="text-2xl font-bold text-primary"
+                          whileHover={{ scale: 1.1 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          {step.number}
+                        </motion.span>
+                        <h2 className="text-3xl md:text-4xl font-serif group-hover:text-primary transition-colors duration-300">
+                          {step.title}
+                        </h2>
+                      </div>
+                      <p className="text-sm text-primary/70 font-medium mb-4">
+                        {step.duration}
+                      </p>
+                      <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
+                        {step.description}
+                      </p>
+                    </div>
                   </div>
-                  <div className="lg:col-span-4">
-                    <p className="text-muted-foreground leading-relaxed">
-                      {step.description}
-                    </p>
-                  </div>
-                  <div className="lg:col-span-4">
-                    <p className="text-sm text-muted-foreground/70 italic leading-relaxed">
-                      {step.details}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </div>
 
           <motion.div
