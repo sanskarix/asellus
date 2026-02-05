@@ -111,7 +111,7 @@ export function Hero() {
       <motion.div
         style={{
           opacity: starOpacity,
-          y: useTransform(scrollY, [0, 500], [0, 100]),
+          y: useTransform(scrollY, [0, 500], [0, -50]),
         }}
         className="absolute inset-0 -z-10 pointer-events-none overflow-hidden"
       >
