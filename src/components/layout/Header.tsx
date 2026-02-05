@@ -15,14 +15,14 @@ export function Header() {
   const location = useLocation();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-gradient-to-b from-background/20 via-background/15 to-background/10">
+    <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm bg-background/15 border-b border-white/5">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="mx-4 mt-4"
+        className="w-full"
       >
-        <nav className="glass-panel editorial-container flex items-center justify-between py-5 px-8 md:px-10 shadow-lg">
+        <nav className="flex items-center justify-between py-4 px-6 md:px-8 lg:px-12 max-w-full mx-auto">
           <motion.div
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.3 }}
