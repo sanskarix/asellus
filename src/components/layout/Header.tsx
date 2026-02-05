@@ -99,10 +99,10 @@ export function Header() {
                     <Link
                       to={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`text-lg font-medium py-3 px-4 rounded-lg transition-all duration-300 block ${
+                      className={`text-base font-medium py-2 px-4 rounded transition-all duration-300 block ${
                         location.pathname === item.href
-                          ? "text-foreground bg-primary/10"
-                          : "text-muted-foreground hover:text-foreground hover:bg-primary/5"
+                          ? "text-foreground bg-white/5"
+                          : "text-muted-foreground hover:text-foreground hover:bg-white/3"
                       }`}
                     >
                       {item.name}
