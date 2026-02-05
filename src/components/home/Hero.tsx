@@ -171,10 +171,10 @@ export function Hero() {
                 width: `${star.size}px`,
                 height: `${star.size}px`,
                 backgroundColor: `hsl(210, 100%, ${70 + Math.random() * 30}%)`,
+                opacity: starFadeOpacity,
               }}
               animate={{
                 scale: [1, 1.8, 1],
-                opacity: [star.opacity, star.opacity * 0.3, star.opacity],
               }}
               transition={{
                 duration: star.duration,
