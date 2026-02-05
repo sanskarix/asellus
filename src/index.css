@@ -321,10 +321,11 @@
   }
 
   .glass-input:focus {
-    border-color: hsl(210 40% 50% / 0.5);
-    box-shadow: 
-      0 0 0 3px hsl(210 50% 50% / 0.1),
-      0 0 20px hsl(210 50% 50% / 0.1);
+    border-color: hsl(210 30% 40% / 0.5);
+    box-shadow:
+      0 0 0 3px hsl(210 30% 30% / 0.1),
+      0 0 20px hsl(210 40% 40% / 0.05);
+    background: hsl(220 20% 14% / 0.7);
   }
 
   .glass-input::placeholder {
