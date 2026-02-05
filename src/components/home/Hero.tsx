@@ -150,7 +150,7 @@ export function Hero() {
                 width: `${star.size}px`,
                 height: `${star.size}px`,
                 backgroundColor: `hsl(210, 100%, ${70 + Math.random() * 30}%)`,
-                opacity: starFadeOpacity,
+                opacity: starOpacity,
               }}
               animate={{
                 scale: [1, 1.8, 1],
