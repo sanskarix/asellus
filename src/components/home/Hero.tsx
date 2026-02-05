@@ -5,65 +5,100 @@ import { ArrowRight } from "lucide-react";
 
 interface Star {
   id: number;
-  x: number;
-  y: number;
-  size: number;
-  opacity: number;
-  duration: number;
   baseX: number;
   baseY: number;
+  size: number;
+  opacity: number;
 }
 
 export function Hero() {
   const [stars, setStars] = useState<Star[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
   const { scrollY } = useScroll();
-  const starOpacity = useTransform(scrollY, [0, 500], [1, 0]);
-  const [inwardAnimation, setInwardAnimation] = useState(true);
+  const starOpacity = useTransform(scrollY, [0, 600], [1, 0]);
 
-  // Generate star field and handle animations
+  // Generate minimal star field
   useEffect(() => {
-    const generateStars = () => {
-      const newStars: Star[] = [];
-      const centerX = 50;
-      const centerY = 50;
+    const newStars: Star[] = [];
+    const centerX = 50;
+    const centerY = 50;
 
-      for (let i = 0; i < 200; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const distance = Math.random() * 45 + 5;
-        const x = centerX + Math.cos(angle) * distance;
-        const y = centerY + Math.sin(angle) * distance;
+    for (let i = 0; i < 80; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const distance = Math.random() * 40 + 10;
+      const x = centerX + Math.cos(angle) * distance;
+      const y = centerY + Math.sin(angle) * distance;
 
-        newStars.push({
-          id: i,
-          x,
-          y,
-          baseX: x,
-          baseY: y,
-          size: Math.random() * 2.5 + 0.5,
-          opacity: Math.random() * 0.7 + 0.3,
-          duration: Math.random() * 3 + 2,
+      newStars.push({
+        id: i,
+        baseX: x,
+        baseY: y,
+        size: Math.random() * 1.5 + 0.5,
+        opacity: Math.random() * 0.6 + 0.2,
+      });
+    }
+    setStars(newStars);
+  }, []);
+
+  // Track mouse position for fisheye effect
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        setMousePos({
+          x: e.clientX / rect.width,
+          y: e.clientY / rect.height,
         });
       }
-      setStars(newStars);
     };
-    generateStars();
 
-    // After 5 seconds, slow down the inward movement
-    const timer = setTimeout(() => {
-      setInwardAnimation(false);
-    }, 5000);
-
-    return () => clearTimeout(timer);
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
+
+  // Calculate star position with fisheye effect on hover
+  const getStarPos = (star: Star) => {
+    const centerX = 50;
+    const centerY = 50;
+
+    // Distance from center
+    const dx = star.baseX - centerX;
+    const dy = star.baseY - centerY;
+    const distFromCenter = Math.sqrt(dx * dx + dy * dy);
+
+    // Mouse distance from star
+    const mouseX = mousePos.x * 100;
+    const mouseY = mousePos.y * 100;
+    const dxMouse = star.baseX - mouseX;
+    const dyMouse = star.baseY - mouseY;
+    const distFromMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+
+    // Fisheye zoom effect - stars zoom out from hover point
+    const hoverRadius = 25;
+    const zoomStrength = Math.max(0, 1 - distFromMouse / hoverRadius) * 15;
+
+    const normalizedDxMouse = dxMouse / (distFromMouse + 0.1);
+    const normalizedDyMouse = dyMouse / (distFromMouse + 0.1);
+
+    const finalX = star.baseX + normalizedDxMouse * zoomStrength;
+    const finalY = star.baseY + normalizedDyMouse * zoomStrength;
+
+    // Animate toward center while moving outward from mouse
+    const pullToCenter = 0.98; // Stars drift toward center
+    const pulledX = centerX + (finalX - centerX) * pullToCenter;
+    const pulledY = centerY + (finalY - centerY) * pullToCenter;
+
+    return { x: pulledX, y: pulledY };
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3,
+        staggerChildren: 0.08,
+        delayChildren: 0.2,
       },
     },
   };
@@ -73,126 +108,49 @@ export function Hero() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 1, ease: "easeOut" },
+      transition: { duration: 0.8, ease: "easeOut" },
     },
   };
 
   return (
     <section
       ref={containerRef}
-      className="editorial-section min-h-[100vh] flex items-center justify-center relative overflow-hidden py-20 md:py-0"
+      className="editorial-section min-h-[100vh] flex items-center justify-center relative overflow-hidden"
     >
-      {/* Ultra-dark base background */}
-      <div className="absolute inset-0 -z-20 bg-gradient-to-br from-[hsl(220,35%,2%)] via-[hsl(230,30%,3%)] to-[hsl(210,25%,2.5%)]"></div>
+      {/* Ultra-dark background */}
+      <div className="absolute inset-0 -z-20 bg-gradient-to-br from-[hsl(220,30%,2%)] via-[hsl(230,25%,2.5%)] to-[hsl(210,28%,2%)]"></div>
 
-      {/* Galaxy and stars effect - dissolves on scroll */}
+      {/* Minimal stars field */}
       <motion.div
         style={{
           opacity: starOpacity,
-          y: useTransform(scrollY, [0, 500], [0, -50]),
         }}
         className="absolute inset-0 -z-10 pointer-events-none overflow-hidden"
       >
-        {/* Animated galaxy core glow */}
-        <motion.div
-          animate={{
-            scale: [0.8, 1.2, 0.8],
-            opacity: [0.1, 0.25, 0.1],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full bg-gradient-to-r from-blue-900/30 via-purple-900/20 to-transparent blur-3xl"
-        ></motion.div>
-
-        {/* Secondary galaxy spiral effect */}
-        <motion.div
-          animate={{
-            rotate: [0, 360],
-            opacity: [0.08, 0.15, 0.08],
-          }}
-          transition={{
-            duration: 30,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] rounded-full bg-gradient-conic from-blue-600/10 via-purple-600/5 to-transparent blur-3xl"
-        ></motion.div>
-
-        {/* Starfield - individual twinkling stars with interactive movement */}
         {stars.map((star) => {
-          // Calculate inward movement during loading phase
-          const centerX = 50;
-          const centerY = 50;
-          const angle = Math.atan2(star.baseY - centerY, star.baseX - centerX);
-          const distance = Math.sqrt(
-            Math.pow(star.baseX - centerX, 2) + Math.pow(star.baseY - centerY, 2)
-          );
-
-          // Inward movement (first 5 seconds)
-          const inwardX = inwardAnimation
-            ? centerX + Math.cos(angle) * distance * 0.3
-            : star.baseX;
-          const inwardY = inwardAnimation
-            ? centerY + Math.sin(angle) * distance * 0.3
-            : star.baseY;
-
+          const pos = getStarPos(star);
           return (
             <motion.div
               key={star.id}
-              className="absolute rounded-full pointer-events-none"
-              style={{
-                left: `${inwardX}%`,
-                top: `${inwardY}%`,
-                width: `${star.size}px`,
-                height: `${star.size}px`,
-                backgroundColor: `hsl(210, 100%, ${70 + Math.random() * 30}%)`,
-                opacity: starOpacity,
-              }}
+              className="absolute rounded-full"
               animate={{
-                scale: [1, 1.8, 1],
+                left: `${pos.x}%`,
+                top: `${pos.y}%`,
               }}
               transition={{
-                duration: star.duration,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: Math.random() * 5,
+                duration: 0.6,
+                ease: "easeOut",
+              }}
+              style={{
+                width: `${star.size}px`,
+                height: `${star.size}px`,
+                backgroundColor: `hsl(210, 100%, 85%)`,
+                opacity: star.opacity,
+                boxShadow: `0 0 ${star.size * 2}px hsl(210, 100%, 85%)`,
               }}
             ></motion.div>
           );
         })}
-
-        {/* Nebula clouds */}
-        <motion.div
-          animate={{
-            x: [0, 50, 0],
-            y: [0, -30, 0],
-            opacity: [0.05, 0.15, 0.05],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute top-1/4 right-1/4 w-[600px] h-[400px] rounded-full bg-gradient-to-br from-cyan-500/10 via-blue-500/5 to-transparent blur-3xl"
-        ></motion.div>
-
-        <motion.div
-          animate={{
-            x: [0, -40, 0],
-            y: [0, 40, 0],
-            opacity: [0.08, 0.12, 0.08],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 3,
-          }}
-          className="absolute bottom-1/4 left-1/3 w-[700px] h-[500px] rounded-full bg-gradient-to-tl from-purple-600/8 via-blue-600/4 to-transparent blur-3xl"
-        ></motion.div>
       </motion.div>
 
       {/* Content - fades out as stars dissolve */}
