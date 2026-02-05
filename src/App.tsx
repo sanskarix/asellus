@@ -41,7 +41,6 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <CursorGlow />
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
