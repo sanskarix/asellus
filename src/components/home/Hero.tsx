@@ -52,7 +52,6 @@ export function Hero() {
     // After 5 seconds, slow down the inward movement
     const timer = setTimeout(() => {
       setInwardAnimation(false);
-      setLoadingPhase(false);
     }, 5000);
 
     return () => clearTimeout(timer);
