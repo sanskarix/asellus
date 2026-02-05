@@ -115,67 +115,47 @@
     @apply py-16 md:py-24 lg:py-32;
   }
 
-  /* Glassmorphism card */
+  /* Minimal card container */
   .glass-card {
-    @apply relative backdrop-blur-2xl border rounded-2xl overflow-hidden;
-    background: linear-gradient(
-      135deg,
-      hsl(var(--glass-bg)) 0%,
-      hsl(220 20% 12% / 0.35) 100%
-    );
-    border-color: hsl(var(--glass-border));
-    box-shadow:
-      0 8px 32px hsl(220 40% 5% / 0.35),
-      inset 0 1px 0 hsl(210 30% 50% / 0.12),
-      inset 0 -1px 0 hsl(220 20% 5% / 0.2);
+    @apply relative border rounded-lg overflow-hidden transition-all duration-300;
+    background: hsl(220 20% 10% / 0.3);
+    border-color: hsl(220 20% 20% / 0.2);
+    backdrop-filter: blur(6px);
   }
 
   .glass-card-hover {
-    @apply glass-card transition-all cursor-default relative;
-    transition-duration: 400ms;
-    transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    @apply glass-card cursor-default relative;
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
   }
 
   .glass-card-hover::before {
     content: '';
     @apply absolute inset-0 opacity-0 transition-opacity;
-    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), hsl(210 60% 50% / 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), hsl(210 50% 50% / 0.08) 0%, transparent 70%);
     transition-duration: 300ms;
   }
 
   .glass-card-hover:hover {
-    transform: translateY(-8px) scale(1.01);
+    transform: translateY(-4px);
+    border-color: hsl(220 20% 30% / 0.3);
+    background: hsl(220 20% 12% / 0.4);
     box-shadow:
-      0 28px 80px hsl(220 40% 5% / 0.6),
-      0 0 60px hsl(var(--glass-glow) / 0.2),
-      inset 0 1px 0 hsl(210 30% 60% / 0.2),
-      inset 0 -1px 0 hsl(220 20% 5% / 0.4);
-    border-color: hsl(210 30% 55% / 0.4);
-    background: linear-gradient(
-      135deg,
-      hsl(220 20% 18% / 0.8) 0%,
-      hsl(220 20% 14% / 0.6) 100%
-    );
+      0 12px 32px hsl(220 20% 5% / 0.3),
+      inset 0 1px 0 hsl(210 30% 40% / 0.1);
   }
 
   .glass-card-hover:hover::before {
     opacity: 1;
   }
 
-  /* Glass panel - larger sections */
+  /* Minimal panel - for header and sections */
   .glass-panel {
-    @apply relative backdrop-blur-3xl rounded-2xl overflow-hidden;
-    background: linear-gradient(
-      145deg,
-      hsl(220 20% 14% / 0.55) 0%,
-      hsl(220 20% 10% / 0.35) 100%
-    );
-    border: 1.5px solid hsl(var(--glass-border));
-    box-shadow:
-      0 16px 48px hsl(220 40% 5% / 0.4),
-      inset 0 1px 0 hsl(210 30% 50% / 0.1),
-      inset 0 -1px 0 hsl(220 20% 5% / 0.2);
+    @apply relative rounded-lg overflow-hidden transition-all duration-300;
+    background: hsl(220 20% 10% / 0.2);
+    border: 1px solid hsl(220 20% 20% / 0.15);
+    backdrop-filter: blur(6px);
   }
 
   /* Ambient background gradient */
