@@ -20,16 +20,16 @@ const ContactPage = () => {
                 you're building and whether we're the right fit to help you grow.
               </p>
 
-              <div className="space-y-8">
+              <div className="space-y-6">
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2, duration: 0.5 }}
-                  className="glass-card p-6"
+                  className="glass-card p-8 group hover:scale-105 transition-transform duration-300"
                 >
-                  <h3 className="text-subheadline mb-2">Email</h3>
-                  <a 
-                    href="mailto:hello@asellus.agency" 
+                  <h3 className="text-subheadline mb-3 group-hover:text-primary transition-colors duration-300">Email</h3>
+                  <a
+                    href="mailto:hello@asellus.agency"
                     className="text-xl font-serif hover:text-primary transition-colors inline-flex items-center gap-2"
                   >
                     hello@asellus.agency
@@ -41,12 +41,12 @@ const ContactPage = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3, duration: 0.5 }}
-                  className="glass-card p-6"
+                  className="glass-card p-8 group hover:scale-105 transition-transform duration-300"
                 >
-                  <h3 className="text-subheadline mb-2">Location</h3>
+                  <h3 className="text-subheadline mb-3 group-hover:text-primary transition-colors duration-300">Location</h3>
                   <p className="text-xl font-serif flex items-center gap-2">
                     Remote-first, globally distributed
-                    <MapPin size={18} className="text-muted-foreground" />
+                    <MapPin size={18} className="text-muted-foreground group-hover:text-primary transition-colors duration-300" />
                   </p>
                 </motion.div>
 
@@ -54,19 +54,25 @@ const ContactPage = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.4, duration: 0.5 }}
-                  className="glass-card p-6"
+                  className="glass-card p-8 group hover:scale-105 transition-transform duration-300"
                 >
-                  <h3 className="text-subheadline mb-2">Social</h3>
+                  <h3 className="text-subheadline mb-4 group-hover:text-primary transition-colors duration-300">Social</h3>
                   <div className="flex gap-6">
-                    <a href="#" className="text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1">
-                      LinkedIn <ArrowUpRight size={14} />
-                    </a>
-                    <a href="#" className="text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1">
-                      Instagram <ArrowUpRight size={14} />
-                    </a>
-                    <a href="#" className="text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1">
-                      Twitter <ArrowUpRight size={14} />
-                    </a>
+                    {[
+                      { name: "LinkedIn", href: "#" },
+                      { name: "Instagram", href: "#" },
+                      { name: "Twitter", href: "#" },
+                    ].map((social) => (
+                      <motion.a
+                        key={social.name}
+                        href={social.href}
+                        className="text-muted-foreground hover:text-primary transition-all inline-flex items-center gap-1"
+                        whileHover={{ x: 2 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        {social.name} <ArrowUpRight size={14} />
+                      </motion.a>
+                    ))}
                   </div>
                 </motion.div>
               </div>
