@@ -82,9 +82,13 @@ const ContactPage = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
+              className="h-full"
             >
-              <div className="glass-panel p-8 md:p-10">
-                <form className="space-y-6">
+              <div className="glass-panel p-8 md:p-10 group relative overflow-hidden h-full flex flex-col">
+                {/* Subtle glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                <form className="space-y-6 relative z-10 flex-1 flex flex-col">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium mb-2">
                       Name
