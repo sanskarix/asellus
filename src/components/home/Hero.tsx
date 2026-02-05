@@ -57,39 +57,44 @@ export function Hero() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // Calculate star position with fisheye effect on hover
-  const getStarPos = (star: Star) => {
+  // Calculate star position with subtle fisheye effect and inward drift with fade
+  const getStarPos = (star: Star, time: number) => {
     const centerX = 50;
     const centerY = 50;
 
-    // Distance from center
-    const dx = star.baseX - centerX;
-    const dy = star.baseY - centerY;
+    // Continuous inward movement toward center with fade
+    const driftSpeed = 0.003; // Very slow drift toward center
+    const driftAmount = time * driftSpeed;
+    const driftedX = centerX + (star.baseX - centerX) * (1 - driftAmount);
+    const driftedY = centerY + (star.baseY - centerY) * (1 - driftAmount);
+
+    // Distance from star to center (for fade calculation)
+    const dx = driftedX - centerX;
+    const dy = driftedY - centerY;
     const distFromCenter = Math.sqrt(dx * dx + dy * dy);
 
-    // Mouse distance from star
+    // Mouse distance from drifted star position
     const mouseX = mousePos.x * 100;
     const mouseY = mousePos.y * 100;
-    const dxMouse = star.baseX - mouseX;
-    const dyMouse = star.baseY - mouseY;
+    const dxMouse = driftedX - mouseX;
+    const dyMouse = driftedY - mouseY;
     const distFromMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
 
-    // Fisheye zoom effect - stars zoom out from hover point
-    const hoverRadius = 25;
-    const zoomStrength = Math.max(0, 1 - distFromMouse / hoverRadius) * 15;
+    // Subtle fisheye zoom effect - very gentle push away from cursor
+    const hoverRadius = 30;
+    const zoomStrength = Math.max(0, 1 - distFromMouse / hoverRadius) * 3; // Reduced from 15 to 3
 
     const normalizedDxMouse = dxMouse / (distFromMouse + 0.1);
     const normalizedDyMouse = dyMouse / (distFromMouse + 0.1);
 
-    const finalX = star.baseX + normalizedDxMouse * zoomStrength;
-    const finalY = star.baseY + normalizedDyMouse * zoomStrength;
+    const finalX = driftedX + normalizedDxMouse * zoomStrength;
+    const finalY = driftedY + normalizedDyMouse * zoomStrength;
 
-    // Animate toward center while moving outward from mouse
-    const pullToCenter = 0.98; // Stars drift toward center
-    const pulledX = centerX + (finalX - centerX) * pullToCenter;
-    const pulledY = centerY + (finalY - centerY) * pullToCenter;
+    // Calculate fade based on distance from center
+    const fadeDistance = 8; // Start fading when within 8% of center
+    const opacity = distFromCenter < fadeDistance ? (distFromCenter / fadeDistance) * star.opacity : star.opacity;
 
-    return { x: pulledX, y: pulledY };
+    return { x: finalX, y: finalY, opacity };
   };
 
   const containerVariants = {
