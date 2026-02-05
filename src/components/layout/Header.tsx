@@ -85,7 +85,7 @@ export function Header() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.25, ease: [0.34, 1.56, 0.64, 1] }}
-            className="md:hidden border-t border-white/5 backdrop-blur-sm"
+            className="md:hidden fixed top-24 left-6 right-6 z-40 bg-background/15 backdrop-blur-sm border border-white/5 rounded-lg"
           >
             <div className="py-4 px-6">
               <div className="flex flex-col gap-2">
