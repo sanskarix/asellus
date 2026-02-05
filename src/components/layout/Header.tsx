@@ -15,7 +15,7 @@ export function Header() {
   const location = useLocation();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-2xl bg-gradient-to-b from-background/80 via-background/50 to-background/30">
+    <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-gradient-to-b from-background/20 via-background/15 to-background/10">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
