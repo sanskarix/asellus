@@ -145,24 +145,18 @@ export function Hero() {
         className="absolute inset-0 -z-10 pointer-events-none overflow-hidden"
       >
         {stars.map((star) => {
-          const pos = getStarPos(star);
+          const pos = getStarPos(star, timeRef.current);
           return (
             <motion.div
               key={star.id}
-              className="absolute rounded-full"
-              animate={{
+              className="absolute rounded-full pointer-events-none"
+              style={{
                 left: `${pos.x}%`,
                 top: `${pos.y}%`,
-              }}
-              transition={{
-                duration: 0.6,
-                ease: "easeOut",
-              }}
-              style={{
                 width: `${star.size}px`,
                 height: `${star.size}px`,
                 backgroundColor: `hsl(210, 100%, 85%)`,
-                opacity: star.opacity,
+                opacity: pos.opacity,
                 boxShadow: `0 0 ${star.size * 2}px hsl(210, 100%, 85%)`,
               }}
             ></motion.div>
