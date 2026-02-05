@@ -29,7 +29,7 @@ export function Header() {
           >
             <Link
               to="/"
-              className="text-xl font-serif font-semibold tracking-tight text-foreground hover:text-primary transition-colors duration-300"
+              className="text-lg font-serif font-semibold tracking-tight text-foreground hover:text-foreground/70 transition-colors duration-300"
             >
               Asellus
             </Link>
