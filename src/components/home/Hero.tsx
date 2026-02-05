@@ -21,10 +21,6 @@ export function Hero() {
   const starOpacity = useTransform(scrollY, [0, 500], [1, 0]);
   const [inwardAnimation, setInwardAnimation] = useState(true);
 
-
-  // Create scroll transform for fade effect
-  const starFadeOpacity = useTransform(scrollY, [0, 500], [1, 0]);
-
   // Generate star field and handle animations
   useEffect(() => {
     const generateStars = () => {
