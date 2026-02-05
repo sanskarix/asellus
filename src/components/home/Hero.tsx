@@ -158,22 +158,25 @@ export function Hero() {
             ? centerY + Math.sin(angle) * distance * 0.3
             : star.baseY;
 
-          // Outward movement based on scroll
-          const outwardX = useTransform(scrollY, [0, 600], [inwardX, inwardX + Math.cos(angle) * 20]);
-          const outwardY = useTransform(scrollY, [0, 600], [inwardY, inwardY + Math.sin(angle) * 20]);
-          const outwardOpacity = useTransform(scrollY, [0, 500], [1, 0]);
+          // Calculate final position with scroll offset
+          const finalX = inwardX + Math.cos(angle) * 20;
+          const finalY = inwardY + Math.sin(angle) * 20;
 
           return (
             <motion.div
               key={star.id}
               className="absolute rounded-full pointer-events-none"
               style={{
-                left: outwardX,
-                top: outwardY,
+                left: useTransform(scrollY, [0, 600], [inwardX, finalX], {
+                  clamp: false,
+                }),
+                top: useTransform(scrollY, [0, 600], [inwardY, finalY], {
+                  clamp: false,
+                }),
                 width: `${star.size}px`,
                 height: `${star.size}px`,
                 backgroundColor: `hsl(210, 100%, ${70 + Math.random() * 30}%)`,
-                opacity: outwardOpacity,
+                opacity: starFadeOpacity,
               }}
               animate={{
                 scale: [1, 1.8, 1],
