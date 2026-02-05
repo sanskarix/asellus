@@ -112,21 +112,31 @@ const ProcessPage = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mt-20"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-24"
           >
-            <div className="glass-panel p-12">
-              <div className="max-w-2xl">
-                <h3 className="text-2xl font-serif mb-4">No long-term contracts</h3>
-                <p className="text-muted-foreground mb-6">
-                  We believe results should speak louder than contracts. We work on monthly 
-                  retainers with a 30-day notice period. You stay because we deliver, not 
+            <div className="glass-panel p-12 md:p-16 group relative overflow-hidden">
+              {/* Subtle glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+              <div className="max-w-2xl relative z-10">
+                <h3 className="text-2xl md:text-3xl font-serif mb-6 group-hover:text-primary transition-colors duration-300">
+                  No long-term contracts
+                </h3>
+                <p className="text-muted-foreground mb-8 leading-relaxed">
+                  We believe results should speak louder than contracts. We work on monthly
+                  retainers with a 30-day notice period. You stay because we deliver, not
                   because you're locked in.
                 </p>
-                <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
-                  Let's talk about your project
-                  <ArrowRight size={16} />
-                </Link>
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
+                    Let's talk about your project
+                    <ArrowRight size={16} />
+                  </Link>
+                </motion.div>
               </div>
             </div>
           </motion.div>
