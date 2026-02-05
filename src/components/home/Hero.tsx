@@ -109,7 +109,10 @@ export function Hero() {
 
       {/* Galaxy and stars effect - dissolves on scroll */}
       <motion.div
-        style={{ opacity: starOpacity }}
+        style={{
+          opacity: starOpacity,
+          y: useTransform(scrollY, [0, 500], [0, 100]),
+        }}
         className="absolute inset-0 -z-10 pointer-events-none overflow-hidden"
       >
         {/* Animated galaxy core glow */}
