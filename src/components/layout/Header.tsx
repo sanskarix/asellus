@@ -56,7 +56,7 @@ export function Header() {
                   {location.pathname === item.href && (
                     <motion.div
                       layoutId="navbar-underline"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/40 via-primary/80 to-primary/40 rounded-full"
+                      className="absolute bottom-0 left-0 right-0 h-px bg-foreground/30"
                       transition={{ duration: 0.3 }}
                     />
                   )}
