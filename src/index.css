@@ -79,6 +79,12 @@
     font-family: 'Playfair Display', Georgia, serif;
     @apply font-medium tracking-tight transition-colors duration-300;
   }
+
+  /* Subtle text selection highlight */
+  ::selection {
+    background-color: hsl(210 40% 20% / 0.6);
+    color: hsl(210 20% 90%);
+  }
 }
 
 @layer components {
