@@ -106,7 +106,7 @@
   }
 
   .editorial-section {
-    @apply py-20 md:py-32 lg:py-40;
+    @apply py-16 md:py-24 lg:py-32;
   }
 
   /* Glassmorphism card */
