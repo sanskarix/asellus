@@ -6,7 +6,6 @@ const footerLinks = {
     { name: "What We Do", href: "/services" },
     { name: "Work", href: "/work" },
     { name: "Process", href: "/process" },
-    { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
   ],
   social: [
