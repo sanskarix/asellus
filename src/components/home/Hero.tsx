@@ -37,9 +37,7 @@ export function Hero() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [mouseX, mouseY]);
 
-  // Create scroll transforms (outside of map)
-  const starOutwardX = useTransform(scrollY, [0, 600], [0, 20]);
-  const starOutwardY = useTransform(scrollY, [0, 600], [0, 20]);
+  // Create scroll transform for fade effect
   const starFadeOpacity = useTransform(scrollY, [0, 500], [1, 0]);
 
   // Generate star field and handle animations
