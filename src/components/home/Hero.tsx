@@ -135,30 +135,53 @@ export function Hero() {
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] rounded-full bg-gradient-conic from-blue-600/10 via-purple-600/5 to-transparent blur-3xl"
         ></motion.div>
 
-        {/* Starfield - individual twinkling stars */}
-        {stars.map((star) => (
-          <motion.div
-            key={star.id}
-            className="absolute rounded-full"
-            style={{
-              left: `${star.x}%`,
-              top: `${star.y}%`,
-              width: `${star.size}px`,
-              height: `${star.size}px`,
-              backgroundColor: `hsl(210, 100%, ${70 + Math.random() * 30}%)`,
-            }}
-            animate={{
-              opacity: [star.opacity, star.opacity * 0.3, star.opacity],
-              scale: [1, 1.5, 1],
-            }}
-            transition={{
-              duration: star.duration,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: Math.random() * 5,
-            }}
-          ></motion.div>
-        ))}
+        {/* Starfield - individual twinkling stars with interactive movement */}
+        {stars.map((star) => {
+          // Calculate inward movement during loading phase
+          const centerX = 50;
+          const centerY = 50;
+          const angle = Math.atan2(star.baseY - centerY, star.baseX - centerX);
+          const distance = Math.sqrt(
+            Math.pow(star.baseX - centerX, 2) + Math.pow(star.baseY - centerY, 2)
+          );
+
+          // Inward movement (first 5 seconds)
+          const inwardX = inwardAnimation
+            ? centerX + Math.cos(angle) * distance * 0.3
+            : star.baseX;
+          const inwardY = inwardAnimation
+            ? centerY + Math.sin(angle) * distance * 0.3
+            : star.baseY;
+
+          // Outward movement based on scroll
+          const outwardX = useTransform(scrollY, [0, 600], [inwardX, inwardX + Math.cos(angle) * 20]);
+          const outwardY = useTransform(scrollY, [0, 600], [inwardY, inwardY + Math.sin(angle) * 20]);
+          const outwardOpacity = useTransform(scrollY, [0, 500], [1, 0]);
+
+          return (
+            <motion.div
+              key={star.id}
+              className="absolute rounded-full pointer-events-none"
+              style={{
+                left: outwardX,
+                top: outwardY,
+                width: `${star.size}px`,
+                height: `${star.size}px`,
+                backgroundColor: `hsl(210, 100%, ${70 + Math.random() * 30}%)`,
+                opacity: outwardOpacity,
+              }}
+              animate={{
+                scale: [1, 1.8, 1],
+              }}
+              transition={{
+                duration: star.duration,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: Math.random() * 5,
+              }}
+            ></motion.div>
+          );
+        })}
 
         {/* Nebula clouds */}
         <motion.div
