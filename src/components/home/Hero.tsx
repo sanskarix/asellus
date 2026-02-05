@@ -74,11 +74,17 @@ export function Hero() {
     const centerX = 50;
     const centerY = 50;
 
-    // Continuous inward movement toward center with fade
-    const driftSpeed = 0.003; // Very slow drift toward center
+    // Continuous inward movement toward center with fade - 3x faster
+    const driftSpeed = 0.009; // 3x faster drift toward center
     const driftAmount = time * driftSpeed;
-    const driftedX = centerX + (star.baseX - centerX) * (1 - driftAmount);
-    const driftedY = centerY + (star.baseY - centerY) * (1 - driftAmount);
+
+    // Loop the animation - when drift completes, it cycles back
+    const cycleDuration = 1 / driftSpeed; // Time for one complete cycle
+    const cycledTime = time % cycleDuration;
+    const cycledDriftAmount = cycledTime * driftSpeed;
+
+    const driftedX = centerX + (star.baseX - centerX) * (1 - cycledDriftAmount);
+    const driftedY = centerY + (star.baseY - centerY) * (1 - cycledDriftAmount);
 
     // Distance from star to center (for fade calculation)
     const dx = driftedX - centerX;
@@ -94,7 +100,7 @@ export function Hero() {
 
     // Subtle fisheye zoom effect - very gentle push away from cursor
     const hoverRadius = 30;
-    const zoomStrength = Math.max(0, 1 - distFromMouse / hoverRadius) * 3; // Reduced from 15 to 3
+    const zoomStrength = Math.max(0, 1 - distFromMouse / hoverRadius) * 3;
 
     const normalizedDxMouse = dxMouse / (distFromMouse + 0.1);
     const normalizedDyMouse = dyMouse / (distFromMouse + 0.1);
