@@ -9,7 +9,7 @@
 @layer base {
   :root {
     /* Ultra-dark, premium palette */
-    --background: 220 25% 3%; /* Near black with slight blue tint */
+    --background: 220 30% 2%; /* Near black with slight blue tint - matches hero */
     --foreground: 210 20% 98%; /* Near white */
 
     --card: 220 25% 8%;
