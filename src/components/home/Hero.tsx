@@ -19,11 +19,6 @@ export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
   const starOpacity = useTransform(scrollY, [0, 500], [1, 0]);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springMouseX = useSpring(mouseX, { damping: 20, mass: 0.5 });
-  const springMouseY = useSpring(mouseY, { damping: 20, mass: 0.5 });
-  const [loadingPhase, setLoadingPhase] = useState(true);
   const [inwardAnimation, setInwardAnimation] = useState(true);
 
   // Handle cursor movement for interactive effect
