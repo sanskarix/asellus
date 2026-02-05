@@ -105,7 +105,7 @@ export function Services() {
                 style={{ background: `linear-gradient(90deg, transparent, ${service.accent}, transparent)` }}
               ></div>
 
-              <h3 className="text-xl font-serif mb-4 group-hover:text-primary transition-colors duration-300">
+              <h3 className="text-xl font-serif mb-4 transition-colors duration-300">
                 {service.title}
               </h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
