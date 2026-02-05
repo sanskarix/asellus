@@ -26,15 +26,36 @@ export function Hero() {
   const [loadingPhase, setLoadingPhase] = useState(true);
   const [inwardAnimation, setInwardAnimation] = useState(true);
 
-  // Generate star field
+  // Handle cursor movement for interactive effect
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
+  // Generate star field and handle animations
   useEffect(() => {
     const generateStars = () => {
       const newStars: Star[] = [];
+      const centerX = 50;
+      const centerY = 50;
+
       for (let i = 0; i < 200; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.random() * 45 + 5;
+        const x = centerX + Math.cos(angle) * distance;
+        const y = centerY + Math.sin(angle) * distance;
+
         newStars.push({
           id: i,
-          x: Math.random() * 100,
-          y: Math.random() * 100,
+          x,
+          y,
+          baseX: x,
+          baseY: y,
           size: Math.random() * 2.5 + 0.5,
           opacity: Math.random() * 0.7 + 0.3,
           duration: Math.random() * 3 + 2,
@@ -43,6 +64,14 @@ export function Hero() {
       setStars(newStars);
     };
     generateStars();
+
+    // After 5 seconds, slow down the inward movement
+    const timer = setTimeout(() => {
+      setInwardAnimation(false);
+      setLoadingPhase(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const containerVariants = {
