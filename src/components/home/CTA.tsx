@@ -4,46 +4,31 @@ import { ArrowRight } from "lucide-react";
 
 export function CTA() {
   return (
-    <section className="editorial-section relative">
+    <section className="editorial-section relative z-10">
       <div className="editorial-container">
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="glass-panel p-12 md:p-16 lg:p-20 text-center relative overflow-hidden"
+          className="glass-panel p-10 md:p-14 lg:p-20 text-center"
         >
-          {/* Subtle glow behind CTA */}
-          <div className="absolute inset-0 -z-10">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full bg-primary/10 blur-3xl"></div>
-          </div>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-subheadline mb-6"
-          >
-            Ready to grow?
-          </motion.p>
-          
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-display mb-8"
+            transition={{ duration: 0.6 }}
+            className="text-headline mb-4"
           >
-            Let's make it happen.
+            Ready to grow?
           </motion.h2>
           
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-body-large text-muted-foreground max-w-xl mx-auto mb-10"
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-muted-foreground max-w-lg mx-auto mb-8"
           >
             No pitch decks. No lengthy proposals. Just a conversation about what 
             you're building and how we can help you grow.
@@ -53,7 +38,7 @@ export function CTA() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
             <Link 
               to="/contact" 

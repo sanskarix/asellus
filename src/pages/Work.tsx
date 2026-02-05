@@ -41,58 +41,54 @@ const WorkPage = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="max-w-3xl mb-20"
+            className="max-w-3xl mb-16"
           >
-            <p className="text-subheadline mb-4">Our work</p>
-            <h1 className="text-display mb-6">Results, not references.</h1>
-            <p className="text-body-large text-muted-foreground">
+            <h1 className="text-display mb-4">Work</h1>
+            <p className="text-body-large">
               We don't do case studies for the sake of case studies. These are real 
               results from real partnerships with brands that trusted us to deliver.
             </p>
           </motion.div>
 
-          <div className="space-y-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {projects.map((project, index) => (
               <motion.article
                 key={project.client}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
                 className="glass-card-hover overflow-hidden"
               >
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-                  <div className="aspect-[4/3] lg:aspect-auto bg-gradient-to-br from-muted/30 to-primary/10 flex items-center justify-center relative overflow-hidden">
-                    <span className="text-5xl md:text-6xl font-serif text-foreground/20">
-                      {project.client}
+                <div className="aspect-[4/3] bg-gradient-to-br from-muted to-background flex items-center justify-center">
+                  <span className="text-3xl md:text-4xl font-bold text-foreground/10">
+                    {project.client}
+                  </span>
+                </div>
+                
+                <div className="p-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="text-xs font-medium px-2 py-1 rounded-full bg-muted text-muted-foreground">
+                      {project.category}
                     </span>
-                    {/* Shimmer effect */}
-                    <div className="absolute inset-0 shimmer opacity-30"></div>
+                    <span className="text-xs text-muted-foreground">{project.year}</span>
                   </div>
                   
-                  <div className="p-8 lg:p-12">
-                    <div className="flex items-center gap-4 mb-4">
-                      <span className="text-subheadline">{project.category}</span>
-                      <span className="text-muted-foreground text-sm">/ {project.year}</span>
-                    </div>
-                    
-                    <h2 className="text-3xl md:text-4xl font-serif mb-6">{project.client}</h2>
-                    
-                    <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-                      {project.description}
-                    </p>
-                    
-                    <div className="pt-6 border-t border-border/30">
-                      <p className="text-subheadline mb-4">Key results</p>
-                      <ul className="space-y-2">
-                        {project.results.map((result) => (
-                          <li key={result} className="flex items-center gap-3">
-                            <span className="w-1.5 h-1.5 bg-primary rounded-full"></span>
-                            <span className="text-foreground">{result}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                  <h2 className="text-xl font-semibold mb-2">{project.client}</h2>
+                  
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                    {project.description}
+                  </p>
+                  
+                  <div className="flex flex-wrap gap-2">
+                    {project.results.map((result) => (
+                      <span
+                        key={result}
+                        className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full"
+                      >
+                        {result}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </motion.article>
