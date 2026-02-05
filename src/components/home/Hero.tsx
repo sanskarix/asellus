@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
@@ -10,6 +10,8 @@ interface Star {
   size: number;
   opacity: number;
   duration: number;
+  baseX: number;
+  baseY: number;
 }
 
 export function Hero() {
@@ -17,6 +19,12 @@ export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
   const starOpacity = useTransform(scrollY, [0, 500], [1, 0]);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springMouseX = useSpring(mouseX, { damping: 20, mass: 0.5 });
+  const springMouseY = useSpring(mouseY, { damping: 20, mass: 0.5 });
+  const [loadingPhase, setLoadingPhase] = useState(true);
+  const [inwardAnimation, setInwardAnimation] = useState(true);
 
   // Generate star field
   useEffect(() => {
