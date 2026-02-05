@@ -1,210 +1,247 @@
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: [0.34, 1.56, 0.64, 1] },
-  },
-};
+interface Star {
+  id: number;
+  x: number;
+  y: number;
+  size: number;
+  opacity: number;
+  duration: number;
+}
 
 export function Hero() {
-  return (
-    <section className="editorial-section min-h-[100vh] flex items-center justify-center relative overflow-hidden py-20 md:py-0">
-      {/* Premium layered background with animated gradients */}
-      <div className="absolute inset-0 -z-20">
-        {/* Base gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[hsl(220,30%,6%)] via-[hsl(230,25%,10%)] to-[hsl(210,20%,8%)]"></div>
+  const [stars, setStars] = useState<Star[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollY } = useScroll();
+  const starOpacity = useTransform(scrollY, [0, 500], [1, 0]);
 
-        {/* Animated premium glows */}
+  // Generate star field
+  useEffect(() => {
+    const generateStars = () => {
+      const newStars: Star[] = [];
+      for (let i = 0; i < 200; i++) {
+        newStars.push({
+          id: i,
+          x: Math.random() * 100,
+          y: Math.random() * 100,
+          size: Math.random() * 2.5 + 0.5,
+          opacity: Math.random() * 0.7 + 0.3,
+          duration: Math.random() * 3 + 2,
+        });
+      }
+      setStars(newStars);
+    };
+    generateStars();
+  }, []);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1, ease: "easeOut" },
+    },
+  };
+
+  return (
+    <section
+      ref={containerRef}
+      className="editorial-section min-h-[100vh] flex items-center justify-center relative overflow-hidden py-20 md:py-0"
+    >
+      {/* Ultra-dark base background */}
+      <div className="absolute inset-0 -z-20 bg-gradient-to-br from-[hsl(220,35%,2%)] via-[hsl(230,30%,3%)] to-[hsl(210,25%,2.5%)]"></div>
+
+      {/* Galaxy and stars effect - dissolves on scroll */}
+      <motion.div
+        style={{ opacity: starOpacity }}
+        className="absolute inset-0 -z-10 pointer-events-none overflow-hidden"
+      >
+        {/* Animated galaxy core glow */}
         <motion.div
           animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.3, 0.5, 0.3],
+            scale: [0.8, 1.2, 0.8],
+            opacity: [0.1, 0.25, 0.1],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full bg-gradient-to-r from-blue-900/30 via-purple-900/20 to-transparent blur-3xl"
+        ></motion.div>
+
+        {/* Secondary galaxy spiral effect */}
+        <motion.div
+          animate={{
+            rotate: [0, 360],
+            opacity: [0.08, 0.15, 0.08],
+          }}
+          transition={{
+            duration: 30,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] rounded-full bg-gradient-conic from-blue-600/10 via-purple-600/5 to-transparent blur-3xl"
+        ></motion.div>
+
+        {/* Starfield - individual twinkling stars */}
+        {stars.map((star) => (
+          <motion.div
+            key={star.id}
+            className="absolute rounded-full"
+            style={{
+              left: `${star.x}%`,
+              top: `${star.y}%`,
+              width: `${star.size}px`,
+              height: `${star.size}px`,
+              backgroundColor: `hsl(210, 100%, ${70 + Math.random() * 30}%)`,
+            }}
+            animate={{
+              opacity: [star.opacity, star.opacity * 0.3, star.opacity],
+              scale: [1, 1.5, 1],
+            }}
+            transition={{
+              duration: star.duration,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: Math.random() * 5,
+            }}
+          ></motion.div>
+        ))}
+
+        {/* Nebula clouds */}
+        <motion.div
+          animate={{
+            x: [0, 50, 0],
+            y: [0, -30, 0],
+            opacity: [0.05, 0.15, 0.05],
           }}
           transition={{
             duration: 20,
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full bg-blue-900/20 blur-3xl pointer-events-none"
+          className="absolute top-1/4 right-1/4 w-[600px] h-[400px] rounded-full bg-gradient-to-br from-cyan-500/10 via-blue-500/5 to-transparent blur-3xl"
         ></motion.div>
 
         <motion.div
           animate={{
-            scale: [1, 0.9, 1],
-            opacity: [0.25, 0.4, 0.25],
+            x: [0, -40, 0],
+            y: [0, 40, 0],
+            opacity: [0.08, 0.12, 0.08],
           }}
           transition={{
             duration: 25,
             repeat: Infinity,
             ease: "easeInOut",
-            delay: 2,
+            delay: 3,
           }}
-          className="absolute bottom-1/4 right-1/4 w-[700px] h-[700px] rounded-full bg-slate-700/15 blur-3xl pointer-events-none"
+          className="absolute bottom-1/4 left-1/3 w-[700px] h-[500px] rounded-full bg-gradient-to-tl from-purple-600/8 via-blue-600/4 to-transparent blur-3xl"
         ></motion.div>
-      </div>
+      </motion.div>
 
-      {/* Experimental layered glass content */}
+      {/* Content - fades out as stars dissolve */}
       <div className="editorial-container relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Main content with text */}
-          <motion.div
-            className="lg:col-span-7"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
+        <motion.div
+          className="max-w-4xl"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.p
+            variants={itemVariants}
+            className="text-subheadline mb-8 text-primary/80"
           >
-            <motion.p
-              variants={itemVariants}
-              className="text-subheadline mb-6 inline-block px-4 py-2 rounded-lg glass-card"
-            >
-              Marketing that moves
-            </motion.p>
+            Marketing that moves
+          </motion.p>
 
-            <motion.h1
-              variants={itemVariants}
-              className="text-display mb-8 leading-[0.95]"
-            >
-              We don't do hype.
-              <br />
-              <span className="text-muted-foreground">We do growth.</span>
-            </motion.h1>
+          <motion.h1
+            variants={itemVariants}
+            className="text-display mb-10 leading-[0.95] font-serif"
+          >
+            We don't do hype.
+            <br />
+            <span className="text-muted-foreground">We do growth.</span>
+          </motion.h1>
 
-            <motion.p
-              variants={itemVariants}
-              className="text-body-large text-muted-foreground max-w-lg mb-12 leading-relaxed"
-            >
-              A new-age marketing agency for brands that care about ROI. We build systems, test hypotheses, and scale what works.
-            </motion.p>
+          <motion.p
+            variants={itemVariants}
+            className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-14 leading-relaxed"
+          >
+            A new-age marketing agency for brands that care about ROI. We build
+            systems, test hypotheses, and scale what works. Quietly confident.
+            Radically efficient.
+          </motion.p>
 
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col sm:flex-row gap-4"
+          >
             <motion.div
-              variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-4"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.2 }}
             >
-              <Link to="/contact" className="btn-primary">
+              <Link
+                to="/contact"
+                className="btn-primary inline-flex items-center gap-2"
+              >
                 Let's talk growth
-                <ArrowRight size={16} />
+                <ArrowRight size={18} />
               </Link>
-              <Link to="/work" className="btn-secondary">
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Link to="/work" className="btn-secondary inline-flex items-center">
                 See our work
               </Link>
             </motion.div>
           </motion.div>
-
-          {/* Experimental visual motif - System/Grid concept */}
-          <motion.div
-            className="lg:col-span-5 relative h-[400px] lg:h-[500px]"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
-          >
-            {/* Glass panel system visualization */}
-            <div className="absolute inset-0 flex flex-col gap-4 perspective">
-              {/* Top glass strip */}
-              <motion.div
-                className="glass-card p-4 flex items-center justify-between h-20"
-                whileHover={{ y: -4, boxShadow: "0 20px 60px hsl(220 40% 5% / 0.5)" }}
-                transition={{ duration: 0.5 }}
-              >
-                <div className="flex gap-3 items-center">
-                  <div className="w-3 h-3 rounded-full bg-primary/60"></div>
-                  <span className="text-xs font-medium text-primary">System</span>
-                </div>
-                <div className="flex gap-1">
-                  <div className="w-2 h-2 rounded-full bg-primary/40"></div>
-                  <div className="w-2 h-2 rounded-full bg-primary/30"></div>
-                  <div className="w-2 h-2 rounded-full bg-primary/20"></div>
-                </div>
-              </motion.div>
-
-              {/* Middle glass panels - staggered */}
-              <div className="flex gap-4 flex-1">
-                <motion.div
-                  className="glass-card flex-1 p-5 flex flex-col justify-between"
-                  whileHover={{ y: -4 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <div className="space-y-2">
-                    <div className="w-8 h-8 rounded-lg bg-primary/30"></div>
-                    <div className="h-1 w-12 bg-primary/20 rounded-full"></div>
-                    <div className="h-1 w-16 bg-primary/10 rounded-full"></div>
-                  </div>
-                  <span className="text-xs text-primary/60 font-mono">experiments</span>
-                </motion.div>
-
-                <motion.div
-                  className="glass-card flex-1 p-5 flex flex-col justify-between"
-                  whileHover={{ y: -4 }}
-                  transition={{ duration: 0.5, delay: 0.05 }}
-                >
-                  <div className="space-y-2">
-                    <div className="w-8 h-8 rounded-lg bg-primary/25"></div>
-                    <div className="h-1 w-12 bg-primary/20 rounded-full"></div>
-                    <div className="h-1 w-14 bg-primary/10 rounded-full"></div>
-                  </div>
-                  <span className="text-xs text-primary/60 font-mono">channels</span>
-                </motion.div>
-              </div>
-
-              {/* Bottom glass element */}
-              <motion.div
-                className="glass-card p-4 h-16 flex items-center justify-between"
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.5 }}
-              >
-                <div className="flex gap-2 items-center">
-                  <span className="text-xs text-primary font-mono">growth.loop</span>
-                </div>
-                <div className="w-12 h-1 bg-gradient-to-r from-primary/60 to-primary/20 rounded-full"></div>
-              </motion.div>
-            </div>
-
-            {/* Subtle glow effect behind visualization */}
-            <div className="absolute -inset-20 bg-gradient-to-br from-primary/10 via-transparent to-primary/5 blur-3xl -z-10 animate-glow-pulse"></div>
-          </motion.div>
-        </div>
+        </motion.div>
       </div>
 
-      {/* Decorative elements for premium feel */}
+      {/* Scroll indicator */}
       <motion.div
-        className="absolute top-20 right-10 w-32 h-32 rounded-full bg-primary/5 blur-2xl pointer-events-none"
-        animate={{
-          y: [0, 20, 0],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      ></motion.div>
-
-      <motion.div
-        className="absolute bottom-40 left-20 w-40 h-40 rounded-full bg-blue-900/5 blur-3xl pointer-events-none"
-        animate={{
-          y: [0, -30, 0],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1,
-        }}
-      ></motion.div>
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+        animate={{ y: [0, 8, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+      >
+        <div className="flex flex-col items-center gap-2">
+          <span className="text-xs text-muted-foreground/60 uppercase tracking-widest">
+            Scroll
+          </span>
+          <svg
+            className="w-5 h-5 text-muted-foreground/40"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 14l-7 7m0 0l-7-7m7 7V3"
+            />
+          </svg>
+        </div>
+      </motion.div>
     </section>
   );
 }
