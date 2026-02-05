@@ -8,25 +8,25 @@
 
 @layer base {
   :root {
-    /* Deep, rich dark palette */
-    --background: 220 20% 8%; /* Deep navy-charcoal */
+    /* Ultra-dark, premium palette */
+    --background: 220 25% 3%; /* Near black with slight blue tint */
     --foreground: 210 20% 98%; /* Near white */
 
-    --card: 220 20% 12%;
+    --card: 220 25% 8%;
     --card-foreground: 210 20% 98%;
 
-    --popover: 220 20% 10%;
+    --popover: 220 25% 5%;
     --popover-foreground: 210 20% 98%;
 
     /* Slate blue accent */
     --primary: 210 40% 50%; /* Slate blue */
     --primary-foreground: 210 20% 98%;
 
-    --secondary: 220 15% 18%;
+    --secondary: 220 15% 10%;
     --secondary-foreground: 210 20% 98%;
 
-    --muted: 220 15% 20%;
-    --muted-foreground: 210 15% 60%;
+    --muted: 220 15% 14%;
+    --muted-foreground: 210 15% 55%;
 
     --accent: 210 40% 50%;
     --accent-foreground: 210 20% 98%;
@@ -34,26 +34,26 @@
     --destructive: 0 72% 51%;
     --destructive-foreground: 210 20% 98%;
 
-    --border: 210 20% 20%;
-    --input: 210 20% 20%;
+    --border: 210 20% 15%;
+    --input: 210 20% 12%;
     --ring: 210 40% 50%;
 
     --radius: 0.75rem;
 
     /* Custom tokens */
-    --cream: 220 15% 14%;
-    --charcoal: 220 20% 8%;
+    --cream: 220 15% 8%;
+    --charcoal: 220 25% 3%;
     --olive: 210 40% 50%;
     --olive-light: 210 35% 65%;
-    --warm-gray: 210 10% 50%;
+    --warm-gray: 210 10% 40%;
 
-    /* Glassmorphism tokens */
-    --glass-bg: 220 20% 15% / 0.6;
-    --glass-border: 210 30% 40% / 0.2;
+    /* Glassmorphism tokens - darker */
+    --glass-bg: 220 25% 10% / 0.5;
+    --glass-border: 210 30% 35% / 0.15;
     --glass-glow: 210 60% 60%;
-    --gradient-start: 220 30% 6%;
-    --gradient-mid: 230 25% 10%;
-    --gradient-end: 210 20% 8%;
+    --gradient-start: 220 35% 2%;
+    --gradient-mid: 230 30% 4%;
+    --gradient-end: 210 25% 3%;
   }
 
   .dark {
