@@ -67,7 +67,7 @@ export function Header() {
 
           {/* Mobile Menu Button */}
           <motion.button
-            className="md:hidden p-2 -mr-2 text-foreground hover:text-primary transition-colors duration-300"
+            className="md:hidden p-1.5 text-foreground/70 hover:text-foreground transition-colors duration-300"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
