@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
-import { Mail, MapPin, ArrowRight } from "lucide-react";
+import { Mail, MapPin, ArrowUpRight } from "lucide-react";
 
 const ContactPage = () => {
   return (
@@ -13,23 +13,24 @@ const ContactPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h1 className="text-display mb-4">Contact</h1>
-              <p className="text-body-large mb-10">
+              <p className="text-subheadline mb-4">Let's talk</p>
+              <h1 className="text-display mb-6">Start a conversation.</h1>
+              <p className="text-body-large text-muted-foreground mb-12">
                 No pitch decks. No lengthy proposals. Just a conversation about what 
                 you're building and whether we're the right fit to help you grow.
               </p>
 
-              <div className="space-y-6">
+              <div className="space-y-8">
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2, duration: 0.5 }}
                   className="glass-card p-6"
                 >
-                  <h3 className="text-sm font-medium text-muted-foreground mb-2">Email</h3>
+                  <h3 className="text-subheadline mb-2">Email</h3>
                   <a 
                     href="mailto:hello@asellus.agency" 
-                    className="text-lg font-semibold hover:text-muted-foreground transition-colors inline-flex items-center gap-2"
+                    className="text-xl font-serif hover:text-primary transition-colors inline-flex items-center gap-2"
                   >
                     hello@asellus.agency
                     <Mail size={18} />
@@ -42,8 +43,8 @@ const ContactPage = () => {
                   transition={{ delay: 0.3, duration: 0.5 }}
                   className="glass-card p-6"
                 >
-                  <h3 className="text-sm font-medium text-muted-foreground mb-2">Location</h3>
-                  <p className="text-lg font-semibold flex items-center gap-2">
+                  <h3 className="text-subheadline mb-2">Location</h3>
+                  <p className="text-xl font-serif flex items-center gap-2">
                     Remote-first, globally distributed
                     <MapPin size={18} className="text-muted-foreground" />
                   </p>
@@ -55,16 +56,16 @@ const ContactPage = () => {
                   transition={{ delay: 0.4, duration: 0.5 }}
                   className="glass-card p-6"
                 >
-                  <h3 className="text-sm font-medium text-muted-foreground mb-2">Social</h3>
+                  <h3 className="text-subheadline mb-2">Social</h3>
                   <div className="flex gap-6">
-                    <a href="#" className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
-                      LinkedIn
+                    <a href="#" className="text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1">
+                      LinkedIn <ArrowUpRight size={14} />
                     </a>
-                    <a href="#" className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
-                      Twitter
+                    <a href="#" className="text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1">
+                      Instagram <ArrowUpRight size={14} />
                     </a>
-                    <a href="#" className="text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
-                      Instagram
+                    <a href="#" className="text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1">
+                      Twitter <ArrowUpRight size={14} />
                     </a>
                   </div>
                 </motion.div>

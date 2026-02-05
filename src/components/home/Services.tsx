@@ -1,35 +1,29 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Megaphone, FileText, GitBranch, Rocket, FlaskConical, Sparkles } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 const services = [
   {
-    icon: Megaphone,
     title: "Performance Marketing",
     description: "Paid media that actually pays back. Meta, Google, TikTok—optimized for ROAS, not reach.",
   },
   {
-    icon: FileText,
     title: "Content Systems",
     description: "Scalable content engines that keep your brand visible and relevant across every platform.",
   },
   {
-    icon: GitBranch,
     title: "Funnel Architecture",
     description: "From awareness to conversion. We build journeys that guide, not push.",
   },
   {
-    icon: Rocket,
     title: "Launch Strategy",
     description: "Product launches, brand launches, campaign launches—executed with precision.",
   },
   {
-    icon: FlaskConical,
     title: "Growth Experiments",
     description: "Rapid testing frameworks that find what works before budgets run dry.",
   },
   {
-    icon: Sparkles,
     title: "Brand Strategy",
     description: "Positioning that cuts through. Messaging that sticks. Identity that lasts.",
   },
@@ -37,28 +31,31 @@ const services = [
 
 export function Services() {
   return (
-    <section className="editorial-section relative z-10">
+    <section className="editorial-section">
       <div className="editorial-container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16"
         >
-          <h2 className="text-headline mb-4">The full growth stack</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-            Everything you need to scale, nothing you don't.
-          </p>
+          <div className="max-w-xl">
+            <p className="text-subheadline mb-4">What we do</p>
+            <h2 className="text-headline">
+              The full growth stack
+            </h2>
+          </div>
           <Link
             to="/services"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:gap-3 transition-all"
+            className="inline-flex items-center gap-2 text-sm font-medium link-underline text-muted-foreground hover:text-foreground transition-colors"
           >
-            View all solutions <ArrowRight size={14} />
+            See all services
+            <ArrowUpRight size={16} />
           </Link>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
@@ -66,18 +63,14 @@ export function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.08, duration: 0.5 }}
+              className="glass-card-hover p-8"
             >
-              <Link to="/services" className="glass-card-hover p-6 flex gap-4 group block h-full">
-                <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center shrink-0 group-hover:bg-foreground/10 transition-colors">
-                  <service.icon className="text-foreground" size={20} />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-base font-semibold mb-1">{service.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {service.description}
-                  </p>
-                </div>
-              </Link>
+              <h3 className="text-xl font-serif mb-4 group-hover:text-primary transition-colors">
+                {service.title}
+              </h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                {service.description}
+              </p>
             </motion.div>
           ))}
         </div>

@@ -1,79 +1,46 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 const footerLinks = {
-  product: [
-    { name: "Solutions", href: "/services" },
-    { name: "Process", href: "/process" },
+  navigation: [
+    { name: "What We Do", href: "/services" },
     { name: "Work", href: "/work" },
-  ],
-  company: [
+    { name: "Process", href: "/process" },
     { name: "About", href: "/about" },
-    { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/contact" },
   ],
   social: [
     { name: "LinkedIn", href: "#" },
-    { name: "Twitter", href: "#" },
     { name: "Instagram", href: "#" },
+    { name: "Twitter", href: "#" },
   ],
 };
 
 export function Footer() {
   return (
     <footer className="relative z-10 mt-auto">
-      <div className="mx-4 md:mx-6 mb-4 md:mb-6">
+      <div className="mx-4 mb-4">
         <div className="glass-panel">
-          <div className="editorial-container py-12 md:py-16">
-            {/* CTA Section */}
-            <div className="text-center mb-12 pb-12 border-b border-border">
-              <h2 className="text-headline text-foreground mb-4">Ready to grow?</h2>
-              <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-                Start your journey with a team that gets things done.
-              </p>
-              <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
-                Start a conversation
-                <ArrowRight size={16} />
-              </Link>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {/* Brand */}
-              <div className="col-span-2 md:col-span-1">
-                <Link to="/" className="text-xl font-bold text-foreground">
-                  Asellus
+          <div className="editorial-container py-16 md:py-20">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
+              {/* Brand & CTA */}
+              <div className="md:col-span-5">
+                <h2 className="text-headline text-foreground mb-6">Let's build something real.</h2>
+                <Link to="/contact" className="btn-secondary inline-flex items-center gap-2">
+                  Start a conversation
+                  <ArrowUpRight size={16} />
                 </Link>
-                <p className="text-sm text-muted-foreground mt-3">
-                  Marketing that moves.
-                </p>
               </div>
 
-              {/* Product */}
-              <div>
-                <p className="font-semibold text-foreground mb-4">Product</p>
+              {/* Navigation */}
+              <div className="md:col-span-3 md:col-start-8">
+                <p className="text-subheadline mb-4">Navigation</p>
                 <ul className="space-y-3">
-                  {footerLinks.product.map((link) => (
+                  {footerLinks.navigation.map((link) => (
                     <li key={link.name}>
                       <Link
                         to={link.href}
-                        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                      >
-                        {link.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Company */}
-              <div>
-                <p className="font-semibold text-foreground mb-4">Company</p>
-                <ul className="space-y-3">
-                  {footerLinks.company.map((link) => (
-                    <li key={link.name}>
-                      <Link
-                        to={link.href}
-                        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                        className="text-muted-foreground hover:text-foreground transition-colors"
                       >
                         {link.name}
                       </Link>
@@ -83,8 +50,8 @@ export function Footer() {
               </div>
 
               {/* Social */}
-              <div>
-                <p className="font-semibold text-foreground mb-4">Connect</p>
+              <div className="md:col-span-2">
+                <p className="text-subheadline mb-4">Connect</p>
                 <ul className="space-y-3">
                   {footerLinks.social.map((link) => (
                     <li key={link.name}>
@@ -92,9 +59,10 @@ export function Footer() {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                        className="text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
                       >
                         {link.name}
+                        <ArrowUpRight size={12} />
                       </a>
                     </li>
                   ))}
@@ -103,18 +71,13 @@ export function Footer() {
             </div>
 
             {/* Bottom */}
-            <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between gap-4">
+            <div className="mt-16 pt-8 border-t border-border/30 flex flex-col md:flex-row justify-between gap-4">
               <p className="text-sm text-muted-foreground">
                 © {new Date().getFullYear()} Asellus. All rights reserved.
               </p>
-              <div className="flex gap-6">
-                <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Privacy Policy
-                </a>
-                <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Terms of Service
-                </a>
-              </div>
+              <p className="text-sm text-muted-foreground">
+                No vanity metrics. No decks. Just growth.
+              </p>
             </div>
           </div>
         </div>

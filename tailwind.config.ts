@@ -85,9 +85,9 @@ export default {
         },
         "float": {
           "0%, 100%": { transform: "translate(0, 0) scale(1)" },
-          "25%": { transform: "translate(20px, -20px) scale(1.02)" },
-          "50%": { transform: "translate(-15px, 15px) scale(0.98)" },
-          "75%": { transform: "translate(10px, 5px) scale(1.01)" },
+          "25%": { transform: "translate(30px, -30px) scale(1.05)" },
+          "50%": { transform: "translate(-20px, 20px) scale(0.95)" },
+          "75%": { transform: "translate(15px, 10px) scale(1.02)" },
         },
       },
       animation: {
@@ -96,7 +96,7 @@ export default {
         "fade-up": "fade-up 0.8s ease-out forwards",
         "fade-in": "fade-in 0.6s ease-out forwards",
         "slide-in-left": "slide-in-left 0.5s ease-out forwards",
-        "float": "float 25s ease-in-out infinite",
+        "float": "float 20s ease-in-out infinite",
       },
       backdropBlur: {
         xs: "2px",

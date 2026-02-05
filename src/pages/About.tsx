@@ -37,10 +37,11 @@ const AboutPage = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="max-w-3xl mb-16"
+            className="max-w-3xl mb-20"
           >
-            <h1 className="text-display mb-4">About</h1>
-            <p className="text-body-large">
+            <p className="text-subheadline mb-4">About us</p>
+            <h1 className="text-display mb-6">Built for the new reality.</h1>
+            <p className="text-body-large text-muted-foreground">
               We started Asellus because we were tired of agency bullshit. Slow processes. 
               Bloated teams. Vanity metrics presented as wins. There had to be a better way.
             </p>
@@ -51,27 +52,28 @@ const AboutPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-16"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-24"
           >
-            <div className="glass-card p-8">
-              <h2 className="text-xl font-semibold mb-4">The short version</h2>
-              <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+            <div className="glass-card p-8 md:p-10">
+              <h2 className="text-headline mb-6">The short version</h2>
+              <p className="text-muted-foreground leading-relaxed mb-4">
                 Asellus is a new-age marketing agency for brands that care about real growth. 
                 We focus on what actually moves the needle: clear strategies, fast experiments, 
                 and relentless optimization.
               </p>
-              <p className="text-muted-foreground text-sm leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed">
                 We're not a 200-person agency with layers of account managers between you and 
                 the work. We're a lean team of senior practitioners who've been in the trenches—founders, 
                 growth leaders, creative directors who've built brands you know.
               </p>
             </div>
-            <div className="glass-panel p-8 flex items-center justify-center">
-              <blockquote className="text-xl font-semibold text-center leading-relaxed">
+            <div className="glass-panel p-10 md:p-12 flex items-center justify-center relative overflow-hidden">
+              <blockquote className="text-2xl font-serif text-center leading-relaxed relative z-10">
                 "Great marketing doesn't feel like marketing. It feels like the brand finally 
-                speaking its truth."{" "}
-                <span className="text-muted-foreground font-normal text-sm block mt-2">— The Asellus Way</span>
+                speaking its truth."
               </blockquote>
+              {/* Subtle glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 pointer-events-none"></div>
             </div>
           </motion.div>
 
@@ -80,9 +82,9 @@ const AboutPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mb-16"
+            className="mb-24"
           >
-            <h2 className="text-headline mb-8">What we believe</h2>
+            <h2 className="text-headline mb-12">What we believe</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {values.map((value, index) => (
                 <motion.div
@@ -93,8 +95,8 @@ const AboutPage = () => {
                   transition={{ delay: index * 0.1, duration: 0.5 }}
                   className="glass-card-hover p-8"
                 >
-                  <h3 className="text-lg font-semibold mb-2">{value.title}</h3>
-                  <p className="text-muted-foreground text-sm">{value.description}</p>
+                  <h3 className="text-xl font-serif mb-3">{value.title}</h3>
+                  <p className="text-muted-foreground">{value.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -105,9 +107,9 @@ const AboutPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mb-16"
+            className="mb-24"
           >
-            <h2 className="text-headline mb-8">The team</h2>
+            <h2 className="text-headline mb-12">The team</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {team.map((group, index) => (
                 <motion.div
@@ -118,7 +120,7 @@ const AboutPage = () => {
                   transition={{ delay: index * 0.1, duration: 0.5 }}
                   className="glass-card-hover p-8"
                 >
-                  <h3 className="text-lg font-semibold mb-2">{group.name}</h3>
+                  <h3 className="text-xl font-serif mb-3">{group.name}</h3>
                   <p className="text-muted-foreground text-sm">{group.description}</p>
                 </motion.div>
               ))}
@@ -131,9 +133,10 @@ const AboutPage = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="glass-panel p-10 text-center">
-              <h3 className="text-headline mb-3">Want to know more?</h3>
-              <p className="text-muted-foreground mb-6">Let's have a real conversation.</p>
+            <div className="glass-panel p-12 text-center">
+              <p className="text-body-large text-muted-foreground mb-6">
+                Want to know more? Let's have a real conversation.
+              </p>
               <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
                 Get in touch
                 <ArrowRight size={16} />

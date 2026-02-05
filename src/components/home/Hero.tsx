@@ -1,37 +1,58 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-
 export function Hero() {
-  return (
-    <section className="editorial-section min-h-[85vh] flex items-center relative pt-24">
+  return <section className="editorial-section min-h-[90vh] flex items-center relative">
       <div className="editorial-container">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-display mb-6"
-          >
-            Real Growth. Every Day.
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="text-body-large max-w-2xl mx-auto mb-10"
-          >
-            A new-age marketing agency for brands that care about ROI. 
-            No vanity metrics. No decks. Just growth.
+        <div className="max-w-5xl">
+          <motion.p initial={{
+          opacity: 0,
+          y: 20
+        }} animate={{
+          opacity: 1,
+          y: 0
+        }} transition={{
+          duration: 0.6
+        }} className="text-subheadline mb-6">
+            Marketing that moves
           </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
-          >
+          
+          <motion.h1 initial={{
+          opacity: 0,
+          y: 30
+        }} animate={{
+          opacity: 1,
+          y: 0
+        }} transition={{
+          duration: 0.8,
+          delay: 0.1
+        }} className="text-display mb-8">
+            We don't do hype.
+            <br />
+            <span className="text-muted-foreground">We do growth.</span>
+          </motion.h1>
+          
+          <motion.p initial={{
+          opacity: 0,
+          y: 20
+        }} animate={{
+          opacity: 1,
+          y: 0
+        }} transition={{
+          duration: 0.6,
+          delay: 0.3
+        }} className="text-body-large text-muted-foreground max-w-xl mb-10">A new-age marketing agency for brands that care about ROI.</motion.p>
+          
+          <motion.div initial={{
+          opacity: 0,
+          y: 20
+        }} animate={{
+          opacity: 1,
+          y: 0
+        }} transition={{
+          duration: 0.6,
+          delay: 0.4
+        }} className="flex flex-col sm:flex-row gap-4">
             <Link to="/contact" className="btn-primary">
               Let's talk growth
               <ArrowRight size={16} />
@@ -40,29 +61,12 @@ export function Hero() {
               See our work
             </Link>
           </motion.div>
-
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.45 }}
-            className="flex flex-wrap justify-center gap-4 md:gap-6"
-          >
-            <div className="stat-badge">
-              <span className="font-bold text-foreground">50+</span>
-              <span className="text-muted-foreground">Brands scaled</span>
-            </div>
-            <div className="stat-badge">
-              <span className="font-bold text-foreground">₹100Cr+</span>
-              <span className="text-muted-foreground">Revenue generated</span>
-            </div>
-            <div className="stat-badge">
-              <span className="font-bold text-foreground">4.2x</span>
-              <span className="text-muted-foreground">Average ROAS</span>
-            </div>
-          </motion.div>
         </div>
       </div>
-    </section>
-  );
+      
+      {/* Subtle gradient glow behind hero */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] -z-10 pointer-events-none">
+        <div className="absolute inset-0 rounded-full bg-primary/5 blur-3xl"></div>
+      </div>
+    </section>;
 }

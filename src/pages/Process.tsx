@@ -50,16 +50,17 @@ const ProcessPage = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="max-w-3xl mb-16"
+            className="max-w-3xl mb-20"
           >
-            <h1 className="text-display mb-4">Process</h1>
-            <p className="text-body-large">
+            <p className="text-subheadline mb-4">How we work</p>
+            <h1 className="text-display mb-6">Clear process. Fast execution.</h1>
+            <p className="text-body-large text-muted-foreground">
               We've refined our process over years of working with growth-stage brands. 
               It's designed to move fast without cutting corners.
             </p>
           </motion.div>
 
-          <div className="space-y-6">
+          <div className="space-y-4">
             {steps.map((step, index) => (
               <motion.div
                 key={step.number}
@@ -67,25 +68,23 @@ const ProcessPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
-                className="glass-card-hover p-6 md:p-8"
+                className="glass-card-hover p-8"
               >
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                   <div className="lg:col-span-1">
-                    <span className="text-2xl font-bold text-foreground/20">{step.number}</span>
+                    <span className="text-subheadline text-primary">{step.number}</span>
                   </div>
                   <div className="lg:col-span-3">
-                    <h2 className="text-xl font-semibold mb-1">{step.title}</h2>
-                    <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
-                      {step.duration}
-                    </span>
+                    <h2 className="text-2xl md:text-3xl font-serif mb-2">{step.title}</h2>
+                    <span className="text-sm text-primary/80">{step.duration}</span>
                   </div>
                   <div className="lg:col-span-4">
-                    <p className="text-muted-foreground text-sm leading-relaxed">
+                    <p className="text-muted-foreground leading-relaxed">
                       {step.description}
                     </p>
                   </div>
                   <div className="lg:col-span-4">
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-sm text-muted-foreground/80 italic">
                       {step.details}
                     </p>
                   </div>
@@ -99,11 +98,11 @@ const ProcessPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mt-16"
+            className="mt-20"
           >
-            <div className="glass-panel p-10">
-              <div className="max-w-2xl mx-auto text-center">
-                <h3 className="text-headline mb-3">No long-term contracts</h3>
+            <div className="glass-panel p-12">
+              <div className="max-w-2xl">
+                <h3 className="text-2xl font-serif mb-4">No long-term contracts</h3>
                 <p className="text-muted-foreground mb-6">
                   We believe results should speak louder than contracts. We work on monthly 
                   retainers with a 30-day notice period. You stay because we deliver, not 
