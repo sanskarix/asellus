@@ -158,9 +158,15 @@ const ContactPage = () => {
                     />
                   </div>
 
-                  <button type="submit" className="btn-primary w-full justify-center">
+                  <motion.button
+                    type="submit"
+                    className="btn-primary w-full justify-center mt-auto"
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.99 }}
+                    transition={{ duration: 0.2 }}
+                  >
                     Send message
-                  </button>
+                  </motion.button>
 
                   <p className="text-sm text-muted-foreground text-center">
                     We typically respond within 24 hours.
