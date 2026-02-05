@@ -81,13 +81,13 @@ export function Header() {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20, scale: 0.95 }}
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
-            className="md:hidden mx-4 mt-2"
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            transition={{ duration: 0.25, ease: [0.34, 1.56, 0.64, 1] }}
+            className="md:hidden border-t border-white/5 backdrop-blur-sm"
           >
-            <div className="glass-panel py-6 px-6">
+            <div className="py-4 px-6">
               <div className="flex flex-col gap-2">
                 {navigation.map((item, index) => (
                   <motion.div
