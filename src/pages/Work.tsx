@@ -58,41 +58,81 @@ const WorkPage = () => {
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                className="glass-card-hover overflow-hidden"
+                transition={{ delay: index * 0.12, duration: 0.7 }}
+                className="glass-card-hover overflow-hidden group"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-                  <div className="aspect-[4/3] lg:aspect-auto bg-gradient-to-br from-muted/30 to-primary/10 flex items-center justify-center relative overflow-hidden">
-                    <span className="text-5xl md:text-6xl font-serif text-foreground/20">
+                  <motion.div
+                    className="aspect-[4/3] lg:aspect-auto bg-gradient-to-br from-muted/40 to-primary/8 flex items-center justify-center relative overflow-hidden"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <span className="text-5xl md:text-6xl font-serif text-muted-foreground/25 group-hover:text-muted-foreground/35 transition-colors duration-500">
                       {project.client}
                     </span>
                     {/* Shimmer effect */}
-                    <div className="absolute inset-0 shimmer opacity-30"></div>
-                  </div>
-                  
-                  <div className="p-8 lg:p-12">
-                    <div className="flex items-center gap-4 mb-4">
-                      <span className="text-subheadline">{project.category}</span>
-                      <span className="text-muted-foreground text-sm">/ {project.year}</span>
-                    </div>
-                    
-                    <h2 className="text-3xl md:text-4xl font-serif mb-6">{project.client}</h2>
-                    
-                    <p className="text-muted-foreground text-lg leading-relaxed mb-8">
+                    <div className="absolute inset-0 shimmer opacity-25"></div>
+                  </motion.div>
+
+                  <div className="p-8 lg:p-12 flex flex-col justify-center">
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.12 + 0.1, duration: 0.5 }}
+                      className="flex items-center gap-4 mb-4"
+                    >
+                      <span className="text-subheadline text-primary">{project.category}</span>
+                      <span className="text-muted-foreground text-sm font-medium">/ {project.year}</span>
+                    </motion.div>
+
+                    <motion.h2
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.12 + 0.15, duration: 0.5 }}
+                      className="text-3xl md:text-4xl font-serif mb-6 group-hover:text-primary transition-colors duration-300"
+                    >
+                      {project.client}
+                    </motion.h2>
+
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.12 + 0.2, duration: 0.5 }}
+                      className="text-muted-foreground text-lg leading-relaxed mb-8"
+                    >
                       {project.description}
-                    </p>
-                    
-                    <div className="pt-6 border-t border-border/30">
+                    </motion.p>
+
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.12 + 0.25, duration: 0.5 }}
+                      className="pt-6 border-t border-primary/10"
+                    >
                       <p className="text-subheadline mb-4">Key results</p>
-                      <ul className="space-y-2">
-                        {project.results.map((result) => (
-                          <li key={result} className="flex items-center gap-3">
-                            <span className="w-1.5 h-1.5 bg-primary rounded-full"></span>
+                      <ul className="space-y-3">
+                        {project.results.map((result, resultIndex) => (
+                          <motion.li
+                            key={result}
+                            initial={{ opacity: 0, x: -10 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: index * 0.12 + resultIndex * 0.05 + 0.3, duration: 0.4 }}
+                            className="flex items-center gap-3 group/result"
+                          >
+                            <motion.span
+                              className="w-1.5 h-1.5 bg-primary/70 rounded-full group-hover/result:bg-primary transition-all duration-300"
+                              whileHover={{ scale: 1.3 }}
+                            ></motion.span>
                             <span className="text-foreground">{result}</span>
-                          </li>
+                          </motion.li>
                         ))}
                       </ul>
-                    </div>
+                    </motion.div>
                   </div>
                 </div>
               </motion.article>
