@@ -112,17 +112,27 @@ const ServicesPage = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mt-20"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-24"
           >
-            <div className="glass-panel p-12 text-center">
-              <p className="text-body-large text-muted-foreground mb-6">
-                Not sure what you need? Let's figure it out together.
-              </p>
-              <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
-                Start a conversation
-                <ArrowRight size={16} />
-              </Link>
+            <div className="glass-panel p-12 md:p-16 text-center group relative overflow-hidden">
+              {/* Subtle glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+              <div className="relative z-10">
+                <p className="text-body-large text-muted-foreground mb-8">
+                  Not sure what you need? Let's figure it out together.
+                </p>
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
+                    Start a conversation
+                    <ArrowRight size={16} />
+                  </Link>
+                </motion.div>
+              </div>
             </div>
           </motion.div>
         </div>
