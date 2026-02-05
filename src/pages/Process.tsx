@@ -2,42 +2,53 @@ import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import { Target, Zap, Wrench, TrendingUp, Rocket } from "lucide-react";
 
 const steps = [
   {
     number: "01",
+    icon: Target,
     title: "Discovery",
     duration: "Week 1",
-    description: "We start by understanding your business—not just your marketing. Goals, constraints, competitive landscape, customer psychology. No assumptions.",
-    details: "Stakeholder interviews, data audit, competitive analysis, customer research synthesis.",
+    description: "We start by understanding your business—not just your marketing. Goals, constraints, landscape, psychology.",
+    color: "from-blue-500/20 via-blue-600/10 to-transparent",
+    iconColor: "text-blue-400",
   },
   {
     number: "02",
+    icon: Zap,
     title: "Strategy",
     duration: "Week 2",
-    description: "We define the path from here to there. Clear priorities, realistic timelines, measurable milestones. Strategy should fit on one page.",
-    details: "Channel strategy, messaging framework, content pillars, growth model, success metrics.",
+    description: "We define the path. Clear priorities, realistic timelines, measurable milestones that fit on one page.",
+    color: "from-cyan-500/20 via-cyan-600/10 to-transparent",
+    iconColor: "text-cyan-400",
   },
   {
     number: "03",
-    title: "Foundation",
+    icon: Wrench,
+    title: "Build",
     duration: "Weeks 3-4",
-    description: "We build the infrastructure for growth. Tracking, attribution, creative systems, team alignment. The boring stuff that makes everything else work.",
-    details: "Analytics setup, campaign structure, creative production, team onboarding, process documentation.",
+    description: "Infrastructure for growth. Tracking, attribution, systems, alignment. The foundation that enables everything.",
+    color: "from-purple-500/20 via-purple-600/10 to-transparent",
+    iconColor: "text-purple-400",
   },
   {
     number: "04",
+    icon: TrendingUp,
     title: "Launch & Learn",
     duration: "Weeks 5-8",
-    description: "We execute fast and learn faster. Every campaign is a test. Every test teaches us something. We optimize in real-time.",
-    details: "Campaign launch, A/B testing, performance monitoring, weekly optimization, learning documentation.",
+    description: "Execute fast, learn faster. Every campaign is a test. Every test teaches us. Optimize in real-time.",
+    color: "from-green-500/20 via-green-600/10 to-transparent",
+    iconColor: "text-green-400",
   },
   {
     number: "05",
+    icon: Rocket,
     title: "Scale",
     duration: "Ongoing",
-    description: "Once we find what works, we pour fuel on the fire. Methodically. Sustainably. We grow what's working and kill what isn't.",
-    details: "Budget scaling, channel expansion, team growth support, strategic pivots, quarterly reviews.",
+    description: "Pour fuel on fire. Find what works, grow it. Kill what doesn't. Methodical, sustainable scaling.",
+    color: "from-orange-500/20 via-orange-600/10 to-transparent",
+    iconColor: "text-orange-400",
   },
 ];
 
