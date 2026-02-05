@@ -21,16 +21,6 @@ export function Hero() {
   const starOpacity = useTransform(scrollY, [0, 500], [1, 0]);
   const [inwardAnimation, setInwardAnimation] = useState(true);
 
-  // Handle cursor movement for interactive effect
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY]);
 
   // Create scroll transform for fade effect
   const starFadeOpacity = useTransform(scrollY, [0, 500], [1, 0]);
