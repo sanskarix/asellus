@@ -20,7 +20,7 @@ export function Hero() {
   const { scrollY } = useScroll();
   const starOpacity = useTransform(scrollY, [0, 600], [1, 0]);
 
-  // Generate minimal star field
+  // Generate minimal star field and animation loop
   useEffect(() => {
     const newStars: Star[] = [];
     const centerX = 50;
@@ -41,6 +41,16 @@ export function Hero() {
       });
     }
     setStars(newStars);
+
+    // Animation loop for star drift
+    let animationId: number;
+    const animate = () => {
+      timeRef.current += 0.016; // ~60fps
+      forceUpdate((prev) => prev + 1);
+      animationId = requestAnimationFrame(animate);
+    };
+    animationId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationId);
   }, []);
 
   // Track mouse position for fisheye effect
