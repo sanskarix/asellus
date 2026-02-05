@@ -267,10 +267,29 @@
     animation: fadeIn 0.6s ease-out forwards;
   }
 
+  .animate-slide-up {
+    animation: slideUp 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  .animate-glow-pulse {
+    animation: glowPulse 3s ease-in-out infinite;
+  }
+
   @keyframes fadeUp {
     from {
       opacity: 0;
       transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
     }
     to {
       opacity: 1;
@@ -302,6 +321,18 @@
     }
   }
 
+  /* Ambient glow pulse for premium feel */
+  @keyframes glowPulse {
+    0%, 100% {
+      opacity: 0.3;
+      filter: blur(40px);
+    }
+    50% {
+      opacity: 0.5;
+      filter: blur(60px);
+    }
+  }
+
   /* Subtle shimmer effect */
   @keyframes shimmer {
     0% {
@@ -309,6 +340,16 @@
     }
     100% {
       background-position: 200% 0;
+    }
+  }
+
+  /* Hover lift effect */
+  @keyframes hoverLift {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-4px);
     }
   }
 
@@ -321,5 +362,41 @@
     );
     background-size: 200% 100%;
     animation: shimmer 3s ease-in-out infinite;
+  }
+
+  /* Utility classes for premium interactions */
+  .glass-lift {
+    @apply transition-all duration-500 ease-out;
+  }
+
+  .glass-lift:hover {
+    transform: translateY(-6px);
+    box-shadow:
+      0 20px 60px hsl(220 40% 5% / 0.5),
+      0 0 40px hsl(var(--glass-glow) / 0.12),
+      inset 0 1px 0 hsl(210 30% 60% / 0.2);
+  }
+
+  /* Accent glow utility */
+  .accent-glow {
+    position: relative;
+  }
+
+  .accent-glow::before {
+    content: '';
+    @apply absolute inset-0 rounded-xl blur-xl;
+    background: hsl(210 50% 50% / 0.15);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+
+  .accent-glow:hover::before {
+    opacity: 1;
+  }
+
+  /* Premium text shadow for dark backgrounds */
+  .text-shadow-glow {
+    text-shadow: 0 0 30px hsl(210 50% 50% / 0.2);
   }
 }
