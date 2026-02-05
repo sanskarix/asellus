@@ -94,24 +94,40 @@ const AboutPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mb-24"
+            className="mb-32"
           >
-            <h2 className="text-headline mb-12">What we believe</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {values.map((value, index) => (
+            <h2 className="text-headline mb-16">What we believe</h2>
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.08,
+                  },
+                },
+              }}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {values.map((value) => (
                 <motion.div
                   key={value.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1, duration: 0.5 }}
-                  className="glass-card-hover p-8"
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+                  }}
+                  className="glass-card-hover p-8 group"
                 >
-                  <h3 className="text-xl font-serif mb-3">{value.title}</h3>
+                  <h3 className="text-xl font-serif mb-3 group-hover:text-primary transition-colors duration-300">
+                    {value.title}
+                  </h3>
                   <p className="text-muted-foreground">{value.description}</p>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
 
           <motion.div
@@ -119,40 +135,66 @@ const AboutPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mb-24"
+            className="mb-32"
           >
-            <h2 className="text-headline mb-12">The team</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {team.map((group, index) => (
+            <h2 className="text-headline mb-16">The team</h2>
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-3 gap-6"
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.1,
+                  },
+                },
+              }}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {team.map((group) => (
                 <motion.div
                   key={group.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1, duration: 0.5 }}
-                  className="glass-card-hover p-8"
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+                  }}
+                  className="glass-card-hover p-8 group"
                 >
-                  <h3 className="text-xl font-serif mb-3">{group.name}</h3>
-                  <p className="text-muted-foreground text-sm">{group.description}</p>
+                  <h3 className="text-xl font-serif mb-3 group-hover:text-primary transition-colors duration-300">
+                    {group.name}
+                  </h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{group.description}</p>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="glass-panel p-12 text-center">
-              <p className="text-body-large text-muted-foreground mb-6">
-                Want to know more? Let's have a real conversation.
-              </p>
-              <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
-                Get in touch
-                <ArrowRight size={16} />
-              </Link>
+            <div className="glass-panel p-12 md:p-16 text-center group relative overflow-hidden">
+              {/* Subtle glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+              <div className="relative z-10">
+                <p className="text-body-large text-muted-foreground mb-8">
+                  Want to know more? Let's have a real conversation.
+                </p>
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
+                    Get in touch
+                    <ArrowRight size={16} />
+                  </Link>
+                </motion.div>
+              </div>
             </div>
           </motion.div>
         </div>
