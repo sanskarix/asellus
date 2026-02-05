@@ -15,6 +15,8 @@ export function Hero() {
   const [stars, setStars] = useState<Star[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
+  const timeRef = useRef(0);
+  const [, forceUpdate] = useState(0);
   const { scrollY } = useScroll();
   const starOpacity = useTransform(scrollY, [0, 600], [1, 0]);
 
