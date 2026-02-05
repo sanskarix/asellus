@@ -67,16 +67,31 @@ const ProcessPage = () => {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                className="glass-card-hover p-8"
+                transition={{ delay: index * 0.08, duration: 0.6 }}
+                className="glass-card-hover p-8 lg:p-10 group relative overflow-hidden"
               >
+                {/* Subtle accent line */}
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-primary/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                  <div className="lg:col-span-1">
-                    <span className="text-subheadline text-primary">{step.number}</span>
-                  </div>
+                  <motion.div
+                    className="lg:col-span-1"
+                    whileHover={{ scale: 1.1, x: 4 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <span className="text-subheadline text-primary font-bold">{step.number}</span>
+                  </motion.div>
                   <div className="lg:col-span-3">
-                    <h2 className="text-2xl md:text-3xl font-serif mb-2">{step.title}</h2>
-                    <span className="text-sm text-primary/80">{step.duration}</span>
+                    <h2 className="text-2xl md:text-3xl font-serif mb-2 group-hover:text-primary transition-colors duration-300">
+                      {step.title}
+                    </h2>
+                    <motion.span
+                      className="text-sm text-primary/70 font-medium block"
+                      whileHover={{ x: 4 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {step.duration}
+                    </motion.span>
                   </div>
                   <div className="lg:col-span-4">
                     <p className="text-muted-foreground leading-relaxed">
@@ -84,7 +99,7 @@ const ProcessPage = () => {
                     </p>
                   </div>
                   <div className="lg:col-span-4">
-                    <p className="text-sm text-muted-foreground/80 italic">
+                    <p className="text-sm text-muted-foreground/70 italic leading-relaxed">
                       {step.details}
                     </p>
                   </div>
