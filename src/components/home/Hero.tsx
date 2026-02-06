@@ -109,32 +109,59 @@ export function Hero() {
   // Animation loop for particle movement and lifecycle
   useEffect(() => {
     let animationId: number;
+    let frameCount = 0;
 
     const animate = () => {
+      const now = performance.now();
       timeRef.current += 1;
+      frameCount++;
 
-      // Spawn new particles
-      for (let i = 0; i < SPAWN_RATE; i++) {
-        spawnParticle();
+      // Initialize particles on first frame only
+      if (!initializedRef.current) {
+        for (let i = 0; i < INITIAL_PARTICLE_COUNT; i++) {
+          spawnParticle();
+        }
+        initializedRef.current = true;
+        lastSpawnTimeRef.current = now;
       }
 
-      // Update particle positions and remove dead ones
-      starsRef.current = starsRef.current.filter((star) => {
+      // Spawn new particles based on time interval (not every frame)
+      // This reduces spawn frequency and helps maintain the MAX_PARTICLES limit
+      if (now - lastSpawnTimeRef.current >= SPAWN_INTERVAL) {
+        spawnParticle();
+        lastSpawnTimeRef.current = now;
+      }
+
+      // Update particle positions and remove dead ones efficiently
+      // Iterate backwards to safely remove items during loop
+      let hasChanges = false;
+      for (let i = starsRef.current.length - 1; i >= 0; i--) {
+        const star = starsRef.current[i];
         const age = timeRef.current - star.spawnTime;
         const progress = Math.min(age / star.lifespan, 1);
 
         if (progress >= 1) {
-          return false; // Remove particle
+          // Remove dead particle
+          starsRef.current.splice(i, 1);
+          hasChanges = true;
+        } else {
+          // Update position (linear movement toward center)
+          star.currentX = star.spawnX + (star.targetCenterX - star.spawnX) * progress;
+          star.currentY = star.spawnY + (star.targetCenterY - star.spawnY) * progress;
         }
+      }
 
-        // Linear movement toward center
-        star.currentX = star.spawnX + (star.targetCenterX - star.spawnX) * progress;
-        star.currentY = star.spawnY + (star.targetCenterY - star.spawnY) * progress;
+      // Enforce max particle limit if somehow exceeded (safety net)
+      if (starsRef.current.length > MAX_PARTICLES) {
+        starsRef.current = starsRef.current.slice(0, MAX_PARTICLES);
+        hasChanges = true;
+      }
 
-        return true; // Keep particle
-      });
+      // Only update React state if particles changed (performance optimization)
+      if (hasChanges || frameCount % 2 === 0) {
+        setStars([...starsRef.current]);
+      }
 
-      setStars([...starsRef.current]);
       animationId = requestAnimationFrame(animate);
     };
 
