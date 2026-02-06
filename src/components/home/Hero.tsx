@@ -26,35 +26,111 @@ export function Hero() {
   const { scrollY } = useScroll();
   const starOpacity = useTransform(scrollY, [0, 600], [1, 0]);
 
-  // Generate minimal star field and animation loop
-  useEffect(() => {
-    const newStars: Star[] = [];
+  // ========== CONFIGURATION ==========
+  // Adjust these values to fine-tune the particle effect
+  const SPAWN_RATE = 6; // Particles per frame
+  const PARTICLE_SPEED = 0.25; // Units per frame (3x the previous speed of ~0.083)
+  const FADE_START_PERCENT = 0.7; // Start fading at 70% of journey (last 30%)
+  const MIN_PARTICLE_SIZE = 0.3;
+  const MAX_PARTICLE_SIZE = 1.2;
+  const MIN_INITIAL_OPACITY = 0.4;
+  const MAX_INITIAL_OPACITY = 0.9;
+  // ===================================
+
+  const starsRef = useRef<Star[]>([]);
+  let nextStarId = useRef(0);
+
+  // Spawn a new particle from a random edge
+  const spawnParticle = () => {
     const centerX = 50;
     const centerY = 50;
+    let spawnX, spawnY;
 
-    for (let i = 0; i < 80; i++) {
-      const angle = Math.random() * Math.PI * 2;
-      const distance = Math.random() * 40 + 10;
-      const x = centerX + Math.cos(angle) * distance;
-      const y = centerY + Math.sin(angle) * distance;
+    // Randomly choose which edge to spawn from (0=top, 1=right, 2=bottom, 3=left)
+    const edge = Math.floor(Math.random() * 4);
+    const randomOffset = Math.random() * 100;
 
-      newStars.push({
-        id: i,
-        baseX: x,
-        baseY: y,
-        size: Math.random() * 1.5 + 0.5,
-        opacity: Math.random() * 0.6 + 0.2,
-      });
+    switch (edge) {
+      case 0: // Top edge
+        spawnX = randomOffset;
+        spawnY = -5;
+        break;
+      case 1: // Right edge
+        spawnX = 105;
+        spawnY = randomOffset;
+        break;
+      case 2: // Bottom edge
+        spawnX = randomOffset;
+        spawnY = 105;
+        break;
+      case 3: // Left edge
+        spawnX = -5;
+        spawnY = randomOffset;
+        break;
+      default:
+        spawnX = 50;
+        spawnY = 50;
     }
-    setStars(newStars);
 
-    // Animation loop for star drift
+    // Add slight randomization to trajectory for natural feel
+    const targetX = centerX + (Math.random() - 0.5) * 10;
+    const targetY = centerY + (Math.random() - 0.5) * 10;
+
+    const newStar: Star = {
+      id: nextStarId.current++,
+      spawnX,
+      spawnY,
+      currentX: spawnX,
+      currentY: spawnY,
+      targetCenterX: targetX,
+      targetCenterY: targetY,
+      size: Math.random() * (MAX_PARTICLE_SIZE - MIN_PARTICLE_SIZE) + MIN_PARTICLE_SIZE,
+      initialOpacity: Math.random() * (MAX_INITIAL_OPACITY - MIN_INITIAL_OPACITY) + MIN_INITIAL_OPACITY,
+      spawnTime: timeRef.current,
+      lifespan: 0, // Will be calculated based on distance
+    };
+
+    // Calculate lifespan based on distance to center
+    const dx = targetX - spawnX;
+    const dy = targetY - spawnY;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    newStar.lifespan = distance / PARTICLE_SPEED;
+
+    starsRef.current.push(newStar);
+  };
+
+  // Animation loop for particle movement and lifecycle
+  useEffect(() => {
     let animationId: number;
+
     const animate = () => {
-      timeRef.current += 0.016; // ~60fps
-      forceUpdate((prev) => prev + 1);
+      timeRef.current += 1;
+
+      // Spawn new particles
+      for (let i = 0; i < SPAWN_RATE; i++) {
+        spawnParticle();
+      }
+
+      // Update particle positions and remove dead ones
+      starsRef.current = starsRef.current.filter((star) => {
+        const age = timeRef.current - star.spawnTime;
+        const progress = Math.min(age / star.lifespan, 1);
+
+        if (progress >= 1) {
+          return false; // Remove particle
+        }
+
+        // Linear movement toward center
+        star.currentX = star.spawnX + (star.targetCenterX - star.spawnX) * progress;
+        star.currentY = star.spawnY + (star.targetCenterY - star.spawnY) * progress;
+
+        return true; // Keep particle
+      });
+
+      setStars([...starsRef.current]);
       animationId = requestAnimationFrame(animate);
     };
+
     animationId = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationId);
   }, []);
