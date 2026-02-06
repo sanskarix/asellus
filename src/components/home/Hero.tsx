@@ -230,7 +230,7 @@ export function Hero() {
         className="absolute inset-0 -z-10 pointer-events-none overflow-hidden"
       >
         {stars.map((star) => {
-          const pos = getStarPos(star, timeRef.current);
+          const pos = getStarPos(star);
           return (
             <motion.div
               key={star.id}
@@ -238,11 +238,11 @@ export function Hero() {
               style={{
                 left: `${pos.x}%`,
                 top: `${pos.y}%`,
-                width: `${star.size}px`,
-                height: `${star.size}px`,
+                width: `${star.size * pos.scale}px`,
+                height: `${star.size * pos.scale}px`,
                 backgroundColor: `hsl(210, 100%, 85%)`,
                 opacity: pos.opacity,
-                boxShadow: `0 0 ${star.size * 2}px hsl(210, 100%, 85%)`,
+                boxShadow: `0 0 ${star.size * pos.scale * 2}px hsl(210, 100%, 85%)`,
               }}
             ></motion.div>
           );
