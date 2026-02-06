@@ -5,10 +5,16 @@ import { ArrowRight } from "lucide-react";
 
 interface Star {
   id: number;
-  baseX: number;
-  baseY: number;
+  spawnX: number;
+  spawnY: number;
+  currentX: number;
+  currentY: number;
+  targetCenterX: number;
+  targetCenterY: number;
   size: number;
-  opacity: number;
+  initialOpacity: number;
+  spawnTime: number;
+  lifespan: number;
 }
 
 export function Hero() {
