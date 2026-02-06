@@ -26,10 +26,16 @@ export function Hero() {
   const starOpacity = useTransform(scrollY, [0, 600], [1, 0]);
 
   // ========== CONFIGURATION ==========
-  // Adjust these values to fine-tune the particle effect
-  const SPAWN_RATE = 6; // Particles per frame
+  // DENSITY & PERFORMANCE: Adjust these to control visual density and frame rate
+  const MAX_PARTICLES = 60; // Maximum number of stars on screen at once. Lower = less crowded, better performance. (40-80 recommended)
+  const SPAWN_INTERVAL = 100; // Milliseconds between spawning new particles. Higher = fewer spawns, lower density. (80-150 recommended)
+  const INITIAL_PARTICLE_COUNT = 60; // Number of particles to spawn immediately on load. Match MAX_PARTICLES for full start.
+
+  // MOVEMENT: Speed and fade behavior
   const PARTICLE_SPEED = 0.25; // Units per frame (3x the previous speed of ~0.083)
   const FADE_START_PERCENT = 0.7; // Start fading at 70% of journey (last 30%)
+
+  // VISUALS: Size and opacity ranges
   const MIN_PARTICLE_SIZE = 0.3;
   const MAX_PARTICLE_SIZE = 1.2;
   const MIN_INITIAL_OPACITY = 0.4;
@@ -38,6 +44,8 @@ export function Hero() {
 
   const starsRef = useRef<Star[]>([]);
   const nextStarId = useRef(0);
+  const lastSpawnTimeRef = useRef(0);
+  const initializedRef = useRef(false);
 
   // Spawn a new particle from a random edge
   const spawnParticle = () => {
