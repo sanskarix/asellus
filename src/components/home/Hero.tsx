@@ -151,33 +151,19 @@ export function Hero() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // Calculate star position with subtle fisheye effect and inward drift with fade
-  const getStarPos = (star: Star, time: number) => {
+  // Calculate star position with subtle fisheye effect and fade/scale based on lifespan
+  const getStarPos = (star: Star) => {
     const centerX = 50;
     const centerY = 50;
 
-    // Continuous inward movement toward center with fade - 3x faster
-    const driftSpeed = 0.009; // 3x faster drift toward center
-    const driftAmount = time * driftSpeed;
+    let displayX = star.currentX;
+    let displayY = star.currentY;
 
-    // Loop the animation - when drift completes, it cycles back
-    const cycleDuration = 1 / driftSpeed; // Time for one complete cycle
-    const cycledTime = time % cycleDuration;
-    const cycledDriftAmount = cycledTime * driftSpeed;
-
-    const driftedX = centerX + (star.baseX - centerX) * (1 - cycledDriftAmount);
-    const driftedY = centerY + (star.baseY - centerY) * (1 - cycledDriftAmount);
-
-    // Distance from star to center (for fade calculation)
-    const dx = driftedX - centerX;
-    const dy = driftedY - centerY;
-    const distFromCenter = Math.sqrt(dx * dx + dy * dy);
-
-    // Mouse distance from drifted star position
+    // Apply fisheye hover effect (preserved from original)
     const mouseX = mousePos.x * 100;
     const mouseY = mousePos.y * 100;
-    const dxMouse = driftedX - mouseX;
-    const dyMouse = driftedY - mouseY;
+    const dxMouse = displayX - mouseX;
+    const dyMouse = displayY - mouseY;
     const distFromMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
 
     // Subtle fisheye zoom effect - very gentle push away from cursor
@@ -187,14 +173,25 @@ export function Hero() {
     const normalizedDxMouse = dxMouse / (distFromMouse + 0.1);
     const normalizedDyMouse = dyMouse / (distFromMouse + 0.1);
 
-    const finalX = driftedX + normalizedDxMouse * zoomStrength;
-    const finalY = driftedY + normalizedDyMouse * zoomStrength;
+    const finalX = displayX + normalizedDxMouse * zoomStrength;
+    const finalY = displayY + normalizedDyMouse * zoomStrength;
 
-    // Calculate fade based on distance from center
-    const fadeDistance = 8; // Start fading when within 8% of center
-    const opacity = distFromCenter < fadeDistance ? (distFromCenter / fadeDistance) * star.opacity : star.opacity;
+    // Calculate progress through lifespan (0 to 1)
+    const age = timeRef.current - star.spawnTime;
+    const progress = Math.min(age / star.lifespan, 1);
 
-    return { x: finalX, y: finalY, opacity };
+    // Fade and scale in the last 25-30% of journey
+    let opacity = star.initialOpacity;
+    let scale = 1;
+
+    if (progress > FADE_START_PERCENT) {
+      // Calculate fade amount (0 to 1, where 1 means fully faded)
+      const fadeAmount = (progress - FADE_START_PERCENT) / (1 - FADE_START_PERCENT);
+      opacity = star.initialOpacity * (1 - fadeAmount);
+      scale = 1 - fadeAmount * 0.3; // Shrink by up to 30% as it fades
+    }
+
+    return { x: finalX, y: finalY, opacity, scale };
   };
 
   const containerVariants = {
