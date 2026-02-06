@@ -5,10 +5,16 @@ import { ArrowRight } from "lucide-react";
 
 interface Star {
   id: number;
-  baseX: number;
-  baseY: number;
+  spawnX: number;
+  spawnY: number;
+  currentX: number;
+  currentY: number;
+  targetCenterX: number;
+  targetCenterY: number;
   size: number;
-  opacity: number;
+  initialOpacity: number;
+  spawnTime: number;
+  lifespan: number;
 }
 
 export function Hero() {
@@ -16,39 +22,154 @@ export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
   const timeRef = useRef(0);
-  const [, forceUpdate] = useState(0);
   const { scrollY } = useScroll();
   const starOpacity = useTransform(scrollY, [0, 600], [1, 0]);
 
-  // Generate minimal star field and animation loop
-  useEffect(() => {
-    const newStars: Star[] = [];
+  // ========== CONFIGURATION ==========
+  // DENSITY & PERFORMANCE: Adjust these to control visual density and frame rate
+  const MAX_PARTICLES = 80; // Maximum number of stars on screen at once. Lower = less crowded, better performance. (40-80 recommended)
+  const SPAWN_INTERVAL = 80; // Milliseconds between spawning new particles. Higher = fewer spawns, lower density. (80-150 recommended)
+  const INITIAL_PARTICLE_COUNT = 80; // Number of particles to spawn immediately on load. Match MAX_PARTICLES for full start.
+
+  // MOVEMENT: Speed and fade behavior
+  const PARTICLE_SPEED = 0.2; // Units per frame (3x the previous speed of ~0.083)
+  const FADE_START_PERCENT = 0.7; // Start fading at 70% of journey (last 30%)
+
+  // VISUALS: Size and opacity ranges
+  const MIN_PARTICLE_SIZE = 0.3;
+  const MAX_PARTICLE_SIZE = 1.2;
+  const MIN_INITIAL_OPACITY = 0.4;
+  const MAX_INITIAL_OPACITY = 0.9;
+  // ===================================
+
+  const starsRef = useRef<Star[]>([]);
+  const nextStarId = useRef(0);
+  const lastSpawnTimeRef = useRef(0);
+  const initializedRef = useRef(false);
+
+  // Spawn a new particle from a random edge (respecting MAX_PARTICLES limit)
+  const spawnParticle = () => {
+    // Don't spawn if we're at max capacity (performance optimization)
+    if (starsRef.current.length >= MAX_PARTICLES) {
+      return;
+    }
+
     const centerX = 50;
     const centerY = 50;
+    let spawnX, spawnY;
 
-    for (let i = 0; i < 80; i++) {
-      const angle = Math.random() * Math.PI * 2;
-      const distance = Math.random() * 40 + 10;
-      const x = centerX + Math.cos(angle) * distance;
-      const y = centerY + Math.sin(angle) * distance;
+    // Randomly choose which edge to spawn from (0=top, 1=right, 2=bottom, 3=left)
+    const edge = Math.floor(Math.random() * 4);
+    const randomOffset = Math.random() * 100;
 
-      newStars.push({
-        id: i,
-        baseX: x,
-        baseY: y,
-        size: Math.random() * 1.5 + 0.5,
-        opacity: Math.random() * 0.6 + 0.2,
-      });
+    switch (edge) {
+      case 0: // Top edge
+        spawnX = randomOffset;
+        spawnY = -5;
+        break;
+      case 1: // Right edge
+        spawnX = 105;
+        spawnY = randomOffset;
+        break;
+      case 2: // Bottom edge
+        spawnX = randomOffset;
+        spawnY = 105;
+        break;
+      case 3: // Left edge
+        spawnX = -5;
+        spawnY = randomOffset;
+        break;
+      default:
+        spawnX = 50;
+        spawnY = 50;
     }
-    setStars(newStars);
 
-    // Animation loop for star drift
+    // Add slight randomization to trajectory for natural feel
+    const targetX = centerX + (Math.random() - 0.5) * 10;
+    const targetY = centerY + (Math.random() - 0.5) * 10;
+
+    const newStar: Star = {
+      id: nextStarId.current++,
+      spawnX,
+      spawnY,
+      currentX: spawnX,
+      currentY: spawnY,
+      targetCenterX: targetX,
+      targetCenterY: targetY,
+      size: Math.random() * (MAX_PARTICLE_SIZE - MIN_PARTICLE_SIZE) + MIN_PARTICLE_SIZE,
+      initialOpacity: Math.random() * (MAX_INITIAL_OPACITY - MIN_INITIAL_OPACITY) + MIN_INITIAL_OPACITY,
+      spawnTime: timeRef.current,
+      lifespan: 0, // Will be calculated based on distance
+    };
+
+    // Calculate lifespan based on distance to center
+    const dx = targetX - spawnX;
+    const dy = targetY - spawnY;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    newStar.lifespan = distance / PARTICLE_SPEED;
+
+    starsRef.current.push(newStar);
+  };
+
+  // Animation loop for particle movement and lifecycle
+  useEffect(() => {
     let animationId: number;
+    let frameCount = 0;
+
     const animate = () => {
-      timeRef.current += 0.016; // ~60fps
-      forceUpdate((prev) => prev + 1);
+      const now = performance.now();
+      timeRef.current += 1;
+      frameCount++;
+
+      // Initialize particles on first frame only
+      if (!initializedRef.current) {
+        for (let i = 0; i < INITIAL_PARTICLE_COUNT; i++) {
+          spawnParticle();
+        }
+        initializedRef.current = true;
+        lastSpawnTimeRef.current = now;
+      }
+
+      // Spawn new particles based on time interval (not every frame)
+      // This reduces spawn frequency and helps maintain the MAX_PARTICLES limit
+      if (now - lastSpawnTimeRef.current >= SPAWN_INTERVAL) {
+        spawnParticle();
+        lastSpawnTimeRef.current = now;
+      }
+
+      // Update particle positions and remove dead ones efficiently
+      // Iterate backwards to safely remove items during loop
+      let hasChanges = false;
+      for (let i = starsRef.current.length - 1; i >= 0; i--) {
+        const star = starsRef.current[i];
+        const age = timeRef.current - star.spawnTime;
+        const progress = Math.min(age / star.lifespan, 1);
+
+        if (progress >= 1) {
+          // Remove dead particle
+          starsRef.current.splice(i, 1);
+          hasChanges = true;
+        } else {
+          // Update position (linear movement toward center)
+          star.currentX = star.spawnX + (star.targetCenterX - star.spawnX) * progress;
+          star.currentY = star.spawnY + (star.targetCenterY - star.spawnY) * progress;
+        }
+      }
+
+      // Enforce max particle limit if somehow exceeded (safety net)
+      if (starsRef.current.length > MAX_PARTICLES) {
+        starsRef.current = starsRef.current.slice(0, MAX_PARTICLES);
+        hasChanges = true;
+      }
+
+      // Only update React state if particles changed (performance optimization)
+      if (hasChanges || frameCount % 2 === 0) {
+        setStars([...starsRef.current]);
+      }
+
       animationId = requestAnimationFrame(animate);
     };
+
     animationId = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationId);
   }, []);
@@ -69,33 +190,19 @@ export function Hero() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // Calculate star position with subtle fisheye effect and inward drift with fade
-  const getStarPos = (star: Star, time: number) => {
+  // Calculate star position with subtle fisheye effect and fade/scale based on lifespan
+  const getStarPos = (star: Star) => {
     const centerX = 50;
     const centerY = 50;
 
-    // Continuous inward movement toward center with fade - 3x faster
-    const driftSpeed = 0.009; // 3x faster drift toward center
-    const driftAmount = time * driftSpeed;
+    let displayX = star.currentX;
+    let displayY = star.currentY;
 
-    // Loop the animation - when drift completes, it cycles back
-    const cycleDuration = 1 / driftSpeed; // Time for one complete cycle
-    const cycledTime = time % cycleDuration;
-    const cycledDriftAmount = cycledTime * driftSpeed;
-
-    const driftedX = centerX + (star.baseX - centerX) * (1 - cycledDriftAmount);
-    const driftedY = centerY + (star.baseY - centerY) * (1 - cycledDriftAmount);
-
-    // Distance from star to center (for fade calculation)
-    const dx = driftedX - centerX;
-    const dy = driftedY - centerY;
-    const distFromCenter = Math.sqrt(dx * dx + dy * dy);
-
-    // Mouse distance from drifted star position
+    // Apply fisheye hover effect (preserved from original)
     const mouseX = mousePos.x * 100;
     const mouseY = mousePos.y * 100;
-    const dxMouse = driftedX - mouseX;
-    const dyMouse = driftedY - mouseY;
+    const dxMouse = displayX - mouseX;
+    const dyMouse = displayY - mouseY;
     const distFromMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
 
     // Subtle fisheye zoom effect - very gentle push away from cursor
@@ -105,14 +212,25 @@ export function Hero() {
     const normalizedDxMouse = dxMouse / (distFromMouse + 0.1);
     const normalizedDyMouse = dyMouse / (distFromMouse + 0.1);
 
-    const finalX = driftedX + normalizedDxMouse * zoomStrength;
-    const finalY = driftedY + normalizedDyMouse * zoomStrength;
+    const finalX = displayX + normalizedDxMouse * zoomStrength;
+    const finalY = displayY + normalizedDyMouse * zoomStrength;
 
-    // Calculate fade based on distance from center
-    const fadeDistance = 8; // Start fading when within 8% of center
-    const opacity = distFromCenter < fadeDistance ? (distFromCenter / fadeDistance) * star.opacity : star.opacity;
+    // Calculate progress through lifespan (0 to 1)
+    const age = timeRef.current - star.spawnTime;
+    const progress = Math.min(age / star.lifespan, 1);
 
-    return { x: finalX, y: finalY, opacity };
+    // Fade and scale in the last 25-30% of journey
+    let opacity = star.initialOpacity;
+    let scale = 1;
+
+    if (progress > FADE_START_PERCENT) {
+      // Calculate fade amount (0 to 1, where 1 means fully faded)
+      const fadeAmount = (progress - FADE_START_PERCENT) / (1 - FADE_START_PERCENT);
+      opacity = star.initialOpacity * (1 - fadeAmount);
+      scale = 1 - fadeAmount * 0.3; // Shrink by up to 30% as it fades
+    }
+
+    return { x: finalX, y: finalY, opacity, scale };
   };
 
   const containerVariants = {
@@ -151,7 +269,7 @@ export function Hero() {
         className="absolute inset-0 -z-10 pointer-events-none overflow-hidden"
       >
         {stars.map((star) => {
-          const pos = getStarPos(star, timeRef.current);
+          const pos = getStarPos(star);
           return (
             <motion.div
               key={star.id}
@@ -159,11 +277,11 @@ export function Hero() {
               style={{
                 left: `${pos.x}%`,
                 top: `${pos.y}%`,
-                width: `${star.size}px`,
-                height: `${star.size}px`,
+                width: `${star.size * pos.scale}px`,
+                height: `${star.size * pos.scale}px`,
                 backgroundColor: `hsl(210, 100%, 85%)`,
                 opacity: pos.opacity,
-                boxShadow: `0 0 ${star.size * 2}px hsl(210, 100%, 85%)`,
+                boxShadow: `0 0 ${star.size * pos.scale * 2}px hsl(210, 100%, 85%)`,
               }}
             ></motion.div>
           );
