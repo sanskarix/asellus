@@ -37,7 +37,7 @@ export function Hero() {
   // ===================================
 
   const starsRef = useRef<Star[]>([]);
-  let nextStarId = useRef(0);
+  const nextStarId = useRef(0);
 
   // Spawn a new particle from a random edge
   const spawnParticle = () => {
