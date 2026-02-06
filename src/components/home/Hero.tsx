@@ -47,8 +47,13 @@ export function Hero() {
   const lastSpawnTimeRef = useRef(0);
   const initializedRef = useRef(false);
 
-  // Spawn a new particle from a random edge
+  // Spawn a new particle from a random edge (respecting MAX_PARTICLES limit)
   const spawnParticle = () => {
+    // Don't spawn if we're at max capacity (performance optimization)
+    if (starsRef.current.length >= MAX_PARTICLES) {
+      return;
+    }
+
     const centerX = 50;
     const centerY = 50;
     let spawnX, spawnY;
