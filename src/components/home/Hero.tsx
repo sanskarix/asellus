@@ -141,7 +141,10 @@ export function Hero() {
       // Initialize particles on first frame only
       if (!initializedRef.current) {
         for (let i = 0; i < INITIAL_PARTICLE_COUNT; i++) {
-          spawnParticle();
+          // Spawn each initial particle with random progress (0 to 0.7)
+          // so they appear at different distances from the center
+          const randomProgress = Math.random() * 0.7;
+          spawnParticleWithProgress(randomProgress);
         }
         initializedRef.current = true;
         lastSpawnTimeRef.current = now;
