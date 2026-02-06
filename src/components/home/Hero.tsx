@@ -47,9 +47,9 @@ export function Hero() {
   const lastSpawnTimeRef = useRef(0);
   const initializedRef = useRef(false);
 
-  // Spawn a new particle from a random edge (respecting MAX_PARTICLES limit)
-  const spawnParticle = () => {
-    // Don't spawn if we're at max capacity (performance optimization)
+  // Helper function to create a particle with randomized initial progress
+  // Used only during initialization to create a "mature" field
+  const spawnParticleWithProgress = (initialProgress: number = 0) => {
     if (starsRef.current.length >= MAX_PARTICLES) {
       return;
     }
@@ -108,7 +108,24 @@ export function Hero() {
     const distance = Math.sqrt(dx * dx + dy * dy);
     newStar.lifespan = distance / PARTICLE_SPEED;
 
+    // If initialProgress is provided (> 0), backdate the spawn time so the
+    // particle appears to have already traveled some distance from the edge.
+    // This creates the illusion of a "mature" field on load.
+    if (initialProgress > 0) {
+      newStar.spawnTime = timeRef.current - initialProgress * newStar.lifespan;
+      // Pre-calculate current position based on progress
+      const clampedProgress = Math.min(initialProgress, 1);
+      newStar.currentX = spawnX + (targetX - spawnX) * clampedProgress;
+      newStar.currentY = spawnY + (targetY - spawnY) * clampedProgress;
+    }
+
     starsRef.current.push(newStar);
+  };
+
+  // Spawn a new particle from a random edge (respecting MAX_PARTICLES limit)
+  // Used for ongoing spawning in the animation loop
+  const spawnParticle = () => {
+    spawnParticleWithProgress(0); // No initial progress for normal spawning
   };
 
   // Animation loop for particle movement and lifecycle
@@ -124,7 +141,10 @@ export function Hero() {
       // Initialize particles on first frame only
       if (!initializedRef.current) {
         for (let i = 0; i < INITIAL_PARTICLE_COUNT; i++) {
-          spawnParticle();
+          // Spawn each initial particle with random progress (0 to 0.7)
+          // so they appear at different distances from the center
+          const randomProgress = Math.random() * 0.7;
+          spawnParticleWithProgress(randomProgress);
         }
         initializedRef.current = true;
         lastSpawnTimeRef.current = now;
