@@ -29,7 +29,7 @@ export function Hero() {
   // DENSITY & PERFORMANCE: Adjust these to control visual density and frame rate
   const MAX_PARTICLES = 80; // Maximum number of stars on screen at once. Lower = less crowded, better performance. (40-80 recommended)
   const SPAWN_INTERVAL = 100; // Milliseconds between spawning new particles. Higher = fewer spawns, lower density. (80-150 recommended)
-  const INITIAL_PARTICLE_COUNT = 60; // Number of particles to spawn immediately on load. Match MAX_PARTICLES for full start.
+  const INITIAL_PARTICLE_COUNT = 80; // Number of particles to spawn immediately on load. Match MAX_PARTICLES for full start.
 
   // MOVEMENT: Speed and fade behavior
   const PARTICLE_SPEED = 0.2; // Units per frame (3x the previous speed of ~0.083)
