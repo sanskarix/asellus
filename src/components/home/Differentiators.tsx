@@ -23,16 +23,36 @@ const differentiators = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.12,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.85, ease: [0.25, 0.46, 0.45, 0.94] },
+  },
+};
+
 export function Differentiators() {
   return (
-    <section className="editorial-section relative">
+    <section className="editorial-section relative overflow-hidden">
       <div className="editorial-container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="max-w-xl mb-16"
+          className="max-w-xl mb-20"
         >
           <p className="text-subheadline mb-4">Why us</p>
           <h2 className="text-headline">
@@ -40,22 +60,35 @@ export function Differentiators() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {differentiators.map((item, index) => (
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          {differentiators.map((item) => (
             <motion.div
               key={item.number}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-              className="glass-card-hover p-8"
+              variants={itemVariants}
+              className="glass-card-hover p-8 group"
             >
-              <span className="text-subheadline text-primary">{item.number}</span>
-              <h3 className="text-2xl md:text-3xl font-serif mt-4 mb-4">{item.title}</h3>
-              <p className="text-muted-foreground leading-relaxed">{item.description}</p>
+              <motion.span
+                className="text-subheadline text-primary inline-block"
+                whileHover={{ scale: 1.05, x: 4 }}
+                transition={{ duration: 0.3 }}
+              >
+                {item.number}
+              </motion.span>
+              <h3 className="text-2xl md:text-3xl font-serif mt-4 mb-4 group-hover:text-primary transition-colors duration-300">
+                {item.title}
+              </h3>
+              <p className="text-muted-foreground leading-relaxed">
+                {item.description}
+              </p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

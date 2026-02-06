@@ -52,29 +52,41 @@ const AboutPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-24"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-32"
           >
-            <div className="glass-card p-8 md:p-10">
-              <h2 className="text-headline mb-6">The short version</h2>
+            <motion.div
+              className="glass-card p-8 md:p-10 group relative overflow-hidden"
+              whileHover={{ y: -4 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="absolute top-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-primary/60 to-transparent"></div>
+
+              <h2 className="text-headline mb-6 group-hover:text-primary transition-colors duration-300">
+                The short version
+              </h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                Asellus is a new-age marketing agency for brands that care about real growth. 
-                We focus on what actually moves the needle: clear strategies, fast experiments, 
+                Asellus is a new-age marketing agency for brands that care about real growth.
+                We focus on what actually moves the needle: clear strategies, fast experiments,
                 and relentless optimization.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                We're not a 200-person agency with layers of account managers between you and 
-                the work. We're a lean team of senior practitioners who've been in the trenches—founders, 
+                We're not a 200-person agency with layers of account managers between you and
+                the work. We're a lean team of senior practitioners who've been in the trenches—founders,
                 growth leaders, creative directors who've built brands you know.
               </p>
-            </div>
-            <div className="glass-panel p-10 md:p-12 flex items-center justify-center relative overflow-hidden">
-              <blockquote className="text-2xl font-serif text-center leading-relaxed relative z-10">
-                "Great marketing doesn't feel like marketing. It feels like the brand finally 
+            </motion.div>
+            <motion.div
+              className="glass-panel p-10 md:p-12 flex items-center justify-center relative overflow-hidden group"
+              whileHover={{ y: -4 }}
+              transition={{ duration: 0.5 }}
+            >
+              <blockquote className="text-2xl font-serif text-center leading-relaxed relative z-10 group-hover:text-primary transition-colors duration-300">
+                "Great marketing doesn't feel like marketing. It feels like the brand finally
                 speaking its truth."
               </blockquote>
               {/* Subtle glow */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 pointer-events-none"></div>
-            </div>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-primary/6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+            </motion.div>
           </motion.div>
 
           <motion.div
@@ -82,24 +94,40 @@ const AboutPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mb-24"
+            className="mb-32"
           >
-            <h2 className="text-headline mb-12">What we believe</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {values.map((value, index) => (
+            <h2 className="text-headline mb-16">What we believe</h2>
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.08,
+                  },
+                },
+              }}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {values.map((value) => (
                 <motion.div
                   key={value.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1, duration: 0.5 }}
-                  className="glass-card-hover p-8"
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+                  }}
+                  className="glass-card-hover p-8 group"
                 >
-                  <h3 className="text-xl font-serif mb-3">{value.title}</h3>
+                  <h3 className="text-xl font-serif mb-3 group-hover:text-primary transition-colors duration-300">
+                    {value.title}
+                  </h3>
                   <p className="text-muted-foreground">{value.description}</p>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
 
           <motion.div
@@ -107,40 +135,66 @@ const AboutPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mb-24"
+            className="mb-32"
           >
-            <h2 className="text-headline mb-12">The team</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {team.map((group, index) => (
+            <h2 className="text-headline mb-16">The team</h2>
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-3 gap-6"
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.1,
+                  },
+                },
+              }}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {team.map((group) => (
                 <motion.div
                   key={group.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1, duration: 0.5 }}
-                  className="glass-card-hover p-8"
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+                  }}
+                  className="glass-card-hover p-8 group"
                 >
-                  <h3 className="text-xl font-serif mb-3">{group.name}</h3>
-                  <p className="text-muted-foreground text-sm">{group.description}</p>
+                  <h3 className="text-xl font-serif mb-3 group-hover:text-primary transition-colors duration-300">
+                    {group.name}
+                  </h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{group.description}</p>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="glass-panel p-12 text-center">
-              <p className="text-body-large text-muted-foreground mb-6">
-                Want to know more? Let's have a real conversation.
-              </p>
-              <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
-                Get in touch
-                <ArrowRight size={16} />
-              </Link>
+            <div className="glass-panel p-12 md:p-16 text-center group relative overflow-hidden">
+              {/* Subtle glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+              <div className="relative z-10">
+                <p className="text-body-large text-muted-foreground mb-8">
+                  Want to know more? Let's have a real conversation.
+                </p>
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
+                    Get in touch
+                    <ArrowRight size={16} />
+                  </Link>
+                </motion.div>
+              </div>
             </div>
           </motion.div>
         </div>
