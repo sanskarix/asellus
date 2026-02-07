@@ -1,31 +1,38 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
-const services = [{
-  title: "Performance Marketing",
-  description: "Paid media that actually pays back. Meta, Google, TikTok—optimized for ROAS, not reach.",
-  accent: "hsl(210 50% 45%)"
-}, {
-  title: "Content Systems",
-  description: "Scalable content engines that keep your brand visible and relevant across every platform.",
-  accent: "hsl(215 45% 45%)"
-}, {
-  title: "Funnel Architecture",
-  description: "From awareness to conversion. We build journeys that guide, not push.",
-  accent: "hsl(205 55% 45%)"
-}, {
-  title: "Launch Strategy",
-  description: "Product launches, brand launches, campaign launches—executed with precision.",
-  accent: "hsl(210 50% 45%)"
-}, {
-  title: "Growth Experiments",
-  description: "Rapid testing frameworks that find what works before budgets run dry.",
-  accent: "hsl(215 45% 45%)"
-}, {
-  title: "Brand Strategy",
-  description: "Positioning that cuts through. Messaging that sticks. Identity that lasts.",
-  accent: "hsl(205 55% 45%)"
-}];
+const services = [
+  {
+    title: "Strategy & Growth Marketing",
+    description:
+      "Strategies that adapt to market shifts and actually move your metrics.",
+    accent: "hsl(210 50% 45%)",
+  },
+  {
+    title: "Performance Marketing & Paid Ads",
+    description:
+      "Campaigns built to convert, not just look good on dashboards.",
+    accent: "hsl(215 45% 45%)",
+  },
+  {
+    title: "Content Creation & Social Media",
+    description:
+      "Content that builds an audience and shows up where they actually spend time.",
+    accent: "hsl(205 55% 45%)",
+  },
+  {
+    title: "Branding & Launch",
+    description:
+      "Branding and launches designed to be commercially useful, not just pretty.",
+    accent: "hsl(210 50% 45%)",
+  },
+  {
+    title: "Custom Development",
+    description:
+      "Websites, software, and tools built to global standards.",
+    accent: "hsl(215 45% 45%)",
+  },
+];
 const containerVariants = {
   hidden: {
     opacity: 0
