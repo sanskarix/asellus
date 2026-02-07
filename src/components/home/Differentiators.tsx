@@ -1,20 +1,16 @@
 import { motion } from "framer-motion";
 const differentiators = [{
-  number: "01",
-  title: "No vanity metrics",
-  description: "We measure what matters. Revenue, retention, real growth—not followers and impressions that don't convert."
+  title: "Branding that feels global",
+  description: "Your brand shouldn’t feel ‘local‑agency made’. We design identity and touchpoints that look at home in any market."
 }, {
-  number: "02",
-  title: "No endless decks",
-  description: "Strategy is nothing without execution. We think fast, test faster, and iterate until it works."
+  title: "Strategy before tactics",
+  description: "No more random hacks. We build a clear growth strategy first, then choose channels and experiments that compound."
 }, {
-  number: "03",
-  title: "No agency bloat",
-  description: "Lean team. Senior talent. Direct access. You work with the people who do the work."
+  title: "Clear, direct communication",
+  description: "No corporate theatre, no buzzword soup. You get simple language, sharp thinking, and calls that actually move work forward."
 }, {
-  number: "04",
-  title: "No long-term traps",
-  description: "Results speak louder than contracts. We earn your business every month."
+  title: "Polish in every detail",
+  description: "From copy to creatives to reporting, we sweat the small stuff so your brand comes across as considered, credible, and premium."
 }];
 const containerVariants = {
   hidden: {
