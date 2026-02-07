@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-
 interface Star {
   id: number;
   spawnX: number;
@@ -16,13 +15,17 @@ interface Star {
   spawnTime: number;
   lifespan: number;
 }
-
 export function Hero() {
   const [stars, setStars] = useState<Star[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
+  const [mousePos, setMousePos] = useState({
+    x: 0.5,
+    y: 0.5
+  });
   const timeRef = useRef(0);
-  const { scrollY } = useScroll();
+  const {
+    scrollY
+  } = useScroll();
   const starOpacity = useTransform(scrollY, [0, 600], [1, 0]);
 
   // ========== CONFIGURATION ==========
@@ -53,7 +56,6 @@ export function Hero() {
     if (starsRef.current.length >= MAX_PARTICLES) {
       return;
     }
-
     const centerX = 50;
     const centerY = 50;
     let spawnX, spawnY;
@@ -61,21 +63,24 @@ export function Hero() {
     // Randomly choose which edge to spawn from (0=top, 1=right, 2=bottom, 3=left)
     const edge = Math.floor(Math.random() * 4);
     const randomOffset = Math.random() * 100;
-
     switch (edge) {
-      case 0: // Top edge
+      case 0:
+        // Top edge
         spawnX = randomOffset;
         spawnY = -5;
         break;
-      case 1: // Right edge
+      case 1:
+        // Right edge
         spawnX = 105;
         spawnY = randomOffset;
         break;
-      case 2: // Bottom edge
+      case 2:
+        // Bottom edge
         spawnX = randomOffset;
         spawnY = 105;
         break;
-      case 3: // Left edge
+      case 3:
+        // Left edge
         spawnX = -5;
         spawnY = randomOffset;
         break;
@@ -87,7 +92,6 @@ export function Hero() {
     // Add slight randomization to trajectory for natural feel
     const targetX = centerX + (Math.random() - 0.5) * 10;
     const targetY = centerY + (Math.random() - 0.5) * 10;
-
     const newStar: Star = {
       id: nextStarId.current++,
       spawnX,
@@ -99,7 +103,7 @@ export function Hero() {
       size: Math.random() * (MAX_PARTICLE_SIZE - MIN_PARTICLE_SIZE) + MIN_PARTICLE_SIZE,
       initialOpacity: Math.random() * (MAX_INITIAL_OPACITY - MIN_INITIAL_OPACITY) + MIN_INITIAL_OPACITY,
       spawnTime: timeRef.current,
-      lifespan: 0, // Will be calculated based on distance
+      lifespan: 0 // Will be calculated based on distance
     };
 
     // Calculate lifespan based on distance to center
@@ -118,7 +122,6 @@ export function Hero() {
       newStar.currentX = spawnX + (targetX - spawnX) * clampedProgress;
       newStar.currentY = spawnY + (targetY - spawnY) * clampedProgress;
     }
-
     starsRef.current.push(newStar);
   };
 
@@ -132,7 +135,6 @@ export function Hero() {
   useEffect(() => {
     let animationId: number;
     let frameCount = 0;
-
     const animate = () => {
       const now = performance.now();
       timeRef.current += 1;
@@ -164,7 +166,6 @@ export function Hero() {
         const star = starsRef.current[i];
         const age = timeRef.current - star.spawnTime;
         const progress = Math.min(age / star.lifespan, 1);
-
         if (progress >= 1) {
           // Remove dead particle
           starsRef.current.splice(i, 1);
@@ -186,10 +187,8 @@ export function Hero() {
       if (hasChanges || frameCount % 2 === 0) {
         setStars([...starsRef.current]);
       }
-
       animationId = requestAnimationFrame(animate);
     };
-
     animationId = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationId);
   }, []);
@@ -201,11 +200,10 @@ export function Hero() {
         const rect = containerRef.current.getBoundingClientRect();
         setMousePos({
           x: e.clientX / rect.width,
-          y: e.clientY / rect.height,
+          y: e.clientY / rect.height
         });
       }
     };
-
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
@@ -214,7 +212,6 @@ export function Hero() {
   const getStarPos = (star: Star) => {
     const centerX = 50;
     const centerY = 50;
-
     let displayX = star.currentX;
     let displayY = star.currentY;
 
@@ -228,10 +225,8 @@ export function Hero() {
     // Subtle fisheye zoom effect - very gentle push away from cursor
     const hoverRadius = 30;
     const zoomStrength = Math.max(0, 1 - distFromMouse / hoverRadius) * 3;
-
     const normalizedDxMouse = dxMouse / (distFromMouse + 0.1);
     const normalizedDyMouse = dyMouse / (distFromMouse + 0.1);
-
     const finalX = displayX + normalizedDxMouse * zoomStrength;
     const finalY = displayY + normalizedDyMouse * zoomStrength;
 
@@ -242,127 +237,103 @@ export function Hero() {
     // Fade and scale in the last 25-30% of journey
     let opacity = star.initialOpacity;
     let scale = 1;
-
     if (progress > FADE_START_PERCENT) {
       // Calculate fade amount (0 to 1, where 1 means fully faded)
       const fadeAmount = (progress - FADE_START_PERCENT) / (1 - FADE_START_PERCENT);
       opacity = star.initialOpacity * (1 - fadeAmount);
       scale = 1 - fadeAmount * 0.3; // Shrink by up to 30% as it fades
     }
-
-    return { x: finalX, y: finalY, opacity, scale };
+    return {
+      x: finalX,
+      y: finalY,
+      opacity,
+      scale
+    };
   };
-
   const containerVariants = {
-    hidden: { opacity: 0 },
+    hidden: {
+      opacity: 0
+    },
     visible: {
       opacity: 1,
       transition: {
         staggerChildren: 0.08,
-        delayChildren: 0.2,
-      },
-    },
+        delayChildren: 0.2
+      }
+    }
   };
-
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: {
+      opacity: 0,
+      y: 30
+    },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: "easeOut" },
-    },
+      transition: {
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    }
   };
-
-  return (
-    <section
-      ref={containerRef}
-      className="editorial-section min-h-[100vh] flex items-center justify-center relative overflow-hidden"
-    >
+  return <section ref={containerRef} className="editorial-section min-h-[100vh] flex items-center justify-center relative overflow-hidden">
       {/* Ultra-dark background */}
       <div className="absolute inset-0 -z-20 bg-gradient-to-br from-[hsl(220,30%,2%)] via-[hsl(230,25%,2.5%)] to-[hsl(210,28%,2%)]"></div>
 
       {/* Minimal stars field */}
-      <motion.div
-        style={{
-          opacity: starOpacity,
-        }}
-        className="absolute inset-0 -z-10 pointer-events-none overflow-hidden"
-      >
-        {stars.map((star) => {
-          const pos = getStarPos(star);
-          return (
-            <motion.div
-              key={star.id}
-              className="absolute rounded-full pointer-events-none"
-              style={{
-                left: `${pos.x}%`,
-                top: `${pos.y}%`,
-                width: `${star.size * pos.scale}px`,
-                height: `${star.size * pos.scale}px`,
-                backgroundColor: `hsl(210, 100%, 85%)`,
-                opacity: pos.opacity,
-                boxShadow: `0 0 ${star.size * pos.scale * 2}px hsl(210, 100%, 85%)`,
-              }}
-            ></motion.div>
-          );
-        })}
+      <motion.div style={{
+      opacity: starOpacity
+    }} className="absolute inset-0 -z-10 pointer-events-none overflow-hidden">
+        {stars.map(star => {
+        const pos = getStarPos(star);
+        return <motion.div key={star.id} className="absolute rounded-full pointer-events-none" style={{
+          left: `${pos.x}%`,
+          top: `${pos.y}%`,
+          width: `${star.size * pos.scale}px`,
+          height: `${star.size * pos.scale}px`,
+          backgroundColor: `hsl(210, 100%, 85%)`,
+          opacity: pos.opacity,
+          boxShadow: `0 0 ${star.size * pos.scale * 2}px hsl(210, 100%, 85%)`
+        }}></motion.div>;
+      })}
       </motion.div>
 
       {/* Content - fades out as stars dissolve */}
       <div className="editorial-container relative z-10">
-        <motion.div
-          className="max-w-4xl"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.p
-            variants={itemVariants}
-            className="text-subheadline mb-8 text-primary/80"
-          >
+        <motion.div className="max-w-4xl" variants={containerVariants} initial="hidden" animate="visible">
+          <motion.p variants={itemVariants} className="text-subheadline mb-8 text-primary/80">
             Marketing that moves
           </motion.p>
 
-          <motion.h1
-            variants={itemVariants}
-            className="text-display mb-10 leading-[0.95] font-serif"
-          >
+          <motion.h1 variants={itemVariants} className="text-display mb-10 leading-[0.95] font-serif">
             We don't do hype.
             <br />
             <span className="text-muted-foreground">We do growth.</span>
           </motion.h1>
 
-          <motion.p
-            variants={itemVariants}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-14 leading-relaxed"
-          >
-            A new-age marketing agency for brands that care about ROI. We build
-            systems, test hypotheses, and scale what works. Quietly confident.
-            Radically efficient.
-          </motion.p>
+          <motion.p variants={itemVariants} className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-14 leading-relaxed">New-age marketing for brands that care about ROI.
+We build systems, test aggressively, and scale what works.</motion.p>
 
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-4"
-          >
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Link
-                to="/contact"
-                className="btn-primary inline-flex items-center gap-2"
-              >
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4">
+            <motion.div whileHover={{
+            scale: 1.02
+          }} whileTap={{
+            scale: 0.98
+          }} transition={{
+            duration: 0.2
+          }}>
+              <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
                 Let's talk growth
                 <ArrowRight size={18} />
               </Link>
             </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.2 }}
-            >
+            <motion.div whileHover={{
+            scale: 1.02
+          }} whileTap={{
+            scale: 0.98
+          }} transition={{
+            duration: 0.2
+          }}>
               <Link to="/work" className="btn-secondary inline-flex items-center">
                 See our work
               </Link>
@@ -370,6 +341,5 @@ export function Hero() {
           </motion.div>
         </motion.div>
       </div>
-    </section>
-  );
+    </section>;
 }
