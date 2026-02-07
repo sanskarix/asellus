@@ -32,7 +32,7 @@ export function Hero() {
   const INITIAL_PARTICLE_COUNT = 90; // Number of particles to spawn immediately on load. Match MAX_PARTICLES for full start.
 
   // MOVEMENT: Speed and fade behavior
-  const PARTICLE_SPEED = 0.10; // Units per frame (3x the previous speed of ~0.083)
+  const PARTICLE_SPEED = 0.12; // Units per frame (3x the previous speed of ~0.083)
   const FADE_START_PERCENT = 0.7; // Start fading at 70% of journey (last 30%)
 
   // VISUALS: Size and opacity ranges
