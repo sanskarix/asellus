@@ -67,7 +67,7 @@ export function Services() {
         duration: 0.6
       }} className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-20">
           <div className="max-w-xl">
-            <p className="text-subheadline mb-4">What we do</p>
+            
             <h2 className="text-headline">What do we take care of</h2>
           </div>
           <motion.div whileHover={{
