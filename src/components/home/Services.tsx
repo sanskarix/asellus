@@ -3,21 +3,21 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 const services = [
   {
-    title: "Strategy & Growth Marketing",
+    title: "Growth Marketing",
     description:
       "Strategies that adapt to market shifts and actually move your metrics.",
     accent: "hsl(210 50% 45%)",
   },
   {
-    title: "Performance Marketing & Paid Ads",
+    title: "Performance Marketing",
     description:
       "Campaigns built to convert, not just look good on dashboards.",
     accent: "hsl(215 45% 45%)",
   },
   {
-    title: "Content Creation & Social Media",
+    title: "Content & Social Media",
     description:
-      "Content that builds an audience and shows up where they actually spend time.",
+      "Content that builds an audience and shows up where they spend time.",
     accent: "hsl(205 55% 45%)",
   },
   {

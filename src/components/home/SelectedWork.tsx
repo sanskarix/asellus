@@ -5,20 +5,20 @@ import { ArrowUpRight } from "lucide-react";
 const works = [
   {
     client: "Frido",
-    category: "D2C Growth",
-    description: "Scaled a comfort brand from ₹2Cr to ₹25Cr ARR in 18 months through performance marketing and content systems.",
+    category: "Content and Performance Marketing",
+    description: "Produced UGC content in high volume and launched paid campaigns that didn't look like ads.",
     image: "/placeholder.svg",
   },
   {
     client: "mCaffeine",
     category: "Launch Strategy",
-    description: "Orchestrated a product launch that generated 10,000+ orders in the first 48 hours with zero paid media.",
+    description: "Crafted a product launch that generated 10,000+ orders in the first 48 hours, all by influencer marketing.",
     image: "/placeholder.svg",
   },
   {
     client: "Tokyo Laundry",
-    category: "Brand Repositioning",
-    description: "Repositioned a legacy retail brand for the digital-first generation. 340% increase in online revenue.",
+    category: "E-Commerce Growth",
+    description: "Repositioned a legacy retail brand for the new generation. 340% increase in online revenue under 30 days.",
     image: "/placeholder.svg",
   },
 ];
@@ -55,9 +55,8 @@ export function SelectedWork() {
           className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-20"
         >
           <div className="max-w-xl">
-            <p className="text-subheadline mb-4">Selected work</p>
             <h2 className="text-headline">
-              Results, not references
+              A few projects we’ve grown
             </h2>
           </div>
           <motion.div
