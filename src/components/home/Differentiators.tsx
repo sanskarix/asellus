@@ -34,7 +34,7 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.85,
-      ease: [0.25, 0.46, 0.45, 0.94]
+      ease: [0.25, 0.46, 0.45, 0.94] as const
     }
   }
 };
@@ -62,16 +62,8 @@ export function Differentiators() {
         once: true,
         margin: "-100px"
       }}>
-          {differentiators.map(item => <motion.div key={item.number} variants={itemVariants} className="glass-card-hover p-8 group">
-              <motion.span className="text-subheadline text-primary inline-block" whileHover={{
-            scale: 1.05,
-            x: 4
-          }} transition={{
-            duration: 0.3
-          }}>
-                {item.number}
-              </motion.span>
-              <h3 className="text-2xl md:text-3xl font-serif mt-4 mb-4 group-hover:text-primary transition-colors duration-300">
+          {differentiators.map((item, index) => <motion.div key={item.title} variants={itemVariants} className="glass-card-hover p-8 group">
+              <h3 className="text-2xl md:text-3xl font-serif mb-4 group-hover:text-primary transition-colors duration-300">
                 {item.title}
               </h3>
               <p className="text-muted-foreground leading-relaxed">
