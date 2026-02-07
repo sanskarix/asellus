@@ -301,9 +301,7 @@ export function Hero() {
       {/* Content - fades out as stars dissolve */}
       <div className="editorial-container relative z-10">
         <motion.div className="max-w-4xl" variants={containerVariants} initial="hidden" animate="visible">
-          <motion.p variants={itemVariants} className="text-subheadline mb-8 text-primary/80">
-            Marketing that moves
-          </motion.p>
+          
 
           <motion.h1 variants={itemVariants} className="text-display mb-10 leading-[0.95] font-serif">
             We don't do hype.
