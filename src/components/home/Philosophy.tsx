@@ -22,7 +22,7 @@ export function Philosophy() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-subheadline mb-10"
             >
-              Our philosophy
+              The Asellus Way
             </motion.p>
 
             <motion.blockquote
@@ -32,9 +32,9 @@ export function Philosophy() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-3xl md:text-4xl lg:text-5xl font-serif leading-tight"
             >
-              "Marketing isn't about being loud.
+              "“The best marketing doesn’t feel like marketing.
               <br />
-              <span className="text-muted-foreground">It's about being right—at the right time, in the right place, with the right message."</span>
+              <span className="text-muted-foreground">It just feels right.”</span>
             </motion.blockquote>
 
             <motion.div
@@ -49,7 +49,6 @@ export function Philosophy() {
                 transition={{ duration: 3, repeat: Infinity }}
                 className="w-12 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"
               ></motion.div>
-              <span className="text-sm text-primary/80 font-medium tracking-widest">THE ASELLUS WAY</span>
               <motion.div
                 animate={{ scaleX: [0.8, 1, 0.8] }}
                 transition={{ duration: 3, repeat: Infinity, delay: 1.5 }}

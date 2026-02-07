@@ -5,13 +5,13 @@ import { ArrowUpRight } from "lucide-react";
 const works = [
   {
     client: "Frido",
-    category: "Content and Performance Marketing",
+    category: "Content & Performance Marketing",
     description: "Produced UGC content in high volume and launched paid campaigns that didn't look like ads.",
     image: "/placeholder.svg",
   },
   {
     client: "mCaffeine",
-    category: "Launch Strategy",
+    category: "Product Launch",
     description: "Crafted a product launch that generated 10,000+ orders in the first 48 hours, all by influencer marketing.",
     image: "/placeholder.svg",
   },

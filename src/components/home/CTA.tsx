@@ -74,8 +74,7 @@ export function CTA() {
               variants={itemVariants}
               className="text-body-large text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed"
             >
-              No pitch decks. No lengthy proposals. Just a conversation about what you're
-              building and how we can help you grow.
+              No lengthy decks. No corporate formalities. <br>Let's chat about how we can help you grow.</br> 
             </motion.p>
 
             <motion.div
