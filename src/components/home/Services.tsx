@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
+import { GlassCard } from "@/components/ui/GlassCard";
+
 const services = [
   {
     title: "Growth Marketing",
@@ -93,19 +95,23 @@ export function Services() {
         once: true,
         margin: "-100px"
       }}>
-          {services.map((service, index) => <motion.div key={service.title} variants={itemVariants} className="glass-card-hover p-8 group relative overflow-hidden">
-              {/* Subtle accent line on top */}
-              <div className="absolute top-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{
-            background: `linear-gradient(90deg, transparent, ${service.accent}, transparent)`
-          }}></div>
-
-              <h3 className="text-xl font-serif mb-4 transition-colors duration-300">
-                {service.title}
-              </h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                {service.description}
-              </p>
-            </motion.div>)}
+          {services.map((service) => (
+            <motion.div key={service.title} variants={itemVariants}>
+              <GlassCard className="p-8 h-full group relative overflow-hidden">
+                {/* Subtle accent line on top */}
+                <div 
+                  className="absolute top-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" 
+                  style={{ background: `linear-gradient(90deg, transparent, ${service.accent}, transparent)` }}
+                />
+                <h3 className="text-xl font-serif mb-4 transition-colors duration-300">
+                  {service.title}
+                </h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  {service.description}
+                </p>
+              </GlassCard>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>;

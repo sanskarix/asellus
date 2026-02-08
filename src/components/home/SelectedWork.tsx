@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
+import { GlassCard } from "@/components/ui/GlassCard";
 
 const works = [
   {
@@ -81,68 +82,66 @@ export function SelectedWork() {
           viewport={{ once: true, margin: "-100px" }}
         >
           {works.map((work, index) => (
-            <motion.article
-              key={work.client}
-              variants={itemVariants}
-              className="glass-card-hover overflow-hidden group"
-            >
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-                <motion.div
-                  className={`aspect-[4/3] lg:aspect-auto bg-gradient-to-br from-muted/40 to-primary/8 flex items-center justify-center relative overflow-hidden ${
-                    index % 2 === 1 ? "lg:order-2" : ""
-                  }`}
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <span className="text-5xl md:text-6xl font-serif text-muted-foreground/20 group-hover:text-muted-foreground/30 transition-colors duration-500">
-                    {work.client}
-                  </span>
-                  {/* Shimmer effect */}
-                  <div className="absolute inset-0 shimmer opacity-20"></div>
-                </motion.div>
-
-                <div className={`p-8 lg:p-12 flex flex-col justify-center ${index % 2 === 1 ? "lg:order-1" : ""}`}>
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.1, duration: 0.5 }}
-                    className="text-subheadline mb-2"
-                  >
-                    {work.category}
-                  </motion.p>
-                  <motion.h3
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.15, duration: 0.5 }}
-                    className="text-3xl md:text-4xl font-serif mb-6 group-hover:text-primary transition-colors duration-300"
-                  >
-                    {work.client}
-                  </motion.h3>
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.2, duration: 0.5 }}
-                    className="text-muted-foreground text-lg leading-relaxed mb-8"
-                  >
-                    {work.description}
-                  </motion.p>
+            <motion.article key={work.client} variants={itemVariants}>
+              <GlassCard className="overflow-hidden group">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                   <motion.div
-                    whileHover={{ x: 4 }}
-                    transition={{ duration: 0.3 }}
+                    className={`aspect-[4/3] lg:aspect-auto bg-gradient-to-br from-muted/40 to-primary/8 flex items-center justify-center relative overflow-hidden ${
+                      index % 2 === 1 ? "lg:order-2" : ""
+                    }`}
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.5 }}
                   >
-                    <Link
-                      to="/work"
-                      className="inline-flex items-center gap-2 text-sm font-medium link-underline text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      View case study
-                      <ArrowUpRight size={16} />
-                    </Link>
+                    <span className="text-5xl md:text-6xl font-serif text-muted-foreground/20 group-hover:text-muted-foreground/30 transition-colors duration-500">
+                      {work.client}
+                    </span>
+                    {/* Shimmer effect */}
+                    <div className="absolute inset-0 shimmer opacity-20"></div>
                   </motion.div>
+
+                  <div className={`p-8 lg:p-12 flex flex-col justify-center ${index % 2 === 1 ? "lg:order-1" : ""}`}>
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.1, duration: 0.5 }}
+                      className="text-subheadline mb-2"
+                    >
+                      {work.category}
+                    </motion.p>
+                    <motion.h3
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.15, duration: 0.5 }}
+                      className="text-3xl md:text-4xl font-serif mb-6 transition-colors duration-300"
+                    >
+                      {work.client}
+                    </motion.h3>
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.2, duration: 0.5 }}
+                      className="text-muted-foreground text-lg leading-relaxed mb-8"
+                    >
+                      {work.description}
+                    </motion.p>
+                    <motion.div
+                      whileHover={{ x: 4 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Link
+                        to="/work"
+                        className="inline-flex items-center gap-2 text-sm font-medium link-underline text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        View case study
+                        <ArrowUpRight size={16} />
+                      </Link>
+                    </motion.div>
+                  </div>
                 </div>
-              </div>
+              </GlassCard>
             </motion.article>
           ))}
         </motion.div>

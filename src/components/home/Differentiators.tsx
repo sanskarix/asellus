@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import { GlassCard } from "@/components/ui/GlassCard";
+
 const differentiators = [{
   title: "Branding that feels global",
   description: "Your brand shouldn’t feel ‘local‑agency made’. We design identity and touchpoints that look at home in any market."
@@ -62,14 +64,18 @@ export function Differentiators() {
         once: true,
         margin: "-100px"
       }}>
-          {differentiators.map((item, index) => <motion.div key={item.title} variants={itemVariants} className="glass-card-hover p-8 group">
-              <h3 className="text-2xl md:text-3xl font-serif mb-4 group-hover:text-primary transition-colors duration-300">
-                {item.title}
-              </h3>
-              <p className="text-muted-foreground leading-relaxed">
-                {item.description}
-              </p>
-            </motion.div>)}
+          {differentiators.map((item) => (
+            <motion.div key={item.title} variants={itemVariants}>
+              <GlassCard className="p-8 h-full group">
+                <h3 className="text-2xl md:text-3xl font-serif mb-4 transition-colors duration-300">
+                  {item.title}
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  {item.description}
+                </p>
+              </GlassCard>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>;
