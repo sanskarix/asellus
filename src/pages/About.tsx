@@ -31,7 +31,7 @@ const team = [
 const AboutPage = () => {
   return (
     <Layout>
-      <section className="editorial-section">
+      <section className="editorial-section pt-36">
         <div className="editorial-container">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
