@@ -5,7 +5,7 @@ import { Mail, MapPin, ArrowUpRight } from "lucide-react";
 const ContactPage = () => {
   return (
     <Layout>
-      <section className="editorial-section">
+      <section className="editorial-section pt-36">
         <div className="editorial-container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
             <motion.div

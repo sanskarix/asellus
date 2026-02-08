@@ -8,8 +8,8 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   return (
-    <div className="min-h-screen flex flex-col relative bg-gradient-to-br from-[hsl(220,30%,2%)] via-[hsl(230,25%,2.5%)] to-[hsl(210,28%,2%)]">
-      {/* Ambient background with gradient orbs (same as Hero) */}
+    <div className="min-h-screen flex flex-col relative">
+      {/* Ambient background with gradient orbs */}
       <div className="ambient-bg">
         <div className="ambient-orb ambient-orb-1"></div>
         <div className="ambient-orb ambient-orb-2"></div>
@@ -17,7 +17,7 @@ export function Layout({ children }: LayoutProps) {
       </div>
       
       <Header />
-      <main className="flex-1 pt-28 relative z-10">{children}</main>
+      <main className="flex-1 relative z-10">{children}</main>
       <Footer />
     </div>
   );
