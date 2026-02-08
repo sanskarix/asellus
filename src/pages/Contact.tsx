@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Mail, MapPin, ArrowUpRight } from "lucide-react";
+import { GlassCard } from "@/components/ui/GlassCard";
 
 const ContactPage = () => {
   return (
@@ -25,55 +26,58 @@ const ContactPage = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2, duration: 0.5 }}
-                  className="glass-card p-8 group hover:scale-105 transition-transform duration-300"
                 >
-                  <h3 className="text-subheadline mb-3 group-hover:text-primary transition-colors duration-300">Email</h3>
-                  <a
-                    href="mailto:hello@asellus.agency"
-                    className="text-xl font-serif hover:text-primary transition-colors inline-flex items-center gap-2"
-                  >
-                    hello@asellus.agency
-                    <Mail size={18} />
-                  </a>
+                  <GlassCard className="p-8 group">
+                    <h3 className="text-subheadline mb-3 transition-colors duration-300">Email</h3>
+                    <a
+                      href="mailto:hello@asellus.agency"
+                      className="text-xl font-serif hover:text-primary transition-colors inline-flex items-center gap-2"
+                    >
+                      hello@asellus.agency
+                      <Mail size={18} />
+                    </a>
+                  </GlassCard>
                 </motion.div>
 
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3, duration: 0.5 }}
-                  className="glass-card p-8 group hover:scale-105 transition-transform duration-300"
                 >
-                  <h3 className="text-subheadline mb-3 group-hover:text-primary transition-colors duration-300">Location</h3>
-                  <p className="text-xl font-serif flex items-center gap-2">
-                    Remote-first, globally distributed
-                    <MapPin size={18} className="text-muted-foreground group-hover:text-primary transition-colors duration-300" />
-                  </p>
+                  <GlassCard className="p-8 group">
+                    <h3 className="text-subheadline mb-3 transition-colors duration-300">Location</h3>
+                    <p className="text-xl font-serif flex items-center gap-2">
+                      Remote-first, globally distributed
+                      <MapPin size={18} className="text-muted-foreground group-hover:text-primary transition-colors duration-300" />
+                    </p>
+                  </GlassCard>
                 </motion.div>
 
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.4, duration: 0.5 }}
-                  className="glass-card p-8 group hover:scale-105 transition-transform duration-300"
                 >
-                  <h3 className="text-subheadline mb-4 group-hover:text-primary transition-colors duration-300">Social</h3>
-                  <div className="flex gap-6">
-                    {[
-                      { name: "LinkedIn", href: "#" },
-                      { name: "Instagram", href: "#" },
-                      { name: "Twitter", href: "#" },
-                    ].map((social) => (
-                      <motion.a
-                        key={social.name}
-                        href={social.href}
-                        className="text-muted-foreground hover:text-primary transition-all inline-flex items-center gap-1"
-                        whileHover={{ x: 2 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        {social.name} <ArrowUpRight size={14} />
-                      </motion.a>
-                    ))}
-                  </div>
+                  <GlassCard className="p-8 group">
+                    <h3 className="text-subheadline mb-4 transition-colors duration-300">Social</h3>
+                    <div className="flex gap-6">
+                      {[
+                        { name: "LinkedIn", href: "#" },
+                        { name: "Instagram", href: "#" },
+                        { name: "Twitter", href: "#" },
+                      ].map((social) => (
+                        <motion.a
+                          key={social.name}
+                          href={social.href}
+                          className="text-muted-foreground hover:text-primary transition-all inline-flex items-center gap-1"
+                          whileHover={{ x: 2 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          {social.name} <ArrowUpRight size={14} />
+                        </motion.a>
+                      ))}
+                    </div>
+                  </GlassCard>
                 </motion.div>
               </div>
             </motion.div>
@@ -84,7 +88,7 @@ const ContactPage = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="h-full"
             >
-              <div className="glass-panel p-8 md:p-10 group relative overflow-hidden h-full flex flex-col">
+              <GlassCard className="p-8 md:p-10 group relative overflow-hidden h-full flex flex-col">
                 {/* Subtle glow effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
@@ -172,7 +176,7 @@ const ContactPage = () => {
                     We typically respond within 24 hours.
                   </p>
                 </form>
-              </div>
+              </GlassCard>
             </motion.div>
           </div>
         </div>

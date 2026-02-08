@@ -15,30 +15,32 @@ interface Star {
   initialOpacity: number;
   spawnTime: number;
   lifespan: number;
-  isBurst?: boolean; // Flag for click-spawned stars
+  isSpark?: boolean; // Spark burst particles (smaller, faster fade)
 }
 
 // ========== STARFIELD CONFIGURATION ==========
 // Tweak these values to adjust starfield behavior
 export const STARFIELD_CONFIG = {
   // DENSITY & PERFORMANCE
-  MAX_PARTICLES: 120,        // Maximum stars on screen
-  SPAWN_INTERVAL: 45,        // ms between spawning new particles
-  INITIAL_PARTICLE_COUNT: 120, // Stars to spawn on load (match MAX for full start)
+  MAX_PARTICLES: 150,        // Maximum stars on screen
+  SPAWN_INTERVAL: 50,        // ms between spawning new particles
+  INITIAL_PARTICLE_COUNT: 100, // Stars to spawn on load with randomized progress
   
   // MOVEMENT
-  PARTICLE_SPEED: 0.12,      // Units per frame
+  PARTICLE_SPEED: 0.12,      // Units per frame (edge→center journey)
   FADE_START_PERCENT: 0.7,   // Start fading at 70% of journey
   
   // VISUALS
-  MIN_PARTICLE_SIZE: 0.3,
-  MAX_PARTICLE_SIZE: 1.4,
+  MIN_PARTICLE_SIZE: 0.4,
+  MAX_PARTICLE_SIZE: 1.5,
   MIN_INITIAL_OPACITY: 0.4,
   MAX_INITIAL_OPACITY: 0.9,
   
-  // CLICK BURST
-  BURST_COUNT: 12,           // Stars per click
-  BURST_RADIUS: 8,           // Spread radius from click point (in %)
+  // CLICK BURST - Spark effect
+  SPARK_COUNT: 14,           // Sparks per click
+  SPARK_RADIUS: 6,           // Initial spread radius (in %)
+  SPARK_SIZE_MULT: 0.6,      // Smaller than regular stars
+  SPARK_LIFESPAN_MULT: 0.4,  // Shorter lifespan for quick fade
 };
 // =============================================
 
@@ -65,48 +67,38 @@ export function Hero() {
     MAX_PARTICLE_SIZE,
     MIN_INITIAL_OPACITY,
     MAX_INITIAL_OPACITY,
-    BURST_COUNT,
-    BURST_RADIUS,
+    SPARK_COUNT,
+    SPARK_RADIUS,
+    SPARK_SIZE_MULT,
+    SPARK_LIFESPAN_MULT,
   } = STARFIELD_CONFIG;
 
-  // Spawn a particle with optional initial progress (for mature field on load)
-  const spawnParticleWithProgress = useCallback((initialProgress: number = 0, burstOrigin?: { x: number; y: number }) => {
-    if (starsRef.current.length >= MAX_PARTICLES) {
-      // Remove oldest non-burst star to make room
-      const oldestIndex = starsRef.current.findIndex(s => !s.isBurst);
-      if (oldestIndex !== -1) {
-        starsRef.current.splice(oldestIndex, 1);
-      } else {
-        return;
-      }
-    }
-
+  // Spawn a regular background star with optional initial progress
+  const spawnBackgroundStar = useCallback((initialProgress: number = 0) => {
     const centerX = 50;
     const centerY = 50;
+    
+    // Spawn from edges
+    const edge = Math.floor(Math.random() * 4);
+    const randomOffset = Math.random() * 100;
     let spawnX: number, spawnY: number;
-
-    if (burstOrigin) {
-      // Burst stars spawn near click position with random offset
-      const angle = Math.random() * Math.PI * 2;
-      const radius = Math.random() * BURST_RADIUS;
-      spawnX = burstOrigin.x + Math.cos(angle) * radius;
-      spawnY = burstOrigin.y + Math.sin(angle) * radius;
-    } else {
-      // Regular stars spawn from edges
-      const edge = Math.floor(Math.random() * 4);
-      const randomOffset = Math.random() * 100;
-      switch (edge) {
-        case 0: spawnX = randomOffset; spawnY = -5; break;
-        case 1: spawnX = 105; spawnY = randomOffset; break;
-        case 2: spawnX = randomOffset; spawnY = 105; break;
-        case 3: spawnX = -5; spawnY = randomOffset; break;
-        default: spawnX = 50; spawnY = 50;
-      }
+    
+    switch (edge) {
+      case 0: spawnX = randomOffset; spawnY = -5; break;
+      case 1: spawnX = 105; spawnY = randomOffset; break;
+      case 2: spawnX = randomOffset; spawnY = 105; break;
+      case 3: spawnX = -5; spawnY = randomOffset; break;
+      default: spawnX = 50; spawnY = 50;
     }
 
     const targetX = centerX + (Math.random() - 0.5) * 10;
     const targetY = centerY + (Math.random() - 0.5) * 10;
     
+    const dx = targetX - spawnX;
+    const dy = targetY - spawnY;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    const lifespan = distance / PARTICLE_SPEED;
+
     const newStar: Star = {
       id: nextStarId.current++,
       spawnX,
@@ -118,40 +110,83 @@ export function Hero() {
       size: Math.random() * (MAX_PARTICLE_SIZE - MIN_PARTICLE_SIZE) + MIN_PARTICLE_SIZE,
       initialOpacity: Math.random() * (MAX_INITIAL_OPACITY - MIN_INITIAL_OPACITY) + MIN_INITIAL_OPACITY,
       spawnTime: timeRef.current,
-      lifespan: 0,
-      isBurst: !!burstOrigin,
+      lifespan,
+      isSpark: false,
     };
 
-    const dx = targetX - spawnX;
-    const dy = targetY - spawnY;
-    const distance = Math.sqrt(dx * dx + dy * dy);
-    newStar.lifespan = distance / PARTICLE_SPEED;
-
+    // Apply initial progress for steady-state initialization
     if (initialProgress > 0) {
-      newStar.spawnTime = timeRef.current - initialProgress * newStar.lifespan;
+      newStar.spawnTime = timeRef.current - initialProgress * lifespan;
       const clampedProgress = Math.min(initialProgress, 1);
       newStar.currentX = spawnX + (targetX - spawnX) * clampedProgress;
       newStar.currentY = spawnY + (targetY - spawnY) * clampedProgress;
     }
 
     starsRef.current.push(newStar);
-  }, [MAX_PARTICLES, BURST_RADIUS, PARTICLE_SPEED, MIN_PARTICLE_SIZE, MAX_PARTICLE_SIZE, MIN_INITIAL_OPACITY, MAX_INITIAL_OPACITY]);
+  }, [PARTICLE_SPEED, MIN_PARTICLE_SIZE, MAX_PARTICLE_SIZE, MIN_INITIAL_OPACITY, MAX_INITIAL_OPACITY]);
 
-  const spawnParticle = useCallback(() => {
-    spawnParticleWithProgress(0);
-  }, [spawnParticleWithProgress]);
+  // Spawn spark burst particles at click position
+  const spawnSparkBurst = useCallback((clickX: number, clickY: number) => {
+    for (let i = 0; i < SPARK_COUNT; i++) {
+      // Radiate outward from click position
+      const angle = (i / SPARK_COUNT) * Math.PI * 2 + Math.random() * 0.3;
+      const radiusOffset = Math.random() * SPARK_RADIUS;
+      
+      const spawnX = clickX + Math.cos(angle) * radiusOffset;
+      const spawnY = clickY + Math.sin(angle) * radiusOffset;
+      
+      // Sparks move outward, away from click point
+      const outwardDistance = 15 + Math.random() * 10;
+      const targetX = clickX + Math.cos(angle) * outwardDistance;
+      const targetY = clickY + Math.sin(angle) * outwardDistance;
+      
+      const dx = targetX - spawnX;
+      const dy = targetY - spawnY;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      const lifespan = (distance / PARTICLE_SPEED) * SPARK_LIFESPAN_MULT;
 
-  // Click-to-spawn burst
+      const spark: Star = {
+        id: nextStarId.current++,
+        spawnX,
+        spawnY,
+        currentX: spawnX,
+        currentY: spawnY,
+        targetCenterX: targetX,
+        targetCenterY: targetY,
+        size: (Math.random() * (MAX_PARTICLE_SIZE - MIN_PARTICLE_SIZE) + MIN_PARTICLE_SIZE) * SPARK_SIZE_MULT,
+        initialOpacity: 0.8 + Math.random() * 0.2, // Bright initial burst
+        spawnTime: timeRef.current,
+        lifespan,
+        isSpark: true,
+      };
+
+      starsRef.current.push(spark);
+    }
+  }, [SPARK_COUNT, SPARK_RADIUS, SPARK_LIFESPAN_MULT, SPARK_SIZE_MULT, PARTICLE_SPEED, MIN_PARTICLE_SIZE, MAX_PARTICLE_SIZE]);
+
+  // Click handler - adds sparks without removing existing stars
   const handleClick = useCallback((e: React.MouseEvent) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     const y = ((e.clientY - rect.top) / rect.height) * 100;
     
-    for (let i = 0; i < BURST_COUNT; i++) {
-      spawnParticleWithProgress(0, { x, y });
+    spawnSparkBurst(x, y);
+    
+    // Only trim if over max, and only remove oldest non-spark background stars
+    if (starsRef.current.length > MAX_PARTICLES) {
+      const excess = starsRef.current.length - MAX_PARTICLES;
+      let removed = 0;
+      starsRef.current = starsRef.current.filter(star => {
+        if (removed >= excess) return true;
+        if (!star.isSpark) {
+          removed++;
+          return false;
+        }
+        return true;
+      });
     }
-  }, [BURST_COUNT, spawnParticleWithProgress]);
+  }, [spawnSparkBurst, MAX_PARTICLES]);
 
   // Animation loop
   useEffect(() => {
@@ -163,26 +198,27 @@ export function Hero() {
       timeRef.current += 1;
       frameCount++;
 
-      // Initialize with randomized progress for steady-state appearance
+      // Initialize with randomized progress for immediate steady-state
       if (!initializedRef.current) {
         for (let i = 0; i < INITIAL_PARTICLE_COUNT; i++) {
-          // Distribute initial particles across 0-0.85 progress range
-          // This ensures continuous flow from the first frame
           const randomProgress = Math.random() * 0.85;
-          spawnParticleWithProgress(randomProgress);
+          spawnBackgroundStar(randomProgress);
         }
         initializedRef.current = true;
         lastSpawnTimeRef.current = now;
       }
 
-      // Spawn new particles at interval
+      // Spawn new background particles at interval
       if (now - lastSpawnTimeRef.current >= SPAWN_INTERVAL) {
-        spawnParticle();
+        // Only spawn if under soft limit for background stars
+        const bgCount = starsRef.current.filter(s => !s.isSpark).length;
+        if (bgCount < MAX_PARTICLES - 20) {
+          spawnBackgroundStar();
+        }
         lastSpawnTimeRef.current = now;
       }
 
-      // Update positions and remove dead particles
-      let hasChanges = false;
+      // Update positions and remove completed particles
       for (let i = starsRef.current.length - 1; i >= 0; i--) {
         const star = starsRef.current[i];
         const age = timeRef.current - star.spawnTime;
@@ -190,20 +226,14 @@ export function Hero() {
         
         if (progress >= 1) {
           starsRef.current.splice(i, 1);
-          hasChanges = true;
         } else {
           star.currentX = star.spawnX + (star.targetCenterX - star.spawnX) * progress;
           star.currentY = star.spawnY + (star.targetCenterY - star.spawnY) * progress;
         }
       }
 
-      // Enforce max limit
-      if (starsRef.current.length > MAX_PARTICLES) {
-        starsRef.current = starsRef.current.slice(-MAX_PARTICLES);
-        hasChanges = true;
-      }
-
-      if (hasChanges || frameCount % 2 === 0) {
+      // Update state every 2 frames for performance
+      if (frameCount % 2 === 0) {
         setStars([...starsRef.current]);
       }
       
@@ -212,7 +242,7 @@ export function Hero() {
     
     animationId = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationId);
-  }, [INITIAL_PARTICLE_COUNT, SPAWN_INTERVAL, MAX_PARTICLES, spawnParticle, spawnParticleWithProgress]);
+  }, [INITIAL_PARTICLE_COUNT, SPAWN_INTERVAL, MAX_PARTICLES, spawnBackgroundStar]);
 
   // Mouse tracking for fisheye effect
   useEffect(() => {
@@ -254,10 +284,13 @@ export function Hero() {
 
     let opacity = star.initialOpacity;
     let scale = 1;
-    if (progress > FADE_START_PERCENT) {
-      const fadeAmount = (progress - FADE_START_PERCENT) / (1 - FADE_START_PERCENT);
+    
+    // Sparks fade faster
+    const fadeStart = star.isSpark ? 0.3 : FADE_START_PERCENT;
+    if (progress > fadeStart) {
+      const fadeAmount = (progress - fadeStart) / (1 - fadeStart);
       opacity = star.initialOpacity * (1 - fadeAmount);
-      scale = 1 - fadeAmount * 0.3;
+      scale = 1 - fadeAmount * 0.5;
     }
 
     return { x: finalX, y: finalY, opacity, scale };
@@ -284,12 +317,12 @@ export function Hero() {
     <section
       ref={containerRef}
       onClick={handleClick}
-      className="min-h-[100vh] flex items-center justify-center relative overflow-hidden -mt-28 pt-28"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden"
     >
-      {/* Ultra-dark background - extends behind header */}
+      {/* Ultra-dark background - extends full viewport */}
       <div className="absolute inset-0 -z-20 bg-gradient-to-br from-[hsl(220,30%,2%)] via-[hsl(230,25%,2.5%)] to-[hsl(210,28%,2%)]" />
 
-      {/* Starfield layer - covers full viewport including header area */}
+      {/* Starfield layer - covers full viewport including behind header */}
       <motion.div
         style={{ opacity: starOpacity }}
         className="absolute inset-0 -z-10 pointer-events-none overflow-hidden"
@@ -305,17 +338,21 @@ export function Hero() {
                 top: `${pos.y}%`,
                 width: `${star.size * pos.scale}px`,
                 height: `${star.size * pos.scale}px`,
-                backgroundColor: `hsl(210, 100%, 85%)`,
+                backgroundColor: star.isSpark 
+                  ? `hsl(200, 100%, 90%)` 
+                  : `hsl(210, 100%, 85%)`,
                 opacity: pos.opacity,
-                boxShadow: `0 0 ${star.size * pos.scale * 2}px hsl(210, 100%, 85%)`,
+                boxShadow: star.isSpark
+                  ? `0 0 ${star.size * pos.scale * 3}px hsl(200, 100%, 90%)`
+                  : `0 0 ${star.size * pos.scale * 2}px hsl(210, 100%, 85%)`,
               }}
             />
           );
         })}
       </motion.div>
 
-      {/* Content */}
-      <div className="editorial-container relative z-10">
+      {/* Content - centered with header offset compensation */}
+      <div className="editorial-container relative z-10 pt-20">
         <motion.div
           className="max-w-4xl"
           variants={containerVariants}

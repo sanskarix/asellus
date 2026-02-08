@@ -3,6 +3,7 @@ import { Layout } from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Target, Zap, Wrench, TrendingUp, Rocket } from "lucide-react";
+import { GlassCard } from "@/components/ui/GlassCard";
 
 const steps = [
   {
@@ -132,12 +133,12 @@ const ProcessPage = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-24"
           >
-            <div className="glass-panel p-12 md:p-16 group relative overflow-hidden">
+            <GlassCard className="p-12 md:p-16 group relative overflow-hidden">
               {/* Subtle glow effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
               <div className="max-w-2xl relative z-10">
-                <h3 className="text-2xl md:text-3xl font-serif mb-6 group-hover:text-primary transition-colors duration-300">
+                <h3 className="text-2xl md:text-3xl font-serif mb-6 transition-colors duration-300">
                   No long-term contracts
                 </h3>
                 <p className="text-muted-foreground mb-8 leading-relaxed">
@@ -155,7 +156,7 @@ const ProcessPage = () => {
                   </Link>
                 </motion.div>
               </div>
-            </div>
+            </GlassCard>
           </motion.div>
         </div>
       </section>

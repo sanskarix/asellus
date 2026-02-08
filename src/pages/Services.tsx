@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { GlassCard } from "@/components/ui/GlassCard";
 
 const services = [
   {
@@ -63,47 +64,48 @@ const ServicesPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.08, duration: 0.6 }}
-                className="glass-card-hover p-8 lg:p-10 group relative overflow-hidden"
               >
-                {/* Subtle accent accent line */}
-                <div className="absolute top-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-primary/60 to-transparent"></div>
+                <GlassCard className="p-8 lg:p-10 group relative overflow-hidden">
+                  {/* Subtle accent line */}
+                  <div className="absolute top-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-primary/60 to-transparent"></div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                  <motion.div
-                    className="lg:col-span-4"
-                    whileHover={{ x: 4 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <h2 className="text-2xl md:text-3xl font-serif group-hover:text-primary transition-colors duration-300">
-                      {service.title}
-                    </h2>
-                  </motion.div>
-                  <div className="lg:col-span-5">
-                    <p className="text-muted-foreground leading-relaxed">
-                      {service.description}
-                    </p>
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <motion.div
+                      className="lg:col-span-4"
+                      whileHover={{ x: 4 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <h2 className="text-2xl md:text-3xl font-serif transition-colors duration-300">
+                        {service.title}
+                      </h2>
+                    </motion.div>
+                    <div className="lg:col-span-5">
+                      <p className="text-muted-foreground leading-relaxed">
+                        {service.description}
+                      </p>
+                    </div>
+                    <div className="lg:col-span-3">
+                      <ul className="space-y-3">
+                        {service.capabilities.map((cap, capIndex) => (
+                          <motion.li
+                            key={cap}
+                            initial={{ opacity: 0, x: -10 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: index * 0.1 + capIndex * 0.05, duration: 0.4 }}
+                            className="text-sm text-muted-foreground flex items-center gap-2 group/item"
+                          >
+                            <motion.span
+                              className="w-1.5 h-1.5 rounded-full bg-primary/60 group-hover/item:bg-primary transition-all duration-300"
+                              whileHover={{ scale: 1.4 }}
+                            ></motion.span>
+                            {cap}
+                          </motion.li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
-                  <div className="lg:col-span-3">
-                    <ul className="space-y-3">
-                      {service.capabilities.map((cap, capIndex) => (
-                        <motion.li
-                          key={cap}
-                          initial={{ opacity: 0, x: -10 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: index * 0.1 + capIndex * 0.05, duration: 0.4 }}
-                          className="text-sm text-muted-foreground flex items-center gap-2 group/item"
-                        >
-                          <motion.span
-                            className="w-1.5 h-1.5 rounded-full bg-primary/60 group-hover/item:bg-primary transition-all duration-300"
-                            whileHover={{ scale: 1.4 }}
-                          ></motion.span>
-                          {cap}
-                        </motion.li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
+                </GlassCard>
               </motion.article>
             ))}
           </div>
@@ -115,7 +117,7 @@ const ServicesPage = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-24"
           >
-            <div className="glass-panel p-12 md:p-16 text-center group relative overflow-hidden">
+            <GlassCard className="p-12 md:p-16 text-center group relative overflow-hidden">
               {/* Subtle glow */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
@@ -133,7 +135,7 @@ const ServicesPage = () => {
                   </Link>
                 </motion.div>
               </div>
-            </div>
+            </GlassCard>
           </motion.div>
         </div>
       </section>
