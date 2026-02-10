@@ -12,8 +12,8 @@ const Index = () => {
     <Layout>
       <Hero />
       <ClientLogos />
-      <Differentiators />
       <Services />
+      <Differentiators />
       <SelectedWork />
       <Philosophy />
       <CTA />
