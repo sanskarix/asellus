@@ -364,6 +364,265 @@
     color: hsl(210 15% 50%);
   }
 }
+  /* ============================
+     Asellus Services Card Effect
+     (skewed blue gradient + glass content)
+     ============================ */
+
+  .asellus-card {
+    position: relative;
+    width: 100%;
+    min-height: 220px;
+    margin: 1.5rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.4s ease, filter 0.4s ease;
+  }
+
+  .asellus-card::before,
+  .asellus-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50px;
+    width: 55%;
+    height: 100%;
+    border-radius: 0.75rem;
+    transform: skewX(15deg);
+    transition: 0.5s ease;
+    background: var(
+      --card-accent,
+      linear-gradient(135deg, hsl(210 40% 55%), hsl(210 40% 45%))
+    );
+  }
+
+  .asellus-card::after {
+    filter: blur(24px);
+    opacity: 0.85;
+  }
+
+  .asellus-card:hover::before,
+  .asellus-card:hover::after {
+    transform: skewX(0deg);
+    left: 20px;
+    width: calc(100% - 90px);
+  }
+
+  .asellus-card-orbs {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  .asellus-card-orbs::before,
+  .asellus-card-orbs::after {
+    content: "";
+    position: absolute;
+    border-radius: 999px;
+    background: hsl(210 40% 60% / 0.08);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 24px hsl(220 40% 4% / 0.8);
+    opacity: 0;
+    transition: 0.5s ease;
+    animation: asellus-card-orb 2.4s ease-in-out infinite;
+  }
+
+  .asellus-card-orbs::before {
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .asellus-card-orbs::after {
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    animation-delay: -1.2s;
+  }
+
+  .asellus-card:hover .asellus-card-orbs::before {
+    top: -40px;
+    left: 40px;
+    width: 80px;
+    height: 80px;
+    opacity: 1;
+  }
+
+  .asellus-card:hover .asellus-card-orbs::after {
+    bottom: -40px;
+    right: 40px;
+    width: 80px;
+    height: 80px;
+    opacity: 1;
+  }
+
+  @keyframes asellus-card-orb {
+    0%,
+    100% {
+      transform: translateY(8px);
+    }
+    50% {
+      transform: translate(-8px, -4px);
+    }
+  }
+
+  .asellus-card-content {
+    position: relative;
+    left: 0;
+    z-index: 10;
+    padding: 1.25rem 1.75rem;
+    border-radius: 0.75rem;
+    background: hsl(220 20% 8% / 0.75);
+    backdrop-filter: blur(14px);
+    box-shadow:
+      0 10px 25px hsl(220 30% 3% / 0.6),
+      inset 0 0.5px 0 hsl(210 30% 70% / 0.08);
+    transition: 0.5s ease;
+    border: 1px solid hsl(210 25% 30% / 0.4);
+    text-align: left;
+    color: hsl(210 20% 94%);
+  }
+
+  .asellus-card:hover .asellus-card-content {
+    left: -22px;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+  .asellus-diff-depth-shell {
+    max-width: 72rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+
+  .asellus-diff-depth-card {
+    position: relative;
+    width: 100%;
+    will-change: transform, opacity, box-shadow;
+    transition: box-shadow 0.45s ease-out;
+  }
+
+  .asellus-diff-plate {
+    position: absolute;
+    inset: 0;
+    left: 40px;
+    right: 40px;
+    border-radius: 0.85rem;
+    background: linear-gradient(
+      135deg,
+      hsl(210 40% 55% / 0.15),
+      hsl(210 40% 45% / 0.12)
+    );
+    filter: blur(18px);
+    opacity: 0.6;
+    transition: opacity 0.4s ease-out;
+    z-index: 0;
+  }
+
+  .asellus-diff-orbs {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .asellus-diff-orbs::before,
+  .asellus-diff-orbs::after {
+    content: "";
+    position: absolute;
+    border-radius: 999px;
+    background: hsl(210 40% 60% / 0.08);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 24px hsl(220 40% 4% / 0.8);
+    opacity: 0.25;
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  }
+
+  .asellus-diff-orbs::before {
+    top: -30px;
+    left: 50px;
+    width: 70px;
+    height: 70px;
+  }
+
+  .asellus-diff-orbs::after {
+    bottom: -30px;
+    right: 50px;
+    width: 70px;
+    height: 70px;
+  }
+
+  .asellus-diff-depth-inner {
+    position: relative;
+    z-index: 2;
+    border-radius: 0.75rem;
+    background: hsl(220 20% 8% / 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    padding: 1.4rem 1.7rem;
+    box-shadow:
+      0 10px 25px hsl(220 30% 3% / 0.6),
+      inset 0 0.5px 0 hsl(210 30% 70% / 0.08);
+    border: none;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.4rem;
+    color: hsl(210 20% 94%);
+    text-align: left;
+  }
+
+  .asellus-diff-depth-number {
+    align-self: flex-start;
+    width: 2.3rem;
+    height: 2.3rem;
+    border-radius: 999px;
+    background: hsl(220 20% 10%);
+    border: 1px solid hsl(210 30% 35% / 0.75);
+    box-shadow:
+      0 10px 22px hsl(220 40% 3% / 0.9),
+      inset 0 0 0 1px hsl(210 30% 60% / 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: hsl(210 20% 96%);
+  }
+
+  .asellus-diff-depth-content {
+    text-align: left;
+  }
+
+  /* optional: more glow on hover/focus */
+  .asellus-diff-depth-card:hover .asellus-diff-plate {
+    opacity: 0.9;
+  }
+
+  .asellus-diff-depth-card:hover .asellus-diff-orbs::before,
+  .asellus-diff-depth-card:hover .asellus-diff-orbs::after {
+    opacity: 0.4;
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    .asellus-diff-depth-inner {
+      grid-template-columns: 1fr;
+      gap: 0.9rem;
+      padding: 1.2rem 1.3rem;
+    }
+
+    .asellus-diff-depth-number {
+      width: 2.1rem;
+      height: 2.1rem;
+      font-size: 0.75rem;
+    }
+  }
 
 @layer utilities {
   .animate-fade-up {
@@ -513,4 +772,121 @@
   .text-shadow-glow {
     text-shadow: 0 0 30px hsl(210 50% 50% / 0.2);
   }
+}
+/* ===========================
+   LEFT-ALIGNED STACK
+   =========================== */
+
+.diff-stack {
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  transition: gap 0.5s ease;
+
+  /* 🔑 hard left alignment */
+  align-items: flex-start;
+  width: 100%;
+}
+
+.diff-stack:hover {
+  gap: 20px;
+}
+
+/* ===========================
+   CARD BASE
+   =========================== */
+
+.diff-card {
+  position: relative;
+  list-style: none;
+
+  /* 🔑 full-width cards */
+  width: 100%;
+
+  padding: 32px 40px;
+  background: hsl(var(--card));
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+
+  transition: 500ms;
+  transition-delay: calc(var(--i) * 50ms);
+  cursor: pointer;
+  isolation: isolate;
+}
+
+/* ===========================
+   DEPTH (NO X OFFSET)
+   =========================== */
+
+.diff-card:nth-child(1) {
+  transform: translateZ(-80px) translateY(32px);
+  opacity: 0.55;
+  filter: blur(4px);
+}
+
+.diff-card:nth-child(2) {
+  transform: translateZ(-20px) translateY(16px);
+  opacity: 0.75;
+  filter: blur(2px);
+}
+
+.diff-card:nth-child(3) {
+  transform: translateZ(40px) translateY(-12px);
+}
+
+.diff-card:nth-child(4) {
+  transform: translateZ(90px) translateY(-32px);
+  filter: blur(1px);
+}
+
+/* ===========================
+   STACK HOVER RESET
+   =========================== */
+
+.diff-stack:hover .diff-card {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateZ(0) translateY(0);
+}
+
+/* ===========================
+   OUTER BLUE GLOW ONLY
+   =========================== */
+
+.diff-card::before {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  border-radius: inherit;
+  background: var(--card-accent);
+  filter: blur(28px);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.4s ease;
+}
+
+.diff-card:hover::before {
+  opacity: 1;
+}
+
+/* ===========================
+   TYPOGRAPHY
+   =========================== */
+
+.diff-content h3 {
+  font-family: "Playfair Display", serif;
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.diff-content p {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  opacity: 0.65;
+  line-height: 1.6;
+  max-width: 65ch;
 }
