@@ -780,7 +780,7 @@
 .diff-stack {
   position: relative;
   transform-style: preserve-3d;
-  perspective: 500px;
+  perspective: 800px;
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -822,24 +822,23 @@
    =========================== */
 
 .diff-card:nth-child(1) {
-  transform: translateZ(-80px) translateY(32px);
-  opacity: 0.55;
-  filter: blur(4px);
-}
-
-.diff-card:nth-child(2) {
-  transform: translateZ(-20px) translateY(16px);
-  opacity: 0.75;
+  transform: translateZ(-40px) translateY(16px);
+  opacity: 0.6;
   filter: blur(2px);
 }
 
+.diff-card:nth-child(2) {
+  transform: translateZ(-10px) translateY(8px);
+  opacity: 0.8;
+  filter: blur(1px);
+}
+
 .diff-card:nth-child(3) {
-  transform: translateZ(40px) translateY(-12px);
+  transform: translateZ(20px) translateY(-6px);
 }
 
 .diff-card:nth-child(4) {
-  transform: translateZ(90px) translateY(-32px);
-  filter: blur(1px);
+  transform: translateZ(40px) translateY(-16px);
 }
 
 /* ===========================
