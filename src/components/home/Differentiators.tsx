@@ -34,7 +34,6 @@ export function Differentiators() {
           <h2 className="text-headline">What makes us different</h2>
         </div>
 
-        {/* LEFT-ALIGNED STACK */}
         <ul className="diff-stack">
           {differentiators.map((item, index) => (
             <li

@@ -858,10 +858,10 @@
 .diff-card::before {
   content: "";
   position: absolute;
-  inset: -10px;
+  inset: -12px;
   border-radius: inherit;
   background: var(--card-accent);
-  filter: blur(28px);
+  filter: blur(30px);
   opacity: 0;
   z-index: -1;
   transition: opacity 0.4s ease;
@@ -888,4 +888,242 @@
   opacity: 0.65;
   line-height: 1.6;
   max-width: 65ch;
+}
+/* ==========================================================
+   DIFFERENTIATORS — LEFT ALIGNED STACK (RESTORED DEPTH)
+   ========================================================== */
+
+.diff-stack {
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  transition: gap 0.5s ease;
+  width: 100%;
+}
+
+.diff-stack:hover {
+  gap: 20px;
+}
+
+/* CARD BASE */
+
+.diff-card {
+  position: relative;
+  width: 100%;
+  padding: 32px 40px;
+  background: hsl(var(--card));
+  border-radius: 20px;
+  box-shadow: 0 12px 40px hsl(220 30% 3% / 0.35);
+  transition: transform 0.5s ease, filter 0.5s ease, opacity 0.5s ease;
+  transition-delay: calc(var(--i) * 60ms);
+  isolation: isolate;
+  cursor: pointer;
+  will-change: transform, filter, opacity;
+}
+
+/* STRONG DEPTH RESTORED */
+
+.diff-card:nth-child(1) {
+  transform: translateZ(-120px) translateY(40px);
+  opacity: 0.45;
+  filter: blur(6px);
+}
+
+.diff-card:nth-child(2) {
+  transform: translateZ(-40px) translateY(20px);
+  opacity: 0.7;
+  filter: blur(3px);
+}
+
+.diff-card:nth-child(3) {
+  transform: translateZ(60px) translateY(-20px);
+}
+
+.diff-card:nth-child(4) {
+  transform: translateZ(140px) translateY(-45px);
+  filter: blur(1px);
+}
+
+/* HOVER — FLATTEN STACK */
+
+.diff-stack:hover .diff-card {
+  transform: translateZ(0) translateY(0);
+  filter: blur(0);
+  opacity: 1;
+}
+
+.diff-card::before {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  border-radius: inherit;
+  background: var(--card-accent);
+  filter: blur(30px);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.4s ease;
+}
+
+.diff-card:hover::before {
+  opacity: 1;
+}
+
+/* TYPOGRAPHY */
+
+.diff-content h3 {
+  font-family: "Playfair Display", serif;
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.diff-content p {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  opacity: 0.65;
+  line-height: 1.6;
+  max-width: 65ch;
+}
+
+/* STACK CONTEXT (3D ONLY HERE) */
+.diff-stack {
+  position: relative;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  width: 100%;
+  transition: gap 0.5s ease;
+}
+
+.diff-stack:hover {
+  gap: 20px;
+}
+
+/* SHELL (FLAT SPACE — GLOW LIVES HERE) */
+.diff-card-shell {
+  position: relative;
+  width: 100%;
+  transform-style: flat; /* 🔑 critical */
+}
+
+/* OUTER GLOW — ALWAYS BELOW ALL CARDS */
+.diff-card-shell::before {
+  content: "";
+  position: absolute;
+  inset: -16px;
+  border-radius: 20px;
+  background: var(--card-accent);
+  filter: blur(32px);
+  opacity: 0;
+  z-index: -20;
+  transition: opacity 0.1s ease;
+}
+
+.diff-card-shell:hover::before {
+  opacity: 0.1;
+}
+
+/* CARD (3D OBJECT) */
+.diff-card {
+  position: relative;
+  width: 100%;
+  padding: 32px 40px;
+  background: hsl(var(--card));
+  border-radius: 20px;
+  box-shadow: 0 12px 40px hsl(220 30% 3% / 0.35);
+  isolation: isolate;
+  cursor: pointer;
+
+  transition:
+    transform 0.5s ease,
+    filter 0.5s ease,
+    opacity 0.5s ease;
+
+  will-change: transform, filter, opacity;
+}
+
+/* INNER GLASS SEAL (PREVENTS GLOW BLEED) */
+.diff-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: hsl(var(--card));
+  z-index: 0;
+}
+
+.diff-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* DEPTH — ONLY PLACE THIS EXISTS */
+.diff-card-shell:nth-child(1) .diff-card {
+  transform: translateZ(-120px) translateY(40px);
+  opacity: 0.45;
+  filter: blur(6px);
+}
+
+.diff-card-shell:nth-child(2) .diff-card {
+  transform: translateZ(-40px) translateY(20px);
+  opacity: 0.7;
+  filter: blur(3px);
+}
+
+.diff-card-shell:nth-child(3) .diff-card {
+  transform: translateZ(60px) translateY(-20px);
+}
+
+.diff-card-shell:nth-child(4) .diff-card {
+  transform: translateZ(140px) translateY(-45px);
+  filter: blur(1px);
+}
+
+/* FLATTEN ON STACK HOVER */
+.diff-stack:hover .diff-card {
+  transform: translateZ(0) translateY(0);
+  filter: blur(0);
+  opacity: 1;
+}
+
+/* TYPOGRAPHY */
+.diff-content h3 {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.diff-content p {
+  font-size: 14px;
+  opacity: 0.65;
+  line-height: 1.6;
+  max-width: 65ch;
+}
+
+/* ==========================================================
+   UTILITIES (UNCHANGED)
+   ========================================================== */
+
+@layer utilities {
+  .animate-fade-up {
+    animation: fadeUp 0.8s ease-out forwards;
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }

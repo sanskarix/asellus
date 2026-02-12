@@ -13,7 +13,7 @@ const services = [
   {
     title: "Performance Marketing",
     description:
-      "Campaigns built to convert, not just look good on dashboards.",
+      "Campaigns built to drive business, not just look good on dashboards.",
     accent: "linear-gradient(135deg, hsl(210 40% 55%), hsl(210 40% 45%))",
   },
   {
@@ -25,7 +25,7 @@ const services = [
   {
     title: "Custom Development",
     description:
-      "Websites, software, and tools built to global standards.",
+      "Websites, software, and tools built or redesigned to global standards.",
     accent: "linear-gradient(135deg, hsl(210 40% 55%), hsl(210 40% 45%))",
   },
 ];
@@ -63,6 +63,7 @@ export function Services() {
           <div className="max-w-xl">
             <h2 className="text-headline">What do we take care of</h2>
           </div>
+
           <motion.div whileHover={{ x: 4 }} transition={{ duration: 0.3 }}>
             <Link
               to="/services"
@@ -75,7 +76,7 @@ export function Services() {
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -101,7 +102,7 @@ function ServiceCard({ service }: { service: Service }) {
         } as React.CSSProperties
       }
     >
-      <span className="asellus-card-orbs" />
+      {/* ORBS REMOVED */}
       <div className="asellus-card-content">
         <h3 className="text-xl font-serif mb-3">{service.title}</h3>
         <p className="text-muted-foreground text-sm leading-relaxed">
