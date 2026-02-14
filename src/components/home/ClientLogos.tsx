@@ -1,15 +1,19 @@
 import { motion } from "framer-motion";
 const clients = [{
   name: "Frido",
+  logo: "/logos/frido.svg",
   id: 1
 }, {
   name: "mCaffeine",
+  logo: "/logos/mcaffeine.svg",
   id: 2
 }, {
   name: "Tokyo Laundry",
+  logo: "/logos/tokyo-laundry.svg",
   id: 3
 }, {
   name: "Wylo",
+  logo: "/logos/wylo.svg",
   id: 4
 }];
 const containerVariants = {
@@ -40,8 +44,8 @@ const itemVariants = {
 };
 export function ClientLogos() {
   return <section className="py-20 relative overflow-hidden">
-      <div className="editorial-container">
-        <motion.div initial={{
+    <div className="editorial-container">
+      <motion.div initial={{
         opacity: 0,
         y: 20
       }} whileInView={{
@@ -52,27 +56,41 @@ export function ClientLogos() {
       }} transition={{
         duration: 0.6
       }} className="glass-panel py-16 px-8 group">
-          <motion.p initial={{
+        <motion.p initial={{
           opacity: 0
         }} whileInView={{
           opacity: 1
         }} viewport={{
           once: true
-        }} className="text-subheadline text-center mb-14">Supercharing the best teams </motion.p>
+        }} className="text-subheadline text-center mb-14">Supercharging the best teams </motion.p>
 
-          <motion.div className="flex flex-wrap justify-center items-center gap-12 md:gap-20" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{
-          once: true
-        }}>
-            {clients.map(client => <motion.div key={client.id} variants={itemVariants} whileHover={{
-            scale: 1.08,
-            y: -4
-          }} transition={{
-            duration: 0.3
-          }} className="text-2xl md:text-3xl font-serif text-muted-foreground hover:text-primary transition-all duration-300 cursor-default">
-                {client.name}
-              </motion.div>)}
-          </motion.div>
+        <motion.div
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 items-center justify-items-center max-w-5xl mx-auto"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          {clients.map((client) => (
+            <motion.div
+              key={client.id}
+              variants={itemVariants}
+              className="relative group w-full flex items-center justify-center p-4 rounded-xl transition-all duration-300 hover:bg-white/5"
+            >
+              {/* Shine effect */}
+              <div className="absolute inset-0 rounded-xl overflow-hidden pointer-events-none">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
+              </div>
+
+              <img
+                src={client.logo}
+                alt={`${client.name} logo`}
+                className="h-12 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-110"
+              />
+            </motion.div>
+          ))}
         </motion.div>
-      </div>
-    </section>;
+      </motion.div>
+    </div>
+  </section>;
 }

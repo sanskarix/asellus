@@ -32,7 +32,7 @@ export function Philosophy() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-3xl md:text-4xl lg:text-5xl font-serif leading-tight"
             >
-              "“The best marketing doesn’t feel like marketing.
+              “The best marketing doesn’t feel like marketing.
               <br />
               <span className="text-muted-foreground">It just feels right.”</span>
             </motion.blockquote>
@@ -44,16 +44,7 @@ export function Philosophy() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="mt-14 flex items-center justify-center gap-6"
             >
-              <motion.div
-                animate={{ scaleX: [0.8, 1, 0.8] }}
-                transition={{ duration: 3, repeat: Infinity }}
-                className="w-12 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"
-              ></motion.div>
-              <motion.div
-                animate={{ scaleX: [0.8, 1, 0.8] }}
-                transition={{ duration: 3, repeat: Infinity, delay: 1.5 }}
-                className="w-12 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"
-              ></motion.div>
+
             </motion.div>
           </div>
         </motion.div>
