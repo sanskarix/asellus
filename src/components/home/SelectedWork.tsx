@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
+import { motion, useMotionTemplate, useMotionValue, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
-import { GlassCard } from "@/components/ui/GlassCard";
+import { useRef, useState, useEffect, MouseEvent } from "react";
 
 const works = [
   {
@@ -24,6 +24,77 @@ const works = [
   },
 ];
 
+function SpotlightCard({
+  children,
+  className = "",
+  mouseX,
+  mouseY,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  mouseX: any;
+  mouseY: any;
+}) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [bounds, setBounds] = useState({ left: 0, top: 0 });
+
+  useEffect(() => {
+    const updateBounds = () => {
+      if (cardRef.current) {
+        const rect = cardRef.current.getBoundingClientRect();
+        setBounds({ left: rect.left, top: rect.top });
+      }
+    };
+
+    updateBounds();
+    window.addEventListener("resize", updateBounds);
+    window.addEventListener("scroll", updateBounds);
+    return () => {
+      window.removeEventListener("resize", updateBounds);
+      window.removeEventListener("scroll", updateBounds);
+    };
+  }, []);
+
+  const localX = useTransform(mouseX, (x: number) => x - bounds.left);
+  const localY = useTransform(mouseY, (y: number) => y - bounds.top);
+
+  return (
+    <motion.div
+      ref={cardRef}
+      whileHover={{ y: -3 }}
+      className={`relative overflow-hidden rounded-xl bg-white/5 backdrop-blur-md ${className}`}
+    >
+      {/* Cinematic Spotlight Background */}
+      <div className="absolute inset-0 bg-background/80 -z-20" />
+
+      <motion.div
+        className="pointer-events-none absolute -inset-px transition duration-300 -z-10"
+        style={{
+          background: useMotionTemplate`
+            radial-gradient(
+              650px circle at ${localX}px ${localY}px,
+              rgba(14, 165, 233, 0.08),
+              transparent 80%
+            )
+          `,
+        }}
+      />
+
+      {/* Film Grain Texture */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none -z-10"
+        style={{ backgroundImage: 'url("/noise.png")', backgroundSize: '100px 100px' }}
+      />
+      <div className="absolute inset-0 opacity-[0.15] pointer-events-none -z-10 mix-blend-overlay"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+        }}
+      />
+
+      {children}
+    </motion.div>
+  );
+}
+
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -45,8 +116,16 @@ const itemVariants = {
 };
 
 export function SelectedWork() {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  function handleMouseMove({ clientX, clientY }: MouseEvent) {
+    mouseX.set(clientX);
+    mouseY.set(clientY);
+  }
+
   return (
-    <section className="editorial-section relative overflow-hidden">
+    <section className="editorial-section relative overflow-hidden" onMouseMove={handleMouseMove}>
       <div className="editorial-container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -83,12 +162,11 @@ export function SelectedWork() {
         >
           {works.map((work, index) => (
             <motion.article key={work.client} variants={itemVariants}>
-              <GlassCard className="overflow-hidden group">
+              <SpotlightCard className="group" mouseX={mouseX} mouseY={mouseY}>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                   <motion.div
-                    className={`aspect-[4/3] lg:aspect-auto bg-gradient-to-br from-muted/40 to-primary/8 flex items-center justify-center relative overflow-hidden ${
-                      index % 2 === 1 ? "lg:order-2" : ""
-                    }`}
+                    className={`aspect-[4/3] lg:aspect-auto bg-gradient-to-br from-muted/40 to-primary/8 flex items-center justify-center relative overflow-hidden ${index % 2 === 1 ? "lg:order-2" : ""
+                      }`}
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.5 }}
                   >
@@ -114,7 +192,7 @@ export function SelectedWork() {
                       whileInView={{ opacity: 1 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.15, duration: 0.5 }}
-                      className="text-3xl md:text-4xl font-serif mb-6 transition-colors duration-300"
+                      className="text-3xl md:text-4xl font-serif mb-6 transition-colors duration-300 relative z-10"
                     >
                       {work.client}
                     </motion.h3>
@@ -123,13 +201,14 @@ export function SelectedWork() {
                       whileInView={{ opacity: 1 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.2, duration: 0.5 }}
-                      className="text-muted-foreground text-lg leading-relaxed mb-8"
+                      className="text-muted-foreground text-lg leading-relaxed mb-8 relative z-10"
                     >
                       {work.description}
                     </motion.p>
                     <motion.div
                       whileHover={{ x: 4 }}
                       transition={{ duration: 0.3 }}
+                      className="relative z-10"
                     >
                       <Link
                         to="/work"
@@ -141,7 +220,7 @@ export function SelectedWork() {
                     </motion.div>
                   </div>
                 </div>
-              </GlassCard>
+              </SpotlightCard>
             </motion.article>
           ))}
         </motion.div>

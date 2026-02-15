@@ -67,7 +67,7 @@
   }
 
   html {
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth;  <-- Removed for Lenis */
     min-height: 100%;
   }
 

@@ -5,7 +5,6 @@ import { Differentiators } from "@/components/home/Differentiators";
 import { Services } from "@/components/home/Services";
 import { SelectedWork } from "@/components/home/SelectedWork";
 import { Philosophy } from "@/components/home/Philosophy";
-import { CTA } from "@/components/home/CTA";
 
 const Index = () => {
   return (
@@ -16,7 +15,6 @@ const Index = () => {
       <Differentiators />
       <SelectedWork />
       <Philosophy />
-      <CTA />
     </Layout>
   );
 };

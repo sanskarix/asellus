@@ -23,8 +23,8 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.07,
-      delayChildren: 0.1
+      staggerChildren: 0.15,
+      delayChildren: 0.2
     }
   }
 };
@@ -37,7 +37,7 @@ const itemVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.7,
+      duration: 0.9,
       ease: [0.25, 0.46, 0.45, 0.94] as const
     }
   }
@@ -54,8 +54,10 @@ export function ClientLogos() {
       }} viewport={{
         once: true
       }} transition={{
-        duration: 0.6
-      }} className="glass-panel py-16 px-8 group">
+        duration: 1.0
+      }} className="glass-panel py-16 px-8">
+        {/* ... content ... */}
+        {/* Actually, replace_file_content replaces block. I should target specific variants. */}
         <motion.p initial={{
           opacity: 0
         }} whileInView={{
@@ -75,17 +77,17 @@ export function ClientLogos() {
             <motion.div
               key={client.id}
               variants={itemVariants}
-              className="relative group w-full flex items-center justify-center p-4 rounded-xl transition-all duration-300 hover:bg-white/5"
+              className="relative group w-full flex items-center justify-center p-4 rounded-xl transition-all duration-500 hover:bg-white/5"
             >
               {/* Shine effect */}
               <div className="absolute inset-0 rounded-xl overflow-hidden pointer-events-none">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-[1200ms] ease-in-out" />
               </div>
 
               <img
                 src={client.logo}
                 alt={`${client.name} logo`}
-                className="h-12 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-110"
+                className="h-12 md:h-16 w-auto object-contain transition-transform duration-500 group-hover:scale-105"
               />
             </motion.div>
           ))}

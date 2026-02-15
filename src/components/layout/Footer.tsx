@@ -24,8 +24,8 @@ export function Footer() {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
               {/* Brand & CTA */}
               <div className="md:col-span-5">
-                <h2 className="text-headline text-foreground mb-6">Let's build something real.</h2>
-                <Link to="/contact" className="btn-secondary inline-flex items-center gap-2">
+                <h2 className="text-headline text-foreground mb-8">Ready to grow?</h2>
+                <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
                   Start a conversation
                   <ArrowUpRight size={16} />
                 </Link>
