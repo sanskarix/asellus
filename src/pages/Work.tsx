@@ -5,31 +5,52 @@ import { GlassCard } from "@/components/ui/GlassCard";
 const projects = [
   {
     client: "Frido",
-    category: "D2C Growth",
-    year: "2023",
-    description: "Scaled a comfort brand from ₹2Cr to ₹25Cr ARR in 18 months through performance marketing and content systems.",
-    results: ["12x revenue growth", "45% reduction in CAC", "4.2x ROAS average"],
+    category: "Content & Performance Marketing",
+    year: "2024",
+    description: "We produced high-volume UGC and native-style creatives, then paired them with a performance funnel so ads felt like content but still scaled profitably.",
+    results: ["35 UGC assets produced and iterated", "4.2x average ROAS on best-performing campaigns", "45% reduction in CAC over the engagement period"],
   },
   {
     client: "mCaffeine",
-    category: "Launch Strategy",
+    category: "Product Launch",
     year: "2023",
-    description: "Orchestrated a product launch that generated 10,000+ orders in the first 48 hours with zero paid media.",
-    results: ["10,000+ orders in 48 hours", "₹2.5Cr launch revenue", "Zero paid media spend"],
+    description: "India-first caffeinated personal care brand for young consumers. We engineered an influencer-led launch that focused on creator storytelling and social proof, driving a surge of demand in the first 48 hours.",
+    results: ["10,000+ orders in the first 48 hours", "Around ₹1.2Cr in revenue in the launch week", "40%+ of sales attributed to influencer content"],
   },
   {
     client: "Tokyo Laundry",
-    category: "Brand Repositioning",
-    year: "2022",
-    description: "Repositioned a legacy retail brand for the digital-first generation. Complete brand overhaul and digital transformation.",
-    results: ["340% increase in online revenue", "New customer base acquired", "Brand relevance restored"],
+    category: "E‑Commerce Growth",
+    year: "2024",
+    description: "Legacy fashion brand expanding from retail into D2C e-commerce. We repositioned the brand for a younger audience and rebuilt their website to convert that new positioning into revenue quickly.",
+    results: ["7x more time spent on the new website.", "340% increase in online revenue within 30 days", "Increased CTR on refreshed creatives vs. old ads"],
   },
   {
-    client: "Wylo",
-    category: "Community Growth",
+    client: "Qure.ai",
+    category: "AI Healthtech",
     year: "2024",
-    description: "Built a content-led growth engine for a community platform, driving organic adoption and engagement.",
-    results: ["200% growth in active communities", "65% reduction in churn", "Organic-first acquisition model"],
+    description: "Integrates AI in healthcare for faster diagnosis. We turned their complex B2B healthtech offering into clear and simple LinkedIn and Instagram ads.",
+    results: ["40+ ad variants designed for multi-market testing", "25% surge in CTR on best-performing creatives", "Clear creative system handed off to the team"],
+  },
+  {
+    client: "Goodfair",
+    category: "Sustainable E‑Commerce",
+    year: "2024",
+    description: "We repositioned the brand around sustainability and built their ecom growth strategy across paid and organic, then launched a tag-for-tag Instagram campaign that boosted customer retention.",
+    results: ["30% boost in retaining customers", "3x increase in Instagram mentions and tags", "Higher LTV from people engaged in the campaign"],
+  },
+  {
+    client: "Smalls Sliders",
+    category: "QSR Campaign",
+    year: "2024",
+    description: "We built a Black Friday push for this QSR using hyper-local influencer marketing, driving “slide thru” visits and a sharp spike in footfall at targeted locations.",
+    results: ["2.5x increase in footfall at targeted outlets", "15+ local creators activated around key locations", "Weekend sales up by 40% of the monthly average"],
+  },
+  {
+    client: "Artisaire",
+    category: "Premium Stationery & Gifting",
+    year: "2024",
+    description: "We refreshed their visual identity through packaging, graphics, and content, then amplified the new look with Meta ads that pulled in profitable new customers and kept them coming back.",
+    results: ["35% increase in returning customers post-refresh", "3.2x ROAS on Meta campaigns with new creatives", "Higher AOV on orders featuring redesigned graphics"],
   },
 ];
 
@@ -47,7 +68,7 @@ const WorkPage = () => {
             <p className="text-subheadline mb-4">Our work</p>
             <h1 className="text-display mb-6">Results, not references.</h1>
             <p className="text-body-large text-muted-foreground">
-              We don't do case studies for the sake of case studies. These are real 
+              We don't do case studies for the sake of case studies. These are real
               results from real partnerships with brands that trusted us to deliver.
             </p>
           </motion.div>
