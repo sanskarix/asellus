@@ -788,137 +788,20 @@
   }
 }
 
-/* ===========================
-   LEFT-ALIGNED STACK
-   =========================== */
-
-.diff-stack {
-  position: relative;
-  transform-style: preserve-3d;
-  perspective: 800px;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  transition: gap 0.5s ease;
-
-  /* 🔑 hard left alignment */
-  align-items: flex-start;
-  width: 100%;
-}
-
-.diff-stack:hover {
-  gap: 20px;
-}
-
-/* ===========================
-   CARD BASE
-   =========================== */
-
-.diff-card {
-  position: relative;
-  list-style: none;
-
-  /* 🔑 full-width cards */
-  width: 100%;
-
-  padding: 32px 40px;
-  background: hsl(var(--card));
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-
-  transition: 500ms;
-  transition-delay: calc(var(--i) * 50ms);
-  cursor: pointer;
-  isolation: isolate;
-}
-
-/* ===========================
-   DEPTH (NO X OFFSET)
-   =========================== */
-
-.diff-card:nth-child(1) {
-  transform: translateZ(-40px) translateY(16px);
-  opacity: 0.6;
-  filter: blur(2px);
-}
-
-.diff-card:nth-child(2) {
-  transform: translateZ(-10px) translateY(8px);
-  opacity: 0.8;
-  filter: blur(1px);
-}
-
-.diff-card:nth-child(3) {
-  transform: translateZ(20px) translateY(-6px);
-}
-
-.diff-card:nth-child(4) {
-  transform: translateZ(40px) translateY(-16px);
-}
-
-/* ===========================
-   STACK HOVER RESET
-   =========================== */
-
-.diff-stack:hover .diff-card {
-  opacity: 1;
-  filter: blur(0);
-  transform: translateZ(0) translateY(0);
-}
-
-/* ===========================
-   OUTER BLUE GLOW ONLY
-   =========================== */
-
-.diff-card::before {
-  content: "";
-  position: absolute;
-  inset: -12px;
-  border-radius: inherit;
-  background: var(--card-accent);
-  filter: blur(30px);
-  opacity: 0;
-  z-index: -1;
-  transition: opacity 0.4s ease;
-}
-
-.diff-card:hover::before {
-  opacity: 1;
-}
-
-/* ===========================
-   TYPOGRAPHY
-   =========================== */
-
-.diff-content h3 {
-  font-family: "Playfair Display", serif;
-  font-size: 20px;
-  font-weight: 500;
-  margin-bottom: 8px;
-}
-
-.diff-content p {
-  font-family: "Inter", sans-serif;
-  font-size: 14px;
-  opacity: 0.65;
-  line-height: 1.6;
-  max-width: 65ch;
-}
-
 /* ==========================================================
-   DIFFERENTIATORS — LEFT ALIGNED STACK (RESTORED DEPTH)
+   DIFFERENTIATORS — PREMIUM MINIMAL STACK
    ========================================================== */
 
 .diff-stack {
   position: relative;
-  transform-style: preserve-3d;
   perspective: 1000px;
+  transform-style: preserve-3d;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 0;
-  transition: gap 0.5s ease;
   width: 100%;
+  transition: gap 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .diff-stack:hover {
@@ -926,148 +809,48 @@
 }
 
 /* CARD BASE */
-
 .diff-card {
   position: relative;
+  list-style: none;
   width: 100%;
   padding: 32px 40px;
   background: hsl(var(--card));
-  border-radius: 20px;
-  box-shadow: 0 12px 40px hsl(220 30% 3% / 0.35);
-  transition: transform 0.5s ease, filter 0.5s ease, opacity 0.5s ease;
-  transition-delay: calc(var(--i) * 60ms);
+  border-radius: 16px;
+  border: 1px solid hsl(210 15% 18% / 0);
+  box-shadow:
+    0 1px 2px hsl(220 30% 3% / 0.4),
+    0 4px 16px hsl(220 30% 3% / 0.2);
   isolation: isolate;
   cursor: pointer;
   will-change: transform, filter, opacity;
+
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+  transition-delay: calc(var(--i) * 60ms);
 }
 
-/* STRONG DEPTH RESTORED */
-
-.diff-card:nth-child(1) {
-  transform: translateZ(-120px) translateY(40px);
-  opacity: 0.45;
-  filter: blur(6px);
-}
-
-.diff-card:nth-child(2) {
-  transform: translateZ(-40px) translateY(20px);
-  opacity: 0.7;
-  filter: blur(3px);
-}
-
-.diff-card:nth-child(3) {
-  transform: translateZ(60px) translateY(-20px);
-}
-
-.diff-card:nth-child(4) {
-  transform: translateZ(140px) translateY(-45px);
-  filter: blur(1px);
-}
-
-/* HOVER — FLATTEN STACK */
-
-.diff-stack:hover .diff-card {
-  transform: translateZ(0) translateY(0);
-  filter: blur(0);
-  opacity: 1;
-}
-
+/* Top-edge highlight line */
 .diff-card::before {
   content: "";
   position: absolute;
-  inset: -12px;
-  border-radius: inherit;
-  background: var(--card-accent);
-  filter: blur(30px);
-  opacity: 0;
-  z-index: -1;
-  transition: opacity 0.4s ease;
+  top: 0;
+  left: 24px;
+  right: 24px;
+  height: 1px;
+  background: linear-gradient(90deg,
+      transparent,
+      hsl(210 20% 70% / 0),
+      transparent);
+  transition: background 0.4s ease;
+  z-index: 2;
+  border-radius: 1px;
 }
 
-.diff-card:hover::before {
-  opacity: 1;
-}
-
-/* TYPOGRAPHY */
-
-.diff-content h3 {
-  font-family: "Playfair Display", serif;
-  font-size: 20px;
-  font-weight: 500;
-  margin-bottom: 8px;
-}
-
-.diff-content p {
-  font-family: "Inter", sans-serif;
-  font-size: 14px;
-  opacity: 0.65;
-  line-height: 1.6;
-  max-width: 65ch;
-}
-
-/* STACK CONTEXT (3D ONLY HERE) */
-.diff-stack {
-  position: relative;
-  perspective: 1000px;
-  transform-style: preserve-3d;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0;
-  width: 100%;
-  transition: gap 0.5s ease;
-}
-
-.diff-stack:hover {
-  gap: 20px;
-}
-
-/* SHELL (FLAT SPACE — GLOW LIVES HERE) */
-.diff-card-shell {
-  position: relative;
-  width: 100%;
-  transform-style: flat;
-  /* 🔑 critical */
-}
-
-/* OUTER GLOW — ALWAYS BELOW ALL CARDS */
-.diff-card-shell::before {
-  content: "";
-  position: absolute;
-  inset: -16px;
-  border-radius: 20px;
-  background: var(--card-accent);
-  filter: blur(32px);
-  opacity: 0;
-  z-index: -20;
-  transition: opacity 0.1s ease;
-}
-
-.diff-card-shell:hover::before {
-  opacity: 0.1;
-}
-
-/* CARD (3D OBJECT) */
-.diff-card {
-  position: relative;
-  width: 100%;
-  padding: 32px 40px;
-  background: hsl(var(--card));
-  border-radius: 20px;
-  box-shadow: 0 12px 40px hsl(220 30% 3% / 0.35);
-  isolation: isolate;
-  cursor: pointer;
-
-  transition:
-    transform 0.5s ease,
-    filter 0.5s ease,
-    opacity 0.5s ease;
-
-  will-change: transform, filter, opacity;
-}
-
-
-/* INNER GLASS SEAL (PREVENTS GLOW BLEED) */
+/* Inner glass seal */
 .diff-card::after {
   content: "";
   position: absolute;
@@ -1082,24 +865,41 @@
   z-index: 1;
 }
 
-/* DEPTH — ONLY PLACE THIS EXISTS */
-.diff-card-shell:nth-child(1) .diff-card {
+/* HOVER — Premium minimal: subtle lift + border glow + top-edge */
+.diff-card:hover {
+  transform: translateY(-4px) translateZ(0) !important;
+  border-color: hsl(210 20% 30% / 0.5);
+  box-shadow:
+    0 2px 4px hsl(220 30% 3% / 0.3),
+    0 8px 32px hsl(220 30% 3% / 0.25),
+    0 0 0 1px hsl(210 20% 25% / 0.15);
+}
+
+.diff-card:hover::before {
+  background: linear-gradient(90deg,
+      transparent,
+      hsl(210 25% 65% / 0.35),
+      transparent);
+}
+
+/* DEPTH — STACKED APPEARANCE */
+.diff-card:nth-child(1) {
   transform: translateZ(-120px) translateY(40px);
   opacity: 0.45;
   filter: blur(6px);
 }
 
-.diff-card-shell:nth-child(2) .diff-card {
+.diff-card:nth-child(2) {
   transform: translateZ(-40px) translateY(20px);
   opacity: 0.7;
   filter: blur(3px);
 }
 
-.diff-card-shell:nth-child(3) .diff-card {
+.diff-card:nth-child(3) {
   transform: translateZ(60px) translateY(-20px);
 }
 
-.diff-card-shell:nth-child(4) .diff-card {
+.diff-card:nth-child(4) {
   transform: translateZ(140px) translateY(-45px);
   filter: blur(1px);
 }
@@ -1111,18 +911,59 @@
   opacity: 1;
 }
 
+/* Description text brightens on card hover */
+.diff-card:hover .diff-content p {
+  opacity: 0.8;
+}
+
 /* TYPOGRAPHY */
 .diff-content h3 {
+  font-family: "Playfair Display", serif;
   font-size: 20px;
   font-weight: 500;
   margin-bottom: 8px;
+  transition: color 0.3s ease;
 }
 
 .diff-content p {
+  font-family: "Inter", sans-serif;
   font-size: 14px;
   opacity: 0.65;
   line-height: 1.6;
   max-width: 65ch;
+  transition: opacity 0.3s ease;
+}
+
+/* ==========================================================
+   LOGO PANEL — BREATHING PULSE
+   ========================================================== */
+
+@keyframes logoPanelPulse {
+
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes gradientBreathe {
+  0% {
+    background-position: 0% 0%;
+  }
+
+  50% {
+    background-position: 100% 100%;
+  }
+
+  100% {
+    background-position: 0% 0%;
+  }
 }
 
 /* ==========================================================

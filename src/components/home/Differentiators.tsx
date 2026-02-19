@@ -23,9 +23,6 @@ const differentiators = [
   },
 ];
 
-const ACCENT =
-  "linear-gradient(135deg, hsl(210 40% 55%), hsl(210 40% 45%))";
-
 export function Differentiators() {
   return (
     <section className="editorial-section">
@@ -39,12 +36,7 @@ export function Differentiators() {
             <li
               key={item.title}
               className="diff-card"
-              style={
-                {
-                  "--i": index + 1,
-                  "--card-accent": ACCENT,
-                } as React.CSSProperties
-              }
+              style={{ "--i": index + 1 } as React.CSSProperties}
             >
               <div className="diff-content">
                 <h3>{item.title}</h3>

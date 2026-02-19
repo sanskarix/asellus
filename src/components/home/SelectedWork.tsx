@@ -5,22 +5,28 @@ import { useRef, useState, useEffect, MouseEvent } from "react";
 
 const works = [
   {
-    client: "Frido",
-    category: "Content & Performance Marketing",
-    description: "Produced UGC content in high volume and launched paid campaigns that didn't look like ads.",
-    image: "/placeholder.svg",
+    client: "Artisaire",
+    category: "Brand & E-Commerce Strategy",
+    description: "Built the digital presence for a luxury wax seal brand. Elevated their story from niche craft to aspirational lifestyle, driving a 4x jump in online revenue.",
+    logo: "/logos/artisaire.svg",
   },
   {
     client: "mCaffeine",
     category: "Product Launch",
-    description: "Crafted a product launch that generated 10,000+ orders in the first 48 hours, all by influencer marketing.",
-    image: "/placeholder.svg",
+    description: "Crafted a product launch that generated 10,000+ orders in the first 48 hours, all driven by influencer marketing.",
+    logo: "/logos/mcaffeine.svg",
   },
   {
-    client: "Tokyo Laundry",
-    category: "E-Commerce Growth",
-    description: "Repositioned a legacy retail brand for the new generation. 340% increase in online revenue under 30 days.",
-    image: "/placeholder.svg",
+    client: "GoodFair",
+    category: "Brand Positioning & Growth",
+    description: "Repositioned a sustainable thrift fashion brand for mainstream appeal. Strategic storytelling that landed them a Nordstrom partnership.",
+    logo: "/logos/goodfair.svg",
+  },
+  {
+    client: "Qure.ai",
+    category: "Go-To-Market & Awareness",
+    description: "Shaped the go-to-market narrative for an AI-powered radiology platform. Simplified deep tech into a story that resonated across 30+ countries.",
+    logo: "/logos/qure.svg",
   },
 ];
 
@@ -67,19 +73,6 @@ function SpotlightCard({
       {/* Cinematic Spotlight Background */}
       <div className="absolute inset-0 bg-background/80 -z-20" />
 
-      <motion.div
-        className="pointer-events-none absolute -inset-px transition duration-300 -z-10"
-        style={{
-          background: useMotionTemplate`
-            radial-gradient(
-              650px circle at ${localX}px ${localY}px,
-              rgba(14, 165, 233, 0.08),
-              transparent 80%
-            )
-          `,
-        }}
-      />
-
       {/* Film Grain Texture */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none -z-10"
         style={{ backgroundImage: 'url("/noise.png")', backgroundSize: '100px 100px' }}
@@ -91,6 +84,20 @@ function SpotlightCard({
       />
 
       {children}
+
+      {/* Spotlight overlay — on top of everything so it spans both panels */}
+      <motion.div
+        className="pointer-events-none absolute inset-0 transition duration-300 z-30 rounded-xl"
+        style={{
+          background: useMotionTemplate`
+            radial-gradient(
+              350px circle at ${localX}px ${localY}px,
+              rgba(14, 165, 233, 0.08),
+              transparent 80%
+            )
+          `,
+        }}
+      />
     </motion.div>
   );
 }
@@ -136,7 +143,7 @@ export function SelectedWork() {
         >
           <div className="max-w-xl">
             <h2 className="text-headline">
-              A few projects we’ve grown
+              A few projects we've grown
             </h2>
           </div>
           <motion.div
@@ -164,19 +171,60 @@ export function SelectedWork() {
             <motion.article key={work.client} variants={itemVariants}>
               <SpotlightCard className="group" mouseX={mouseX} mouseY={mouseY}>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
+                  {/* ── Logo Panel ── */}
                   <motion.div
-                    className={`aspect-[4/3] lg:aspect-auto bg-gradient-to-br from-muted/40 to-primary/8 flex items-center justify-center relative overflow-hidden ${index % 2 === 1 ? "lg:order-2" : ""
+                    className={`aspect-[4/3] lg:aspect-auto flex items-center justify-center relative overflow-hidden ${index % 2 === 1 ? "lg:order-2" : ""
                       }`}
-                    whileHover={{ scale: 1.05 }}
+                    style={{
+                      background: "hsl(220 20% 5%)",
+                    }}
+                    whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <span className="text-5xl md:text-6xl font-serif text-muted-foreground/20 group-hover:text-muted-foreground/30 transition-colors duration-500">
-                      {work.client}
-                    </span>
-                    {/* Shimmer effect */}
-                    <div className="absolute inset-0 shimmer opacity-20"></div>
+                    {/* Breathing glow — reveals on hover */}
+                    <div
+                      className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                      style={{
+                        background: "radial-gradient(ellipse at 50% 50%, hsl(210 50% 40% / 0.25) 0%, transparent 70%)",
+                        animation: "logoPanelPulse 5s ease-in-out infinite",
+                      }}
+                    />
+
+                    {/* Subtle resting ambient glow */}
+                    <div
+                      className="absolute inset-0 pointer-events-none opacity-60 group-hover:opacity-0 transition-opacity duration-700"
+                      style={{
+                        background: "radial-gradient(ellipse at 50% 50%, hsl(220 15% 14%) 0%, transparent 70%)",
+                        animation: "logoPanelPulse 6s ease-in-out infinite",
+                      }}
+                    />
+
+                    {/* Frosted glass panel */}
+                    <div
+                      className="relative z-10 flex items-center justify-center px-12 py-10 rounded-2xl transition-all duration-500"
+                      style={{
+                        background: "hsl(220 15% 10% / 0.5)",
+                        backdropFilter: "blur(12px)",
+                        WebkitBackdropFilter: "blur(12px)",
+                        border: "1px solid hsl(0 0% 100% / 0.06)",
+                        boxShadow: "inset 0 0.5px 0 hsl(0 0% 100% / 0.04)",
+                      }}
+                    >
+                      <img
+                        src={work.logo}
+                        alt={`${work.client} logo`}
+                        className="w-32 md:w-40 h-auto max-h-16 object-contain opacity-90 group-hover:opacity-100 transition-opacity duration-500"
+                      />
+                    </div>
+
+                    {/* Soft vignette */}
+                    <div
+                      className="absolute inset-0 pointer-events-none"
+                      style={{ boxShadow: "inset 0 0 60px hsl(220 20% 3% / 0.6)" }}
+                    />
                   </motion.div>
 
+                  {/* ── Content Panel ── */}
                   <div className={`p-8 lg:p-12 flex flex-col justify-center ${index % 2 === 1 ? "lg:order-1" : ""}`}>
                     <motion.p
                       initial={{ opacity: 0 }}
@@ -223,6 +271,24 @@ export function SelectedWork() {
               </SpotlightCard>
             </motion.article>
           ))}
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="flex justify-center mt-16"
+        >
+          <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.3 }}>
+            <Link
+              to="/work"
+              className="inline-flex items-center gap-2 text-sm font-medium px-8 py-3 rounded-full border border-white/10 text-muted-foreground hover:text-foreground hover:border-white/20 transition-all duration-300"
+            >
+              View all projects
+              <ArrowUpRight size={16} />
+            </Link>
+          </motion.div>
         </motion.div>
       </div>
     </section>
