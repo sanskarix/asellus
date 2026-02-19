@@ -36,6 +36,25 @@ function ScrollToTop() {
   return null;
 }
 
+// Update page title based on route
+function PageTitle() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const path = location.pathname;
+    let title = "Asellus";
+
+    if (path === "/services") title = "Asellus | Services";
+    else if (path === "/work") title = "Asellus | Work";
+    else if (path === "/process") title = "Asellus | Process";
+    else if (path === "/contact") title = "Asellus | Contact";
+
+    document.title = title;
+  }, [location.pathname]);
+
+  return null;
+}
+
 import { SmoothScroll } from "./components/layout/SmoothScroll";
 // ... imports
 
@@ -47,6 +66,7 @@ const App = () => (
       <SmoothScroll>
         <BrowserRouter>
           <ScrollToTop />
+          <PageTitle />
           <Routes>
             <Route path="/" element={<Index />} />
             {/* ... other routes */}

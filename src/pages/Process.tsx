@@ -426,7 +426,7 @@ const ProcessPage = () => {
                     >
                         <p className="text-subheadline mb-4">Our process</p>
                         <h1 className="text-display mb-6">
-                            Order from chaos.
+                            How to turn ideas into strategy
                         </h1>
                         <p className="max-w-3xl text-body-large text-muted-foreground">
                             Creativity without strategy is art. Creativity with strategy is advertising.

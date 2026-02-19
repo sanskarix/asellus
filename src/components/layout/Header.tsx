@@ -4,9 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
 const navigation = [
-  { name: "What We Do", href: "/services" },
+  { name: "Services", href: "/services" },
   { name: "Work", href: "/work" },
-  { name: "How We Work", href: "/process" },
+  { name: "Process", href: "/process" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -23,7 +23,7 @@ export function Header() {
         className="w-full"
       >
         {/* Glass header with starfield showing through */}
-        <nav 
+        <nav
           className="flex items-center justify-between py-4 px-6 md:px-8 max-w-full rounded-xl border transition-all duration-300"
           style={{
             background: 'hsl(220 25% 5% / 0.4)',
@@ -38,9 +38,9 @@ export function Header() {
           >
             <Link
               to="/"
-              className="text-lg font-serif font-semibold tracking-tight text-foreground hover:text-foreground/80 transition-colors duration-300"
+              className="text-lg font-serif font-semibold tracking-tight text-foreground hover:text-foreground/80 transition-opacity duration-300"
             >
-              Asellus
+              <img src="/logos/asellus_white.svg" alt="Asellus" className="h-8 w-auto" />
             </Link>
           </motion.div>
 
@@ -55,11 +55,10 @@ export function Header() {
               >
                 <Link
                   to={item.href}
-                  className={`text-sm font-medium transition-all duration-300 relative group ${
-                    location.pathname === item.href
-                      ? "text-foreground"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
+                  className={`text-sm font-medium transition-all duration-300 relative group ${location.pathname === item.href
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                    }`}
                 >
                   {item.name}
                   {location.pathname === item.href && (
@@ -113,11 +112,10 @@ export function Header() {
                     <Link
                       to={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`text-base font-medium py-2 px-4 rounded-lg transition-all duration-300 block ${
-                        location.pathname === item.href
-                          ? "text-foreground bg-white/5"
-                          : "text-muted-foreground hover:text-foreground hover:bg-white/3"
-                      }`}
+                      className={`text-base font-medium py-2 px-4 rounded-lg transition-all duration-300 block ${location.pathname === item.href
+                        ? "text-foreground bg-white/5"
+                        : "text-muted-foreground hover:text-foreground hover:bg-white/3"
+                        }`}
                     >
                       {item.name}
                     </Link>

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 
 const footerLinks = {
@@ -16,6 +16,9 @@ const footerLinks = {
 };
 
 export function Footer() {
+  const location = useLocation();
+  const isContactPage = location.pathname === '/contact';
+
   return (
     <footer className="relative z-10 mt-auto">
       <div className="mx-4 mb-4">
@@ -24,11 +27,19 @@ export function Footer() {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
               {/* Brand & CTA */}
               <div className="md:col-span-5">
-                <h2 className="text-headline text-foreground mb-8">Ready to grow?</h2>
-                <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
-                  Start a conversation
-                  <ArrowUpRight size={16} />
-                </Link>
+                {isContactPage ? (
+                  <div className="mb-8">
+                    <img src="/logos/asellus_white.svg" alt="Asellus" className="h-12 w-auto" />
+                  </div>
+                ) : (
+                  <>
+                    <h2 className="text-headline text-foreground mb-8">Ready to grow?</h2>
+                    <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
+                      Start a conversation
+                      <ArrowUpRight size={16} />
+                    </Link>
+                  </>
+                )}
               </div>
 
               {/* Navigation */}
@@ -74,9 +85,13 @@ export function Footer() {
               <p className="text-sm text-muted-foreground">
                 © {new Date().getFullYear()} Asellus. All rights reserved.
               </p>
-              <p className="text-sm text-muted-foreground">
-                No vanity metrics. No decks. Just growth.
-              </p>
+              <div className="text-sm text-muted-foreground flex items-center justify-end">
+                {!isContactPage ? (
+                  <img src="/logos/asellus_white.svg" alt="Asellus" className="h-6 w-auto opacity-80" />
+                ) : (
+                  "No vanity metrics. No decks. Just growth."
+                )}
+              </div>
             </div>
           </div>
         </div>
