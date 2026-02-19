@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
-import { Mail, MapPin, ArrowUpRight } from "lucide-react";
+import { Mail, MapPin, Calendar, ArrowBigRight, ArrowDownRight, ArrowUpRight } from "lucide-react";
 import { GlassCard } from "@/components/ui/GlassCard";
+import { Arrow } from "@radix-ui/react-tooltip";
 
 const ContactPage = () => {
   return (
@@ -15,9 +16,9 @@ const ContactPage = () => {
               transition={{ duration: 0.6 }}
             >
               <p className="text-subheadline mb-4">Let's talk</p>
-              <h1 className="text-display mb-6">Start a conversation.</h1>
+              <h1 className="text-display mb-6">Let's have a chat.</h1>
               <p className="text-body-large text-muted-foreground mb-12">
-                No pitch decks. No lengthy proposals. Just a conversation about what 
+                No pitch decks. No lengthy proposals. Just a conversation about what
                 you're building and whether we're the right fit to help you grow.
               </p>
 
@@ -30,10 +31,10 @@ const ContactPage = () => {
                   <GlassCard className="p-8 group">
                     <h3 className="text-subheadline mb-3 transition-colors duration-300">Email</h3>
                     <a
-                      href="mailto:hello@asellus.agency"
+                      href="mailto:hello@asellus.in"
                       className="text-xl font-serif hover:text-primary transition-colors inline-flex items-center gap-2"
                     >
-                      hello@asellus.agency
+                      hello@asellus.in
                       <Mail size={18} />
                     </a>
                   </GlassCard>
@@ -45,11 +46,16 @@ const ContactPage = () => {
                   transition={{ delay: 0.3, duration: 0.5 }}
                 >
                   <GlassCard className="p-8 group">
-                    <h3 className="text-subheadline mb-3 transition-colors duration-300">Location</h3>
-                    <p className="text-xl font-serif flex items-center gap-2">
-                      Remote-first, globally distributed
-                      <MapPin size={18} className="text-muted-foreground group-hover:text-primary transition-colors duration-300" />
-                    </p>
+                    <h3 className="text-subheadline mb-3 transition-colors duration-300">Book a Call</h3>
+                    <a
+                      href="https://cal.com/asellus"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xl font-serif hover:text-primary transition-colors inline-flex items-center gap-2"
+                    >
+                      Schedule a time
+                      <ArrowUpRight size={18} />
+                    </a>
                   </GlassCard>
                 </motion.div>
 
@@ -59,24 +65,11 @@ const ContactPage = () => {
                   transition={{ delay: 0.4, duration: 0.5 }}
                 >
                   <GlassCard className="p-8 group">
-                    <h3 className="text-subheadline mb-4 transition-colors duration-300">Social</h3>
-                    <div className="flex gap-6">
-                      {[
-                        { name: "LinkedIn", href: "#" },
-                        { name: "Instagram", href: "#" },
-                        { name: "Twitter", href: "#" },
-                      ].map((social) => (
-                        <motion.a
-                          key={social.name}
-                          href={social.href}
-                          className="text-muted-foreground hover:text-primary transition-all inline-flex items-center gap-1"
-                          whileHover={{ x: 2 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          {social.name} <ArrowUpRight size={14} />
-                        </motion.a>
-                      ))}
-                    </div>
+                    <h3 className="text-subheadline mb-3 transition-colors duration-300">Location</h3>
+                    <p className="text-xl font-serif flex items-center gap-2">
+                      Remote-first, globally distributed
+                      <MapPin size={18} className="text-muted-foreground group-hover:text-primary transition-colors duration-300" />
+                    </p>
                   </GlassCard>
                 </motion.div>
               </div>
@@ -95,7 +88,7 @@ const ContactPage = () => {
                 <form className="space-y-6 relative z-10 flex-1 flex flex-col">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium mb-2">
-                      Name
+                      Name <span className="text-red-400">*</span>
                     </label>
                     <input
                       type="text"
@@ -103,6 +96,22 @@ const ContactPage = () => {
                       name="name"
                       className="glass-input"
                       placeholder="Your name"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="phone" className="block text-sm font-medium mb-2">
+                      Phone <span className="text-red-400">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      className="glass-input"
+                      defaultValue="+91 "
+                      placeholder="+91 0000 00000"
+                      required
                     />
                   </div>
 
@@ -133,32 +142,15 @@ const ContactPage = () => {
                   </div>
 
                   <div>
-                    <label htmlFor="budget" className="block text-sm font-medium mb-2">
-                      Monthly Budget Range
-                    </label>
-                    <select
-                      id="budget"
-                      name="budget"
-                      className="glass-input"
-                    >
-                      <option value="">Select a range</option>
-                      <option value="<5L">Less than ₹5L/month</option>
-                      <option value="5-15L">₹5L - ₹15L/month</option>
-                      <option value="15-50L">₹15L - ₹50L/month</option>
-                      <option value=">50L">More than ₹50L/month</option>
-                    </select>
-                  </div>
-
-                  <div>
                     <label htmlFor="message" className="block text-sm font-medium mb-2">
-                      Tell us about your project
+                      What's on your mind?
                     </label>
                     <textarea
                       id="message"
                       name="message"
                       rows={5}
                       className="glass-input resize-none"
-                      placeholder="What are you trying to achieve? What's your timeline?"
+                      placeholder="Not sure? Leave it blank, we'll figure it out together."
                     />
                   </div>
 

@@ -363,7 +363,7 @@
   }
 
   .glass-input::placeholder {
-    color: hsl(210 15% 50%);
+    color: hsl(210 15% 35%);
   }
 }
 
