@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
+import { MouseEvent, useRef } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -6,36 +7,112 @@ import { GlassCard } from "@/components/ui/GlassCard";
 
 const services = [
   {
+    title: "Branding",
+    description: "Identity that cuts through the noise. We build brands that people remember, trust, and want to be associated with.",
+    capabilities: ["Visual Identity", "Voice & Tone", "Art Direction", "Brand Guidelines"],
+  },
+  {
+    title: "Strategy",
+    description: "The blueprint for your growth. We analyze the market, understand your audience, and build a roadmap that gets you from where you are to where you want to be.",
+    capabilities: ["Market Analysis", "Go-to-Market", "Positioning", "Growth Roadmap"],
+  },
+  {
     title: "Performance Marketing",
-    description: "Paid media that actually pays back. We optimize for ROAS, not reach. Every campaign is built to deliver measurable, profitable growth across Meta, Google, TikTok, and emerging platforms.",
-    capabilities: ["Media Buying", "Creative Strategy", "Attribution Modeling", "Budget Optimization"],
+    description: "Paid media that actually pays back. We optimize for ROAS, not reach. Every campaign is built to deliver measurable, profitable growth.",
+    capabilities: ["Paid Social", "Search Engine Marketing", "Conversion Optimization", "Analytics"],
   },
   {
-    title: "Content Systems",
-    description: "Scalable content engines that keep your brand visible and relevant. We build systems, not one-off posts—designed for consistency, efficiency, and compound growth.",
-    capabilities: ["Content Strategy", "Production Systems", "Platform Optimization", "Creator Networks"],
+    title: "Content and Social Media",
+    description: "Storytelling that builds community. From creative concept to distribution, we handle your entire content engine to keep your brand top-of-mind.",
+    capabilities: ["Content Creation", "Social Management", "Video Production", "Copywriting"],
   },
   {
-    title: "Funnel Architecture",
-    description: "From first touch to loyal customer. We design and build conversion journeys that guide, nurture, and convert—without the pushy tactics that erode trust.",
-    capabilities: ["Journey Mapping", "Landing Pages", "Email Sequences", "Conversion Optimization"],
-  },
-  {
-    title: "Launch Strategy",
-    description: "Product launches, brand launches, campaign launches—executed with precision and built for impact. We plan backwards from your goals and orchestrate every touchpoint.",
-    capabilities: ["Launch Planning", "Pre-Launch Hype", "Day-One Execution", "Post-Launch Momentum"],
-  },
-  {
-    title: "Growth Experiments",
-    description: "Rapid testing frameworks that find what works before budgets run dry. We treat marketing as a system of hypotheses—test, learn, scale, repeat.",
-    capabilities: ["Experiment Design", "A/B Testing", "Channel Discovery", "Growth Loops"],
-  },
-  {
-    title: "Brand Strategy",
-    description: "Positioning that cuts through the noise. Messaging that resonates and sticks. We help you find the truth of your brand and articulate it with clarity.",
-    capabilities: ["Brand Positioning", "Messaging Architecture", "Voice & Tone", "Brand Identity"],
+    title: "Custom Development",
+    description: "Software, tools, websites – everything. We build robust digital solutions tailored to your needs. See this website for instance, isn't it good?",
+    capabilities: ["Web Development", "Custom Software", "App Development", "UI/UX Design"],
   },
 ];
+
+function CTACard() {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  function handleMouseMove({ clientX, clientY }: MouseEvent) {
+    if (!cardRef.current) return;
+    const { left, top } = cardRef.current.getBoundingClientRect();
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  }
+
+  const ctaText = "Not sure what you need? Let's figure it out together.";
+
+  return (
+    <div className="mt-24" onMouseMove={handleMouseMove}>
+      <motion.div
+        ref={cardRef}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="relative overflow-hidden group min-h-[300px] flex flex-col justify-center items-center rounded-2xl"
+      >
+        {/* Cinematic Spotlight Background */}
+        <div className="absolute inset-0 bg-background/90 -z-20" />
+
+        <motion.div
+          className="pointer-events-none absolute -inset-px transition duration-300 -z-10"
+          style={{
+            background: useMotionTemplate`
+              radial-gradient(
+                650px circle at ${mouseX}px ${mouseY}px,
+                rgba(14, 165, 233, 0.08),
+                transparent 80%
+              )
+            `,
+          }}
+        />
+
+        {/* Film Grain Texture */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none -z-10"
+          style={{ backgroundImage: 'url("/noise.png")', backgroundSize: '100px 100px' }}
+        />
+
+        {/* Noise SVG fallback */}
+        <div className="absolute inset-0 opacity-[0.15] pointer-events-none -z-10 mix-blend-overlay"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+          }}
+        />
+
+        {/* Delayed Glass Shine Effect */}
+        <motion.div
+          initial={{ x: "-100%", opacity: 0 }}
+          whileInView={{ x: "200%", opacity: 0.5 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.5, delay: 1.5, ease: "easeInOut" }}
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-sky-400/50 to-transparent pointer-events-none z-0"
+          style={{ skewX: "-20deg" }}
+        />
+
+        <div className="max-w-4xl mx-auto text-center relative z-10 px-12 py-16">
+          <p className="text-body-large text-muted-foreground mb-8">
+            {ctaText}
+          </p>
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
+              Start a conversation
+              <ArrowRight size={16} />
+            </Link>
+          </motion.div>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
 
 const ServicesPage = () => {
   return (
@@ -51,8 +128,7 @@ const ServicesPage = () => {
             <p className="text-subheadline mb-4">What we do</p>
             <h1 className="text-display mb-6">The full growth stack.</h1>
             <p className="text-body-large text-muted-foreground">
-              We don't do "a little bit of everything." We do the things that actually 
-              move the needle—executed with precision and measured by results.
+              We do everything that is required to move the needle – executed with precision and measured by results.
             </p>
           </motion.div>
 
@@ -110,33 +186,7 @@ const ServicesPage = () => {
             ))}
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-24"
-          >
-            <GlassCard className="p-12 md:p-16 text-center group relative overflow-hidden">
-              {/* Subtle glow */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-              <div className="relative z-10">
-                <p className="text-body-large text-muted-foreground mb-8">
-                  Not sure what you need? Let's figure it out together.
-                </p>
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
-                    Start a conversation
-                    <ArrowRight size={16} />
-                  </Link>
-                </motion.div>
-              </div>
-            </GlassCard>
-          </motion.div>
+          <CTACard />
         </div>
       </section>
     </Layout>

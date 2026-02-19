@@ -77,11 +77,11 @@ const WorkPage = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="max-w-3xl mb-20"
+            className="mb-20"
           >
             <p className="text-subheadline mb-4">Our work</p>
-            <h1 className="text-display mb-6">Results, not references.</h1>
-            <p className="text-body-large text-muted-foreground">
+            <h1 className="text-display mb-6">What we’ve built together.</h1>
+            <p className="max-w-3xl text-body-large text-muted-foreground">
               We don't do case studies for the sake of case studies. These are real
               results from real partnerships with brands that trusted us to deliver.
             </p>

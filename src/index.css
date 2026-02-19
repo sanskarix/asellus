@@ -1066,6 +1066,7 @@
   will-change: transform, filter, opacity;
 }
 
+
 /* INNER GLASS SEAL (PREVENTS GLOW BLEED) */
 .diff-card::after {
   content: "";
