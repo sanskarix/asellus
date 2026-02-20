@@ -9,9 +9,7 @@ const footerLinks = {
     { name: "Contact", href: "/contact" },
   ],
   social: [
-    { name: "LinkedIn", href: "#" },
-    { name: "Instagram", href: "#" },
-    { name: "Twitter", href: "#" },
+    { name: "LinkedIn", href: "https://linkedin.com/company/asellus" },
   ],
 };
 
