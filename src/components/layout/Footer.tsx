@@ -10,6 +10,7 @@ const footerLinks = {
   ],
   social: [
     { name: "LinkedIn", href: "https://linkedin.com/company/asellus" },
+    { name: "Schedule a Call", href: "https://cal.com/asellus" },
   ],
 };
 
