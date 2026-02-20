@@ -28,7 +28,7 @@ export function Footer() {
               <div className="md:col-span-5">
                 {isContactPage ? (
                   <div className="mb-8">
-                    <img src="/logos/asellus_white.svg" alt="Asellus" className="h-12 w-auto" />
+                    <img src="/logos/asellus_white.svg" alt="asellus" className="h-12 w-auto" />
                   </div>
                 ) : (
                   <>
@@ -82,11 +82,11 @@ export function Footer() {
             {/* Bottom */}
             <div className="mt-16 pt-8 border-t border-border/30 flex flex-col md:flex-row justify-between gap-4">
               <p className="text-sm text-muted-foreground">
-                © {new Date().getFullYear()} Asellus. All rights reserved.
+                © {new Date().getFullYear()} asellus. All rights reserved.
               </p>
               <div className="text-sm text-muted-foreground flex items-center justify-end">
                 {!isContactPage ? (
-                  <img src="/logos/asellus_white.svg" alt="Asellus" className="h-6 w-auto opacity-80" />
+                  <img src="/logos/asellus_white.svg" alt="asellus" className="h-6 w-auto opacity-80" />
                 ) : (
                   "No vanity metrics. No decks. Just growth."
                 )}

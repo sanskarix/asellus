@@ -42,7 +42,7 @@ const AboutPage = () => {
             <p className="text-subheadline mb-4">About us</p>
             <h1 className="text-display mb-6">Built for the new reality.</h1>
             <p className="text-body-large text-muted-foreground">
-              We started Asellus because we were tired of agency bullshit. Slow processes. 
+              We started asellus because we were tired of agency bullshit. Slow processes.
               Bloated teams. Vanity metrics presented as wins. There had to be a better way.
             </p>
           </motion.div>
@@ -65,7 +65,7 @@ const AboutPage = () => {
                 The short version
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                Asellus is a new-age marketing agency for brands that care about real growth.
+                asellus is a new-age marketing agency for brands that care about real growth.
                 We focus on what actually moves the needle: clear strategies, fast experiments,
                 and relentless optimization.
               </p>

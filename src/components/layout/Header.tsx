@@ -40,7 +40,7 @@ export function Header() {
               to="/"
               className="text-lg font-serif font-semibold tracking-tight text-foreground hover:text-foreground/80 transition-opacity duration-300"
             >
-              <img src="/logos/asellus_white.svg" alt="Asellus" className="h-8 w-auto" />
+              <img src="/logos/asellus_white.svg" alt="asellus" className="h-8 w-auto" />
             </Link>
           </motion.div>
 

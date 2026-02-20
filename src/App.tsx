@@ -42,12 +42,12 @@ function PageTitle() {
 
   useEffect(() => {
     const path = location.pathname;
-    let title = "Asellus";
+    let title = "asellus";
 
-    if (path === "/services") title = "Asellus | Services";
-    else if (path === "/work") title = "Asellus | Work";
-    else if (path === "/process") title = "Asellus | Process";
-    else if (path === "/contact") title = "Asellus | Contact";
+    if (path === "/services") title = "asellus | Services";
+    else if (path === "/work") title = "asellus | Work";
+    else if (path === "/process") title = "asellus | Process";
+    else if (path === "/contact") title = "asellus | Contact";
 
     document.title = title;
   }, [location.pathname]);
