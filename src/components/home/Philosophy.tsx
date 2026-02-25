@@ -24,7 +24,7 @@ export function Philosophy() {
           <div className="absolute inset-0 bg-background/90 -z-20" /> {/* Dark base */}
 
           <motion.div
-            className="pointer-events-none absolute -inset-px transition duration-300 -z-10"
+            className="pointer-events-none absolute -inset-px transition duration-300 -z-10 hidden md:block"
             style={{
               background: useMotionTemplate`
                 radial-gradient(

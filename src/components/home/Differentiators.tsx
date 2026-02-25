@@ -27,7 +27,7 @@ export function Differentiators() {
   return (
     <section className="editorial-section">
       <div className="editorial-container">
-        <div className="max-w-xl mb-16">
+        <div className="max-w-xl mb-8 md:mb-16 text-center md:text-left mx-auto md:mx-0">
           <h2 className="text-headline">What makes us different</h2>
         </div>
 

@@ -1,5 +1,5 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 
@@ -58,13 +58,13 @@ export function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-20"
+          className="flex flex-col md:flex-row items-center md:items-end text-center md:text-left md:justify-between gap-4 md:gap-6 mb-10 md:mb-20"
         >
           <div className="max-w-xl">
             <h2 className="text-headline">What do we take care of</h2>
           </div>
 
-          <motion.div whileHover={{ x: 4 }} transition={{ duration: 0.3 }}>
+          <div className="md:hover:translate-x-1 transition-transform duration-300">
             <Link
               to="/services"
               className="inline-flex items-center gap-2 text-sm font-medium link-underline text-muted-foreground hover:text-foreground transition-colors"
@@ -72,7 +72,7 @@ export function Services() {
               See all services
               <ArrowUpRight size={16} />
             </Link>
-          </motion.div>
+          </div>
         </motion.div>
 
         <motion.div
@@ -92,10 +92,15 @@ export function Services() {
 }
 
 function ServiceCard({ service }: { service: Service }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { margin: "-20% 0px -20% 0px", once: false });
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
   return (
     <motion.div
+      ref={ref}
       variants={itemVariants}
-      className="asellus-card group"
+      className={`asellus-card group ${isMobile && isInView ? "mobile-active" : ""}`}
       style={
         {
           "--card-accent": service.accent,
@@ -103,7 +108,7 @@ function ServiceCard({ service }: { service: Service }) {
       }
     >
       {/* ORBS REMOVED */}
-      <div className="asellus-card-content">
+      <div className="asellus-card-content text-center md:text-left flex flex-col items-center md:items-start">
         <h3 className="text-xl font-serif mb-3">{service.title}</h3>
         <p className="text-muted-foreground text-sm leading-relaxed">
           {service.description}

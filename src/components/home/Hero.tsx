@@ -168,6 +168,7 @@ export function Hero() {
 
   // Click handler - adds sparks without removing existing stars
   const handleClick = useCallback((e: React.MouseEvent) => {
+    if (typeof window !== 'undefined' && window.innerWidth < 768) return;
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * 100;
@@ -267,6 +268,7 @@ export function Hero() {
     let displayY = star.currentY;
 
     // Fisheye hover effect
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     const mouseX = mousePos.x * 100;
     const mouseY = mousePos.y * 100;
     const dxMouse = displayX - mouseX;
@@ -274,7 +276,7 @@ export function Hero() {
     const distFromMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
 
     const hoverRadius = 30;
-    const zoomStrength = Math.max(0, 1 - distFromMouse / hoverRadius) * 3;
+    const zoomStrength = isMobile ? 0 : Math.max(0, 1 - distFromMouse / hoverRadius) * 3;
     const normalizedDxMouse = dxMouse / (distFromMouse + 0.1);
     const normalizedDyMouse = dyMouse / (distFromMouse + 0.1);
     const finalX = displayX + normalizedDxMouse * zoomStrength;
@@ -354,13 +356,13 @@ export function Hero() {
       </motion.div>
 
       {/* Content - centered with header offset compensation */}
-      <div className="editorial-container relative z-10 pt-20">
+      <div className="editorial-container relative z-10 pt-20 flex flex-col items-center text-center md:items-start md:text-left">
         <motion.div
-          className="max-w-4xl"
+          className="max-w-4xl flex flex-col items-center md:items-start"
           initial="hidden"
           animate="visible"
         >
-          <div className="mb-10 text-display leading-[1.05]">
+          <div className="mb-8 text-display leading-[1.05]">
             {/* Headline Line 1: Word by word */}
             <div className="overflow-hidden py-2 -my-2">
               {("We don't do hype.").split(" ").map((word, i) => (
@@ -395,7 +397,7 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-14 leading-relaxed">
+          <div className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-8 leading-relaxed">
             <motion.div
               variants={{
                 hidden: { opacity: 0 },
@@ -408,32 +410,24 @@ export function Hero() {
           </div>
 
           <motion.div
-            className="flex flex-col sm:flex-row gap-4"
+            className="flex flex-col sm:flex-row gap-4 items-center justify-center md:justify-start w-full sm:w-auto"
             variants={{
               hidden: { opacity: 0 },
               visible: { opacity: 1 }
             }}
             transition={{ duration: 0.8, delay: 3.3, ease: "easeOut" }}
           >
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
+            <div className="w-full sm:w-auto">
+              <Link to="/contact" className="btn-primary w-full sm:w-auto justify-center inline-flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-transform">
                 Let's talk growth
                 <ArrowRight size={18} />
               </Link>
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Link to="/work" className="btn-secondary inline-flex items-center">
+            </div>
+            <div className="w-full sm:w-auto">
+              <Link to="/work" className="btn-secondary w-full sm:w-auto justify-center inline-flex items-center hover:scale-[1.02] active:scale-[0.98] transition-transform">
                 See our work
               </Link>
-            </motion.div>
+            </div>
           </motion.div>
         </motion.div>
       </div>

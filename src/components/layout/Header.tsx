@@ -15,7 +15,7 @@ export function Header() {
   const location = useLocation();
 
   return (
-    <header className="fixed top-6 left-0 right-0 z-50 mx-6 md:mx-8 lg:mx-12">
+    <header className="fixed top-6 left-0 right-0 z-50 mx-4 md:mx-8 lg:mx-12">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -24,7 +24,7 @@ export function Header() {
       >
         {/* Glass header with starfield showing through */}
         <nav
-          className="flex items-center justify-between py-4 px-6 md:px-8 max-w-full rounded-xl border transition-all duration-300"
+          className="flex items-center justify-between py-4 px-4 md:px-8 max-w-full rounded-xl border transition-all duration-300"
           style={{
             background: 'hsl(220 25% 5% / 0.4)',
             backdropFilter: 'blur(16px)',

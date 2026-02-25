@@ -48,7 +48,7 @@ function CTACard() {
   const ctaText = "Not sure what you need? Let's figure it out together.";
 
   return (
-    <div className="mt-24" onMouseMove={handleMouseMove}>
+    <div className="mt-16 md:mt-24" onMouseMove={handleMouseMove}>
       <motion.div
         ref={cardRef}
         initial={{ opacity: 0, y: 30 }}
@@ -61,7 +61,7 @@ function CTACard() {
         <div className="absolute inset-0 bg-background/90 -z-20" />
 
         <motion.div
-          className="pointer-events-none absolute -inset-px transition duration-300 -z-10"
+          className="pointer-events-none absolute -inset-px transition duration-300 -z-10 hidden md:block"
           style={{
             background: useMotionTemplate`
               radial-gradient(
@@ -95,19 +95,16 @@ function CTACard() {
           style={{ skewX: "-20deg" }}
         />
 
-        <div className="max-w-4xl mx-auto text-center relative z-10 px-12 py-16">
+        <div className="max-w-4xl mx-auto text-center relative z-10 px-6 py-12 sm:px-12 sm:py-16">
           <p className="text-body-large text-muted-foreground mb-8">
             {ctaText}
           </p>
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.3 }}
-          >
+          <div className="md:hover:scale-[1.02] transition-transform duration-300">
             <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
               Start a conversation
               <ArrowRight size={16} />
             </Link>
-          </motion.div>
+          </div>
         </div>
       </motion.div>
     </div>
@@ -117,13 +114,13 @@ function CTACard() {
 const ServicesPage = () => {
   return (
     <Layout>
-      <section className="editorial-section pt-36">
+      <section className="editorial-section pt-24 md:pt-36">
         <div className="editorial-container">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="max-w-3xl mb-20"
+            className="max-w-3xl mb-16 md:mb-20 text-center md:text-left mx-auto md:mx-0 flex flex-col items-center md:items-start"
           >
             <p className="text-subheadline mb-4">What we do</p>
             <h1 className="text-display mb-6">The full growth stack.</h1>
@@ -141,20 +138,16 @@ const ServicesPage = () => {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.08, duration: 0.6 }}
               >
-                <GlassCard className="p-8 lg:p-10 group relative overflow-hidden">
+                <GlassCard className="p-6 md:p-8 lg:p-10 group relative overflow-hidden">
                   {/* Subtle accent line */}
                   <div className="absolute top-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-primary/60 to-transparent"></div>
 
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                    <motion.div
-                      className="lg:col-span-4"
-                      whileHover={{ x: 4 }}
-                      transition={{ duration: 0.3 }}
-                    >
+                    <div className="lg:col-span-4 md:hover:translate-x-1 transition-transform duration-300">
                       <h2 className="text-2xl md:text-3xl font-serif transition-colors duration-300">
                         {service.title}
                       </h2>
-                    </motion.div>
+                    </div>
                     <div className="lg:col-span-5">
                       <p className="text-muted-foreground leading-relaxed">
                         {service.description}
@@ -171,10 +164,9 @@ const ServicesPage = () => {
                             transition={{ delay: index * 0.1 + capIndex * 0.05, duration: 0.4 }}
                             className="text-sm text-muted-foreground flex items-center gap-2 group/item"
                           >
-                            <motion.span
-                              className="w-1.5 h-1.5 rounded-full bg-primary/60 group-hover/item:bg-primary transition-all duration-300"
-                              whileHover={{ scale: 1.4 }}
-                            ></motion.span>
+                            <span
+                              className="w-1.5 h-1.5 rounded-full bg-primary/60 group-hover/item:bg-primary transition-all duration-300 md:group-hover/item:scale-150"
+                            ></span>
                             {cap}
                           </motion.li>
                         ))}

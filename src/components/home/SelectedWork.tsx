@@ -67,8 +67,7 @@ function SpotlightCard({
   return (
     <motion.div
       ref={cardRef}
-      whileHover={{ y: -3 }}
-      className={`relative overflow-hidden rounded-xl bg-white/5 backdrop-blur-md ${className}`}
+      className={`relative overflow-hidden rounded-xl bg-white/5 backdrop-blur-md md:hover:-translate-y-1 transition-transform duration-300 ${className}`}
     >
       {/* Cinematic Spotlight Background */}
       <div className="absolute inset-0 bg-background/80 -z-20" />
@@ -87,7 +86,7 @@ function SpotlightCard({
 
       {/* Spotlight overlay — on top of everything so it spans both panels */}
       <motion.div
-        className="pointer-events-none absolute inset-0 transition duration-300 z-30 rounded-xl"
+        className="pointer-events-none absolute inset-0 transition duration-300 z-30 rounded-xl hidden md:block"
         style={{
           background: useMotionTemplate`
             radial-gradient(
@@ -139,7 +138,7 @@ export function SelectedWork() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-20"
+          className="flex flex-col md:flex-row items-center md:items-end text-center md:text-left md:justify-between gap-4 md:gap-6 mb-10 md:mb-20"
         >
           <div className="max-w-xl">
             <h2 className="text-headline">
@@ -173,30 +172,34 @@ export function SelectedWork() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                   {/* ── Logo Panel ── */}
                   <motion.div
-                    className={`aspect-[4/3] lg:aspect-auto flex items-center justify-center relative overflow-hidden ${index % 2 === 1 ? "lg:order-2" : ""
+                    className={`aspect-[4/3] lg:aspect-auto flex items-center justify-center relative overflow-hidden md:hover:scale-[1.02] transition-transform duration-500 ${index % 2 === 1 ? "lg:order-2" : ""
                       }`}
                     style={{
                       background: "hsl(220 20% 5%)",
                     }}
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.5 }}
+                    whileInView={typeof window !== "undefined" && window.innerWidth < 768 ? { scale: 1.02 } : { scale: 1 }}
+                    viewport={{ margin: "-20% 0px -20% 0px" }}
                   >
                     {/* Breathing glow — reveals on hover */}
-                    <div
-                      className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                    <motion.div
+                      className="absolute inset-0 pointer-events-none opacity-0 md:group-hover:opacity-100 transition-opacity duration-700"
                       style={{
                         background: "radial-gradient(ellipse at 50% 50%, hsl(210 50% 40% / 0.25) 0%, transparent 70%)",
                         animation: "logoPanelPulse 5s ease-in-out infinite",
                       }}
+                      whileInView={typeof window !== "undefined" && window.innerWidth < 768 ? { opacity: 1 } : { opacity: 0 }}
+                      viewport={{ margin: "-20% 0px -20% 0px" }}
                     />
 
                     {/* Subtle resting ambient glow */}
-                    <div
-                      className="absolute inset-0 pointer-events-none opacity-60 group-hover:opacity-0 transition-opacity duration-700"
+                    <motion.div
+                      className="absolute inset-0 pointer-events-none opacity-60 md:group-hover:opacity-0 transition-opacity duration-700"
                       style={{
                         background: "radial-gradient(ellipse at 50% 50%, hsl(220 15% 14%) 0%, transparent 70%)",
                         animation: "logoPanelPulse 6s ease-in-out infinite",
                       }}
+                      whileInView={typeof window !== "undefined" && window.innerWidth < 768 ? { opacity: 0 } : { opacity: 0.6 }}
+                      viewport={{ margin: "-20% 0px -20% 0px" }}
                     />
 
                     {/* Frosted glass panel */}
@@ -210,10 +213,12 @@ export function SelectedWork() {
                         boxShadow: "inset 0 0.5px 0 hsl(0 0% 100% / 0.04)",
                       }}
                     >
-                      <img
+                      <motion.img
                         src={work.logo}
                         alt={`${work.client} logo`}
-                        className="w-32 md:w-40 h-auto max-h-16 object-contain opacity-90 group-hover:opacity-100 transition-opacity duration-500"
+                        className="w-32 md:w-40 h-auto max-h-16 object-contain opacity-90 md:group-hover:opacity-100 transition-opacity duration-500"
+                        whileInView={typeof window !== "undefined" && window.innerWidth < 768 ? { opacity: 1 } : { opacity: 0.9 }}
+                        viewport={{ margin: "-20% 0px -20% 0px" }}
                       />
                     </div>
 
@@ -225,13 +230,13 @@ export function SelectedWork() {
                   </motion.div>
 
                   {/* ── Content Panel ── */}
-                  <div className={`p-8 lg:p-12 flex flex-col justify-center ${index % 2 === 1 ? "lg:order-1" : ""}`}>
+                  <div className={`p-6 md:p-8 lg:p-12 flex flex-col justify-center ${index % 2 === 1 ? "lg:order-1" : ""}`}>
                     <motion.p
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.1, duration: 0.5 }}
-                      className="text-subheadline mb-2"
+                      className="text-subheadline mb-2 text-center lg:text-left"
                     >
                       {work.category}
                     </motion.p>
@@ -240,7 +245,7 @@ export function SelectedWork() {
                       whileInView={{ opacity: 1 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.15, duration: 0.5 }}
-                      className="text-3xl md:text-4xl font-serif mb-6 transition-colors duration-300 relative z-10"
+                      className="text-3xl md:text-4xl font-serif mb-6 transition-colors duration-300 relative z-10 text-center lg:text-left"
                     >
                       {work.client}
                     </motion.h3>
@@ -249,14 +254,14 @@ export function SelectedWork() {
                       whileInView={{ opacity: 1 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.2, duration: 0.5 }}
-                      className="text-muted-foreground text-lg leading-relaxed mb-8 relative z-10"
+                      className="text-muted-foreground text-lg leading-relaxed mb-8 relative z-10 text-center lg:text-left"
                     >
                       {work.description}
                     </motion.p>
                     <motion.div
                       whileHover={{ x: 4 }}
                       transition={{ duration: 0.3 }}
-                      className="relative z-10"
+                      className="relative z-10 flex justify-center lg:justify-start"
                     >
                       <Link
                         to="/work"
@@ -278,7 +283,7 @@ export function SelectedWork() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex justify-center mt-16"
+          className="flex justify-center mt-10 md:mt-16"
         >
           <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.3 }}>
             <Link

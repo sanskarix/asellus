@@ -39,7 +39,7 @@ export function ClientLogos() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="py-16 px-8 rounded-xl"
+          className="py-12 px-6 md:py-16 md:px-8 rounded-xl"
           style={{
             background: "hsl(220 20% 6% / 0.4)",
             border: "1px solid hsl(0 0% 100% / 0.04)",
@@ -49,7 +49,7 @@ export function ClientLogos() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-subheadline text-center mb-14"
+            className="text-subheadline text-center mb-8 md:mb-14"
           >
             Supercharging the best teams
           </motion.p>

@@ -314,7 +314,7 @@ function ProcessStep({ step, index }: { step: (typeof steps)[0]; index: number }
     return (
         <motion.div
             ref={ref}
-            className="relative grid grid-cols-[auto_1fr] gap-6 md:gap-10 pb-32 md:pb-44 last:pb-0"
+            className="relative grid grid-cols-[auto_1fr] gap-6 md:gap-10 pb-20 md:pb-44 last:pb-0"
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
@@ -416,13 +416,13 @@ const ProcessPage = () => {
     return (
         <Layout>
             {/* HERO */}
-            <section className="editorial-section pt-36">
+            <section className="editorial-section pt-24 md:pt-36">
                 <div className="editorial-container">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
-                        className="mb-20"
+                        className="mb-12 md:mb-20 text-center md:text-left flex flex-col items-center md:items-start"
                     >
                         <p className="text-subheadline mb-4">Our process</p>
                         <h1 className="text-display mb-6">

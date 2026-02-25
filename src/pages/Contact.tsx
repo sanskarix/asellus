@@ -60,13 +60,14 @@ const ContactPage = () => {
   };
   return (
     <Layout>
-      <section className="editorial-section pt-36">
+      <section className="editorial-section pt-24 md:pt-36">
         <div className="editorial-container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
+              className="text-center lg:text-left flex flex-col items-center lg:items-start"
             >
 
               <h1 className="text-display mb-6">Let's chat.</h1>
@@ -75,51 +76,53 @@ const ContactPage = () => {
                 you're building and whether we're the right fit to help you grow.
               </p>
 
-              <div className="space-y-6">
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.2, duration: 0.5 }}
-                >
-                  <GlassCard className="p-8 group">
-                    <h3 className="text-subheadline mb-3 transition-colors duration-300">Email</h3>
-                    <a
-                      href="mailto:hello@asellus.in"
-                      className="text-xl font-serif hover:text-primary transition-colors inline-flex items-center gap-2"
-                    >
-                      hello@asellus.in
-                      <Mail size={18} />
-                    </a>
-                  </GlassCard>
-                </motion.div>
+              <div className="space-y-4 md:space-y-6">
+                <div className="grid grid-cols-2 gap-4">
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2, duration: 0.5 }}
+                  >
+                    <GlassCard className="py-8 px-4 md:p-8 group flex flex-col items-center text-center lg:items-start lg:text-left h-full justify-center">
+                      <h3 className="text-subheadline mb-2 md:mb-3 transition-colors duration-300">Email</h3>
+                      <a
+                        href="mailto:hello@asellus.in"
+                        className="text-base md:text-xl font-serif hover:text-primary transition-colors inline-flex flex-col sm:flex-row items-center justify-center gap-1 md:gap-2 break-all"
+                      >
+                        hello@asellus.in
+                      </a>
+                    </GlassCard>
+                  </motion.div>
 
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3, duration: 0.5 }}
-                >
-                  <GlassCard className="p-8 group">
-                    <h3 className="text-subheadline mb-3 transition-colors duration-300">Book a Call</h3>
-                    <a
-                      href="https://cal.com/asellus"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xl font-serif hover:text-primary transition-colors inline-flex items-center gap-2"
-                    >
-                      Schedule a time
-                      <ArrowUpRight size={18} />
-                    </a>
-                  </GlassCard>
-                </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.3, duration: 0.5 }}
+                  >
+                    <GlassCard className="py-8 px-4 md:p-8 group flex flex-col items-center text-center lg:items-start lg:text-left h-full justify-center">
+                      <h3 className="text-subheadline mb-2 md:mb-3 transition-colors duration-300">Book a Call</h3>
+                      <a
+                        href="https://cal.com/asellus"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-base md:text-xl font-serif hover:text-primary transition-colors inline-flex flex-col sm:flex-row items-center justify-center gap-1 md:gap-2"
+                      >
+                        Schedule a time
+                        <ArrowUpRight size={16} className="hidden sm:block" />
+                      </a>
+                    </GlassCard>
+                  </motion.div>
+                </div>
 
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.4, duration: 0.5 }}
+                  className="hidden sm:block"
                 >
-                  <GlassCard className="p-8 group">
+                  <GlassCard className="p-6 md:p-8 group flex flex-col items-center text-center lg:items-start lg:text-left">
                     <h3 className="text-subheadline mb-3 transition-colors duration-300">Location</h3>
-                    <p className="text-xl font-serif flex items-center gap-2">
+                    <p className="text-xl font-serif flex flex-col sm:flex-row items-center gap-2">
                       Remote-first, globally distributed
                       <MapPin size={18} className="text-muted-foreground group-hover:text-primary transition-colors duration-300" />
                     </p>
@@ -134,7 +137,7 @@ const ContactPage = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="h-full"
             >
-              <GlassCard className="p-8 md:p-10 group relative overflow-hidden h-full flex flex-col">
+              <GlassCard className="p-6 md:p-10 group relative overflow-hidden h-full flex flex-col">
                 {/* Subtle glow effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 

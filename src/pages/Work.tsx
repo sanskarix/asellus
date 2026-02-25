@@ -71,13 +71,13 @@ const projects = [
 const WorkPage = () => {
   return (
     <Layout>
-      <section className="editorial-section pt-36">
+      <section className="editorial-section pt-24 md:pt-36">
         <div className="editorial-container">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="mb-20"
+            className="mb-10 md:mb-20 text-center md:text-left flex flex-col items-center md:items-start"
           >
             <p className="text-subheadline mb-4">Our work</p>
             <h1 className="text-display mb-6">What we’ve built together.</h1>
@@ -99,9 +99,9 @@ const WorkPage = () => {
                 <GlassCard className="overflow-hidden group">
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                     <motion.div
-                      className="aspect-[4/3] lg:aspect-auto relative overflow-hidden flex items-center justify-center p-8 bg-muted/20"
-                      whileHover={{ scale: 1.02 }}
-                      transition={{ duration: 0.5 }}
+                      className="aspect-[4/3] lg:aspect-auto relative overflow-hidden flex items-center justify-center p-8 bg-muted/20 md:hover:scale-[1.02] transition-transform duration-500"
+                      whileInView={typeof window !== "undefined" && window.innerWidth < 768 ? { scale: 1.02 } : { scale: 1 }}
+                      viewport={{ margin: "-20% 0px -20% 0px" }}
                     >
                       {/* Ambient Background */}
                       <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-60`}></div>
@@ -114,15 +114,17 @@ const WorkPage = () => {
 
                       {/* Glass Logo Box */}
                       <motion.div
-                        className="relative z-10 w-48 h-32 md:w-56 md:h-40 rounded-xl glass-card flex items-center justify-center p-6 border border-white/10 shadow-2xl backdrop-blur-xl bg-black/40"
-                        whileHover={{ y: -5, scale: 1.05 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        className="relative z-10 w-48 h-32 md:w-56 md:h-40 rounded-xl glass-card flex items-center justify-center p-6 border border-white/10 shadow-2xl backdrop-blur-xl bg-black/40 md:hover:-translate-y-1 md:hover:scale-105 transition-all duration-300"
+                        whileInView={typeof window !== "undefined" && window.innerWidth < 768 ? { y: -5, scale: 1.05 } : { y: 0, scale: 1 }}
+                        viewport={{ margin: "-20% 0px -20% 0px" }}
                       >
                         {project.logo ? (
-                          <img
+                          <motion.img
                             src={project.logo}
                             alt={`${project.client} logo`}
-                            className="w-full h-full object-contain filter drop-shadow-lg opacity-90 group-hover:opacity-100 transition-opacity"
+                            className="w-full h-full object-contain filter drop-shadow-lg opacity-90 md:group-hover:opacity-100 transition-opacity"
+                            whileInView={typeof window !== "undefined" && window.innerWidth < 768 ? { opacity: 1 } : { opacity: 0.9 }}
+                            viewport={{ margin: "-20% 0px -20% 0px" }}
                           />
                         ) : (
                           <span className="text-2xl md:text-3xl font-serif text-white/80 text-center leading-tight">
@@ -134,7 +136,7 @@ const WorkPage = () => {
                       </motion.div>
                     </motion.div>
 
-                    <div className="p-8 lg:p-12 flex flex-col justify-center">
+                    <div className="p-6 md:p-8 lg:p-12 flex flex-col items-center text-center lg:items-start lg:text-left justify-center">
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
