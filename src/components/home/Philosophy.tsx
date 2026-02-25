@@ -14,11 +14,11 @@ export function Philosophy() {
   }
 
   return (
-    <section className="editorial-section relative overflow-hidden" onMouseMove={handleMouseMove}>
+    <section className="py-8 md:py-28 lg:py-36 relative overflow-hidden" onMouseMove={handleMouseMove}>
       <div className="editorial-container">
         <motion.div
           ref={cardRef}
-          className="relative overflow-hidden group min-h-[500px] flex flex-col justify-center items-center rounded-2xl"
+          className="relative overflow-hidden group min-h-[300px] md:min-h-[500px] py-16 md:py-0 flex flex-col justify-center items-center rounded-2xl"
         >
           {/* Cinematic Spotlight Background */}
           <div className="absolute inset-0 bg-background/90 -z-20" /> {/* Dark base */}

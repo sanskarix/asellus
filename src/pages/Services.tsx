@@ -142,7 +142,7 @@ const ServicesPage = () => {
                   {/* Subtle accent line */}
                   <div className="absolute top-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-primary/60 to-transparent"></div>
 
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-center md:text-left">
                     <div className="lg:col-span-4 md:hover:translate-x-1 transition-transform duration-300">
                       <h2 className="text-2xl md:text-3xl font-serif transition-colors duration-300">
                         {service.title}
@@ -153,8 +153,8 @@ const ServicesPage = () => {
                         {service.description}
                       </p>
                     </div>
-                    <div className="lg:col-span-3">
-                      <ul className="space-y-3">
+                    <div className="lg:col-span-3 flex justify-center md:justify-start">
+                      <ul className="space-y-3 text-left inline-block">
                         {service.capabilities.map((cap, capIndex) => (
                           <motion.li
                             key={cap}

@@ -203,7 +203,10 @@ export function Hero() {
 
       // Initialize with randomized progress for immediate steady-state
       if (!initializedRef.current) {
-        for (let i = 0; i < INITIAL_PARTICLE_COUNT; i++) {
+        const isMobileInit = typeof window !== 'undefined' && window.innerWidth < 768;
+        const initialCount = isMobileInit ? Math.min(30, INITIAL_PARTICLE_COUNT) : INITIAL_PARTICLE_COUNT;
+
+        for (let i = 0; i < initialCount; i++) {
           const randomProgress = Math.random() * 0.85;
           spawnBackgroundStar(randomProgress);
         }
@@ -212,10 +215,15 @@ export function Hero() {
       }
 
       // Spawn new background particles at interval
-      if (now - lastSpawnTimeRef.current >= SPAWN_INTERVAL) {
+      // Apply different configs for mobile to fix lag
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+      const actualInterval = isMobile ? SPAWN_INTERVAL * 4 : SPAWN_INTERVAL;
+      const actualMaxParticles = isMobile ? Math.min(60, MAX_PARTICLES) : MAX_PARTICLES;
+
+      if (now - lastSpawnTimeRef.current >= actualInterval) {
         // Only spawn if under soft limit for background stars
         const bgCount = starsRef.current.filter(s => !s.isSpark).length;
-        if (bgCount < MAX_PARTICLES - 20) {
+        if (bgCount < actualMaxParticles - 20) {
           spawnBackgroundStar();
         }
         lastSpawnTimeRef.current = now;

@@ -32,7 +32,7 @@ const itemVariants = {
 
 export function ClientLogos() {
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section className="py-2 md:py-20 relative overflow-hidden">
       <div className="editorial-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

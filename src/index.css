@@ -69,6 +69,8 @@
   html {
     /* scroll-behavior: smooth;  <-- Removed for Lenis */
     min-height: 100%;
+    background-color: hsl(220, 30%, 2%);
+    overscroll-behavior-y: none;
   }
 
   body {
@@ -76,6 +78,7 @@
     font-family: 'Inter', system-ui, sans-serif;
     background: linear-gradient(135deg, hsl(220, 30%, 2%) 0%, hsl(230, 25%, 2.5%) 50%, hsl(210, 28%, 2%) 100%);
     background-attachment: fixed;
+    overscroll-behavior-y: none;
   }
 
   /* Typography Hierarchy - Playfair Display */
@@ -499,6 +502,30 @@
   left: -22px;
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
+}
+
+@media (max-width: 767px) {
+
+  .asellus-card::before,
+  .asellus-card::after,
+  .asellus-card:hover::before,
+  .asellus-card:hover::after,
+  .asellus-card.mobile-active::before,
+  .asellus-card.mobile-active::after {
+    left: 0;
+    width: 100%;
+  }
+
+  .asellus-card-content {
+    width: 100%;
+    margin: 0 1rem;
+    text-align: center;
+  }
+
+  .asellus-card:hover .asellus-card-content,
+  .asellus-card.mobile-active .asellus-card-content {
+    left: 0;
+  }
 }
 
 .asellus-diff-depth-shell {
