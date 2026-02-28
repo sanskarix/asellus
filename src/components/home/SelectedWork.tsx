@@ -131,7 +131,7 @@ export function SelectedWork() {
   }
 
   return (
-    <section className="editorial-section relative overflow-hidden" onMouseMove={handleMouseMove}>
+    <section className="editorial-section relative overflow-hidden content-auto" onMouseMove={handleMouseMove}>
       <div className="editorial-container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -216,6 +216,8 @@ export function SelectedWork() {
                       <motion.img
                         src={work.logo}
                         alt={`${work.client} logo`}
+                        loading="lazy"
+                        decoding="async"
                         className="w-32 md:w-40 h-auto max-h-16 object-contain opacity-90 md:group-hover:opacity-100 transition-opacity duration-500"
                         whileInView={typeof window !== "undefined" && window.innerWidth < 768 ? { opacity: 1 } : { opacity: 0.9 }}
                         viewport={{ margin: "-20% 0px -20% 0px" }}

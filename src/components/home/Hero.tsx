@@ -370,7 +370,7 @@ export function Hero() {
           initial="hidden"
           animate="visible"
         >
-          <div className="mb-8 text-display leading-[1.05]">
+          <h1 className="mb-8 text-display leading-[1.05]">
             {/* Headline Line 1: Word by word */}
             <div className="overflow-hidden py-2 -my-2">
               {("We don't do hype.").split(" ").map((word, i) => (
@@ -403,7 +403,7 @@ export function Hero() {
                 </motion.span>
               ))}
             </div>
-          </div>
+          </h1>
 
           <div className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-8 leading-relaxed">
             <motion.div
@@ -413,7 +413,7 @@ export function Hero() {
               }}
               transition={{ duration: 0.8, delay: 2.8, ease: "easeOut" }}
             >
-              New-age marketing for brands that care about ROI.
+              A new-age marketing agency building growth strategies for brands that care about ROI.
             </motion.div>
           </div>
 

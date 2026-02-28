@@ -122,6 +122,8 @@ const WorkPage = () => {
                           <motion.img
                             src={project.logo}
                             alt={`${project.client} logo`}
+                            loading="lazy"
+                            decoding="async"
                             className="w-full h-full object-contain filter drop-shadow-lg opacity-90 md:group-hover:opacity-100 transition-opacity"
                             whileInView={typeof window !== "undefined" && window.innerWidth < 768 ? { opacity: 1 } : { opacity: 0.9 }}
                             viewport={{ margin: "-20% 0px -20% 0px" }}

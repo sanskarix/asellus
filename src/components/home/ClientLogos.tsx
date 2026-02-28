@@ -70,6 +70,8 @@ export function ClientLogos() {
                 <img
                   src={client.logo}
                   alt={`${client.name} logo`}
+                  loading="lazy"
+                  decoding="async"
                   className="h-12 md:h-16 w-auto object-contain transition-all duration-500 group-hover:scale-105"
                   style={{ filter: "drop-shadow(0 0 0px transparent)" }}
                   onMouseEnter={(e) => e.currentTarget.style.filter = "drop-shadow(0 0 16px rgba(255,255,255,0.25))"}

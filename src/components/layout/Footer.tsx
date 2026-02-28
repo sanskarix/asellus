@@ -28,7 +28,7 @@ export function Footer() {
               <div className="md:col-span-5 flex flex-col items-start text-left">
                 {isContactPage ? (
                   <div className="mb-0"> {/* Removed mb-8 for tighter spacing since headers are gone */}
-                    <img src="/logos/asellus_white.svg" alt="asellus" className="h-10 md:h-12 w-auto" />
+                    <img src="/logos/asellus_white.svg" alt="asellus" className="h-10 md:h-12 w-auto" loading="lazy" decoding="async" />
                   </div>
                 ) : (
                   <>
@@ -87,7 +87,7 @@ export function Footer() {
               </p>
               <div className="text-sm text-muted-foreground flex items-center justify-center md:justify-end">
                 {!isContactPage ? (
-                  <img src="/logos/asellus_white.svg" alt="asellus" className="h-6 w-auto opacity-80" />
+                  <img src="/logos/asellus_white.svg" alt="asellus" className="h-6 w-auto opacity-80" loading="lazy" decoding="async" />
                 ) : (
                   "No vanity metrics. No decks. Just growth."
                 )}

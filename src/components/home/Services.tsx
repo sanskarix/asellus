@@ -51,7 +51,7 @@ type Service = (typeof services)[number];
 
 export function Services() {
   return (
-    <section className="editorial-section">
+    <section className="editorial-section content-auto">
       <div className="editorial-container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
