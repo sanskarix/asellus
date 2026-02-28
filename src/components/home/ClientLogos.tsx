@@ -70,6 +70,8 @@ export function ClientLogos() {
                 <img
                   src={client.logo}
                   alt={`${client.name} logo`}
+                  width="160"
+                  height="64"
                   loading="lazy"
                   decoding="async"
                   className="h-12 md:h-16 w-auto object-contain transition-all duration-500 group-hover:scale-105"
