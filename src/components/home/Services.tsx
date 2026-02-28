@@ -61,7 +61,7 @@ export function Services() {
           className="flex flex-col md:flex-row items-center md:items-end text-center md:text-left md:justify-between gap-4 md:gap-6 mb-10 md:mb-20"
         >
           <div className="max-w-xl">
-            <h2 className="text-headline">What do we take care of</h2>
+            <h2 className="text-headline">What our marketing agency takes care of</h2>
           </div>
 
           <div className="md:hover:translate-x-1 transition-transform duration-300">

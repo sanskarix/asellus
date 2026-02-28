@@ -142,7 +142,7 @@ export function SelectedWork() {
         >
           <div className="max-w-xl">
             <h2 className="text-headline">
-              A few projects we've grown
+              A few brands we've grown with marketing &amp; growth strategy
             </h2>
           </div>
           <motion.div
