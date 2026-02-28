@@ -37,8 +37,8 @@ export function Philosophy() {
           />
 
           {/* Film Grain Texture */}
-          <div className="absolute inset-0 opacity-[0.03] pointer-events-none -z-10"
-            style={{ backgroundImage: 'url("/noise.png")', backgroundSize: '100px 100px' }}
+          <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none -z-10"
+            style={{ backgroundImage: 'url("/noise.webp")', backgroundSize: '100px 100px' }}
           />
 
           {/* Just in case we don't have a noise image, use a CSS radial gradient fallback for texture */}
