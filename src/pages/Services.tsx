@@ -8,27 +8,27 @@ import { GlassCard } from "@/components/ui/GlassCard";
 const services = [
   {
     title: "Branding",
-    description: "Identity that cuts through the noise. We build brands that people remember, trust, and want to be associated with.",
+    description: "Identity that cuts through the noise. We build brands people remember, trust, and want to be part of – from visual identity to voice and messaging.",
     capabilities: ["Visual Identity", "Voice & Tone", "Art Direction", "Brand Guidelines"],
   },
   {
     title: "Strategy",
-    description: "The blueprint for your growth. We analyze the market, understand your audience, and build a roadmap that gets you from where you are to where you want to be.",
+    description: "The blueprint for your growth marketing. We analyze the market, understand your audience, and build a roadmap from where you are to where you want to be.",
     capabilities: ["Market Analysis", "Go-to-Market", "Positioning", "Growth Roadmap"],
   },
   {
     title: "Performance Marketing",
-    description: "Paid media that actually pays back. We optimize for ROAS, not reach. Every campaign is built to deliver measurable, profitable growth.",
+    description: "Paid media that actually pays back. We optimize for ROAS across paid social and search – not reach. Every campaign is built to deliver measurable, profitable growth.",
     capabilities: ["Paid Social", "Search Engine Marketing", "Conversion Optimization", "Analytics"],
   },
   {
     title: "Content and Social Media",
-    description: "Storytelling that builds community. From creative concept to distribution, we handle your entire content engine to keep your brand top-of-mind.",
+    description: "Storytelling that builds community. From creative concept to distribution, we run your entire content engine to keep your brand top-of-mind.",
     capabilities: ["Content Creation", "Social Management", "Video Production", "Copywriting"],
   },
   {
     title: "Custom Development",
-    description: "Software, tools, websites – everything. We build robust digital solutions tailored to your needs. See this website for instance, isn't it good?",
+    description: "Software, tools, websites – built to global standards. Designed for conversion and performance, not just aesthetics. See this site as an example.",
     capabilities: ["Web Development", "Custom Software", "App Development", "UI/UX Design"],
   },
 ];

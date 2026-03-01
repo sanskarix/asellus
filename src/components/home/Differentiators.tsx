@@ -9,17 +9,17 @@ const differentiators = [
   {
     title: "Strategy before tactics",
     description:
-      "No more random hacks. We build a clear growth strategy first, then choose channels and experiments that compound.",
+      "No scatter-gun hacks. We build a clear growth strategy first – then pick the channels and experiments that actually compound.",
   },
   {
     title: "Clear, direct communication",
     description:
-      "No corporate theatre, no buzzword soup. You get simple language, sharp thinking, and calls that actually move work forward.",
+      "No corporate theatre. You get straightforward thinking, honest numbers, and calls that actually move growth work forward.",
   },
   {
     title: "Polish in every detail",
     description:
-      "From copy to creatives to reporting, we sweat the small stuff so your brand comes across as considered, credible, and premium.",
+      "From copy to creatives to performance reports, we sweat the details so your brand always looks considered, credible, and premium.",
   },
 ];
 

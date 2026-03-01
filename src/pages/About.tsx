@@ -71,7 +71,7 @@ const AboutPage = () => {
               </p>
               <p className="text-muted-foreground leading-relaxed">
                 We're not a 200-person agency with layers of account managers between you and
-                the work. We're a lean team of senior practitioners who've been in the trenches—founders,
+                the work. We're a lean team of senior practitioners who've been in the trenches–founders,
                 growth leaders, creative directors who've built brands you know.
               </p>
             </motion.div>

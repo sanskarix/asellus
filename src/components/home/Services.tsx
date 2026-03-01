@@ -7,25 +7,25 @@ const services = [
   {
     title: "Branding & Strategy",
     description:
-      "Strategies that adapt to market shifts and actually move your metrics.",
+      "Strategies that move your metrics – anchored in market research and built to adapt as your brand grows.",
     accent: "linear-gradient(135deg, hsl(210 40% 55%), hsl(210 40% 45%))",
   },
   {
     title: "Performance Marketing",
     description:
-      "Campaigns built to drive business, not just look good on dashboards.",
+      "ROI-first campaigns across paid social and search. Built to drive real business outcomes, not just dashboard numbers.",
     accent: "linear-gradient(135deg, hsl(210 40% 55%), hsl(210 40% 45%))",
   },
   {
     title: "Content & Social Media",
     description:
-      "Content that builds an audience and shows up where they spend time.",
+      "Content that builds an audience over time and keeps your brand top-of-mind across every channel they care about.",
     accent: "linear-gradient(135deg, hsl(210 40% 55%), hsl(210 40% 45%))",
   },
   {
     title: "Custom Development",
     description:
-      "Websites, software, and tools built or redesigned to global standards.",
+      "Websites and software built to global standards – designed for conversion, not just looks.",
     accent: "linear-gradient(135deg, hsl(210 40% 55%), hsl(210 40% 45%))",
   },
 ];
@@ -61,7 +61,7 @@ export function Services() {
           className="flex flex-col md:flex-row items-center md:items-end text-center md:text-left md:justify-between gap-4 md:gap-6 mb-10 md:mb-20"
         >
           <div className="max-w-xl">
-            <h2 className="text-headline">What our marketing agency takes care of</h2>
+            <h2 className="text-headline">What we take care of</h2>
           </div>
 
           <div className="md:hover:translate-x-1 transition-transform duration-300">

@@ -7,25 +7,25 @@ const works = [
   {
     client: "Artisaire",
     category: "Brand & E-Commerce Strategy",
-    description: "Built the digital presence for a luxury wax seal brand. Elevated their story from niche craft to aspirational lifestyle, driving a 4x jump in online revenue.",
+    description: "Built the digital presence for a luxury wax seal brand. Elevated their story from niche craft to aspirational lifestyle, driving a 4x jump in e-commerce revenue through brand strategy and performance marketing.",
     logo: "/logos/artisaire.svg",
   },
   {
     client: "mCaffeine",
     category: "Product Launch",
-    description: "Crafted a product launch that generated 10,000+ orders in the first 48 hours, all driven by influencer marketing.",
+    description: "Crafted an influencer-led product launch that generated 10,000+ orders in the first 48 hours – a masterclass in D2C performance marketing.",
     logo: "/logos/mcaffeine.svg",
   },
   {
     client: "GoodFair",
     category: "Brand Positioning & Growth",
-    description: "Repositioned a sustainable thrift fashion brand for mainstream appeal. Strategic storytelling that landed them a Nordstrom partnership.",
+    description: "Repositioned a sustainable thrift brand for mainstream appeal. Strategic storytelling and growth marketing landed them a Nordstrom partnership.",
     logo: "/logos/goodfair.svg",
   },
   {
     client: "Qure.ai",
     category: "Go-To-Market & Awareness",
-    description: "Shaped the go-to-market narrative for an AI-powered radiology platform. Simplified deep tech into a story that resonated across 30+ countries.",
+    description: "Shaped the go-to-market narrative for an AI-powered radiology platform. Simplified deep tech into a clear brand story that resonated across 30+ countries.",
     logo: "/logos/qure.svg",
   },
 ];
@@ -84,7 +84,7 @@ function SpotlightCard({
 
       {children}
 
-      {/* Spotlight overlay — on top of everything so it spans both panels */}
+      {/* Spotlight overlay – on top of everything so it spans both panels */}
       <motion.div
         className="pointer-events-none absolute inset-0 transition duration-300 z-30 rounded-xl hidden md:block"
         style={{
@@ -142,7 +142,7 @@ export function SelectedWork() {
         >
           <div className="max-w-xl">
             <h2 className="text-headline">
-              A few brands we've grown with marketing &amp; growth strategy
+              A few friends we've helped
             </h2>
           </div>
           <motion.div
@@ -180,7 +180,7 @@ export function SelectedWork() {
                     whileInView={typeof window !== "undefined" && window.innerWidth < 768 ? { scale: 1.02 } : { scale: 1 }}
                     viewport={{ margin: "-20% 0px -20% 0px" }}
                   >
-                    {/* Breathing glow — reveals on hover */}
+                    {/* Breathing glow – reveals on hover */}
                     <motion.div
                       className="absolute inset-0 pointer-events-none opacity-0 md:group-hover:opacity-100 transition-opacity duration-700"
                       style={{

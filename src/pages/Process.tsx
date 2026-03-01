@@ -10,7 +10,7 @@ const steps = [
 
         headline: "We listen before we leap.",
         description:
-            "Before we touch a brief, we get obsessive about your world. Your goals, your constraints, your customers. We learn the business first, then figure out the marketing.",
+            "Before we touch a brief, we get obsessive about your world. Your goals, your constraints, your customers. We learn the business first – then figure out the growth marketing strategy.",
         deliverables: ["Stakeholder interviews", "Market & competitor audit", "Audience persona mapping", "Opportunity assessment"],
         accent: "hsl(210 50% 55%)",
         accentLight: "hsl(210 50% 65% / 0.12)",
@@ -32,7 +32,7 @@ const steps = [
 
         headline: "Infrastructure for growth.",
         description:
-            "Tracking, attribution, creative systems, team alignment. The boring stuff that separates amateur campaigns from profitable machines. We set it all up so nothing breaks when you scale.",
+            "Tracking, attribution, creative systems, team alignment. The infrastructure that separates amateur campaigns from profitable performance marketing machines. We set it all up so nothing breaks when you scale.",
         deliverables: ["Tracking & analytics setup", "Creative production", "Platform configuration", "Attribution modelling"],
         accent: "hsl(260 45% 60%)",
         accentLight: "hsl(260 45% 65% / 0.12)",
@@ -54,7 +54,7 @@ const steps = [
 
         headline: "Pour fuel on what works.",
         description:
-            "Find what works, grow it. Kill what doesn't. Methodical, sustainable scaling instead of reckless spending. We compound your wins and expand into new channels, audiences, and markets.",
+            "Find what works, pour fuel on it. Kill what doesn't. Methodical, sustainable scaling instead of reckless spending – compounding your wins across new channels, audiences, and markets.",
         deliverables: ["Channel expansion", "Budget scaling", "New market entry", "Continuous iteration"],
         accent: "hsl(25 80% 55%)",
         accentLight: "hsl(25 80% 60% / 0.12)",
@@ -66,7 +66,7 @@ const steps = [
 /* ─── Abstract SVG illustrations per step ─── */
 function StepIllustration({ index, accent }: { index: number; accent: string }) {
     const illustrations = [
-        // 01 Discovery — Magnifying glass / radar
+        // 01 Discovery – Magnifying glass / radar
         <svg viewBox="0 0 200 200" fill="none" className="w-full h-full">
             <motion.circle cx="90" cy="90" r="50" stroke={accent} strokeWidth="1.5" strokeDasharray="6 4" opacity="0.4"
                 animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} />
@@ -85,7 +85,7 @@ function StepIllustration({ index, accent }: { index: number; accent: string }) 
             })}
         </svg>,
 
-        // 02 Strategy — Grid / chess-like
+        // 02 Strategy – Grid / chess-like
         <svg viewBox="0 0 200 200" fill="none" className="w-full h-full">
             {[40, 80, 120, 160].map((x, i) =>
                 <motion.line key={`v${i}`} x1={x} y1="30" x2={x} y2="170" stroke={accent} strokeWidth="0.5" opacity="0.15"
@@ -105,7 +105,7 @@ function StepIllustration({ index, accent }: { index: number; accent: string }) 
                 animate={{ opacity: [0.15, 0.3, 0.15] }} transition={{ duration: 3, repeat: Infinity }} />
         </svg>,
 
-        // 03 Build — Structural / hexagonal
+        // 03 Build – Structural / hexagonal
         <svg viewBox="0 0 200 200" fill="none" className="w-full h-full">
             {[[100, 60], [60, 85], [140, 85], [60, 125], [140, 125], [100, 150]].map(([cx, cy], i) =>
                 <motion.polygon key={i}
@@ -123,7 +123,7 @@ function StepIllustration({ index, accent }: { index: number; accent: string }) 
                 animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 2.5, repeat: Infinity }} />
         </svg>,
 
-        // 04 Launch & Learn — Dashboard / pulse monitor with feedback loops
+        // 04 Launch & Learn – Dashboard / pulse monitor with feedback loops
         <svg viewBox="0 0 200 200" fill="none" className="w-full h-full">
             {/* Monitor frame */}
             <motion.rect x="30" y="35" width="140" height="95" rx="6" stroke={accent} strokeWidth="1.2" opacity="0.35"
@@ -170,7 +170,7 @@ function StepIllustration({ index, accent }: { index: number; accent: string }) 
                 textAnchor="middle">iterate</motion.text>
         </svg>,
 
-        // 05 Scale — Rocket ship launching upward
+        // 05 Scale – Rocket ship launching upward
         <svg viewBox="0 0 200 200" fill="none" className="w-full h-full">
             {/* Rocket body */}
             <motion.path

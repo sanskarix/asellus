@@ -82,8 +82,7 @@ const WorkPage = () => {
             <p className="text-subheadline mb-4">Our work</p>
             <h1 className="text-display mb-6">What we’ve built together.</h1>
             <p className="max-w-3xl text-body-large text-muted-foreground">
-              We don't do case studies for the sake of case studies. These are real
-              results from real partnerships with brands that trusted us to deliver.
+              We don't do case studies for the sake of it. These are real results from real partnerships – brands that trusted our growth marketing and brand strategy to deliver, and held us accountable to the numbers.
             </p>
           </motion.div>
 

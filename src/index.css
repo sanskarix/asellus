@@ -826,7 +826,7 @@
 }
 
 /* ==========================================================
-   DIFFERENTIATORS — PREMIUM MINIMAL STACK
+   DIFFERENTIATORS – PREMIUM MINIMAL STACK
    ========================================================== */
 
 .diff-stack {
@@ -923,7 +923,7 @@
   z-index: 1;
 }
 
-/* HOVER — Premium minimal: subtle lift + border glow + top-edge */
+/* HOVER – Premium minimal: subtle lift + border glow + top-edge */
 .diff-card:hover {
   transform: translateY(-4px) translateZ(0) !important;
   border-color: hsl(210 20% 30% / 0.5);
@@ -940,7 +940,7 @@
       transparent);
 }
 
-/* DEPTH — STACKED APPEARANCE (DESKTOP ONLY) */
+/* DEPTH – STACKED APPEARANCE (DESKTOP ONLY) */
 @media (min-width: 768px) {
   .diff-card:nth-child(1) {
     transform: translateZ(-120px) translateY(40px);
@@ -995,7 +995,7 @@
 }
 
 /* ==========================================================
-   LOGO PANEL — BREATHING PULSE
+   LOGO PANEL – BREATHING PULSE
    ========================================================== */
 
 @keyframes logoPanelPulse {
